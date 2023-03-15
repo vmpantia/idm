@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IDM.Domain\IDM.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

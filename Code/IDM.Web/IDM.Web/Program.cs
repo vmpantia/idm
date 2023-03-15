@@ -1,4 +1,3 @@
-using IDM.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,10 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
-var connectionstring = builder.Configuration.GetConnectionString("PROD_SQL_CON");
-builder.Services.AddDbContext<IDMDbContext>(options => options.UseSqlServer(connectionstring));
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
