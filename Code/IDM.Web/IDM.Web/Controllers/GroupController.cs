@@ -1,8 +1,7 @@
 ﻿using IDM.Web.Data;
 using IDM.Web.Models;
-using IDM.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using static IDM.Web.Models.ViewModels.GroupViewModel;
+using static IDM.Web.Models.GroupViewModel;
 
 namespace IDM.Web.Controllers
 {

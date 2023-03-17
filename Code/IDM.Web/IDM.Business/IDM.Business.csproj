@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IDM.Common\IDM.Common.csproj" />
+  </ItemGroup>
+
 </Project>

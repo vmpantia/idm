@@ -33,16 +33,16 @@
             @foreach (var group in Model.groupList)
             {
                 <tr>
-                    <td>@group.inputGroup.SGAliasName</td>
-                    <td>@group.inputGroup.SGDisplayName</td>
-                    <td>@group.inputOwner.FullName</td>
-                    <td>@group.inputAdmin1.FullName</td>
-                    <td>@group.inputAdmin2.FullName</td>
-                    <td>@group.inputAdmin3.FullName</td>
-                    <td>@group.inputMailList.Where(data => data.PrimaryFlag == 1).First().MailAddress</td>
-                    <td>@group.inputAdmin3.Status</td>
-                    <td>@group.inputAdmin3.CreateDate</td>
-                    <td>@group.inputAdmin3.ModifiedDate</td>
+                    <td>@group.SGAliasName</td>
+                    <td>@group.SGDisplayName</td>
+                    <td>@group.OwnerName</td>
+                    <td>@group.Admin1Name</td>
+                    <td>@group.Admin2Name</td>
+                    <td>@group.Admin3Name</td>
+                    <td>@group.MailAddressList</td>
+                    <td>@group.Status</td>
+                    <td>@group.CreateDate</td>
+                    <td>@group.ModifiedDate</td>
                 </tr>
             }
         }

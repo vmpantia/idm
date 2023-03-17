@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IDM.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace IDM.Business.DTO
 {
     public class AccountDTO
     {
+        #region Personal Details
         public Guid InternalID { get; set; }
         public string AccountID { get; set; }
-        public string FullName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
@@ -21,7 +22,9 @@ namespace IDM.Business.DTO
         public string PermanentAddress { get; set; }
         public string PresentAddress { get; set; }
         public string ProvincialAddress { get; set; }
+        #endregion
 
+        #region Employement Details
         public Guid Department_InternalID { get; set; }
         public string DepartmentName { get; set; }
 
@@ -33,7 +36,25 @@ namespace IDM.Business.DTO
 
         public string EmployeeType { get; set; }
         public string EmployeeStatus { get; set; }
+        #endregion
 
+        #region Common Details
         public int Status { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        #endregion
+
+        #region Functions
+        public string FullName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(FirstName) && string.IsNullOrEmpty(LastName))
+                    return Constants.STRING_NA;
+
+                return string.Format(Constants.FORMAT_FULL_NAME, LastName, FirstName);
+            }
+        }
+        #endregion
     }
 }

@@ -1,86 +1,35 @@
-﻿using IDM.Web.Models;
-using static IDM.Web.Models.ViewModels.GroupViewModel;
+﻿using IDM.Business.DTO;
 
 namespace IDM.Web.Data
 {
     public class Stub
     {
-        public static List<GroupFullInformation> groupList { 
+        public static List<GroupDTO> groupList { 
             get
             {
-                return new List<GroupFullInformation> {
+                return new List<GroupDTO> {
 
-                    new GroupFullInformation
+                    new GroupDTO
                     {
-                        inputGroup = new Group
+                        InternalID = Guid.NewGuid(),
+                        SGAliasName = "sgs-idm-dev",
+                        SGDisplayName = "SGS/IDM/DEV",
+                        SGClass = "I",
+                        OwnerInternalID = Guid.NewGuid(),
+                        OwnerName = "Vincent Pantia",
+                        Admin1InternalID = Guid.NewGuid(),
+                        Admin1Name = "Vincent Pantia",
+                        Admin2InternalID = Guid.NewGuid(),
+                        Admin2Name = "Vincent Pantia",
+                        Admin3InternalID = Guid.NewGuid(),
+                        Admin3Name = "Vincent Pantia",
+                        MailAddressList = new List<string>
                         {
-                            InternalID = Guid.NewGuid(),
-                            SGAliasName = "sgs-idm-dev",
-                            SGDisplayName = "SGS/IDM/DEV",
-                            SGClass = "I",
-                            Owner_InternalID = Guid.NewGuid(),
-                            Admin1_InternalID = Guid.NewGuid(),
-                            Admin2_InternalID = Guid.NewGuid(),
-                            Admin3_InternalID = Guid.NewGuid(),
-                            Status = 0,
-                            CreateDate = DateTime.Now,
-                            ModifiedDate = null
+                            "sgs-idm-dev@sony.com"
                         },
-                        inputOwner = new Account
-                        {
-                            InternalID = Guid.NewGuid(),
-                            AccountName = "9004070504",
-                            FirstName = "Vincent",
-                            LastName = "Pantia",
-                            Status = 0,
-                            CreateDate = DateTime.Now,
-                            ModifiedDate = null
-                        },
-                        inputAdmin1 = new Account
-                        {
-                            InternalID = Guid.NewGuid(),
-                            AccountName = "9004070504",
-                            FirstName = "Vincent",
-                            LastName = "Pantia",
-                            Status = 0,
-                            CreateDate = DateTime.Now,
-                            ModifiedDate = null
-                        },
-                        inputAdmin2 = new Account
-                        {
-                            InternalID = Guid.NewGuid(),
-                            AccountName = "9004070504",
-                            FirstName = "Vincent",
-                            LastName = "Pantia",
-                            Status = 0,
-                            CreateDate = DateTime.Now,
-                            ModifiedDate = null
-                        },
-                        inputAdmin3 = new Account
-                        {
-                            InternalID = Guid.NewGuid(),
-                            AccountName = "9004070504",
-                            FirstName = "Vincent",
-                            LastName = "Pantia",
-                            Status = 0,
-                            CreateDate = DateTime.Now,
-                            ModifiedDate = null
-                        },
-                        inputMailList = new List<Mail>
-                        {
-                            new Mail
-                            {
-                                InternalID= Guid.NewGuid(),
-                                MailAddress = "sgs-idm-dev@test.com",
-                                AliasName = "sgs-idm-dev",
-                                MailType = "S1",
-                                ReceiveType = "G",
-                                PrimaryFlag = 1,
-                                Status = 0,
-                                CreateDate = DateTime.Now,
-                                ModifiedDate = null
-                            }
-                        }
+                        Status = 0,
+                        CreateDate = DateTime.Now,
+                        ModifiedDate = null,
                     }
                 };
             }
