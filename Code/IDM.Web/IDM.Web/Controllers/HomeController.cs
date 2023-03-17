@@ -1,4 +1,4 @@
-﻿using IDM.Web.Models;
+﻿using IDM.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

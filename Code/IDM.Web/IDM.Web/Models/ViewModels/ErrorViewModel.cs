@@ -1,4 +1,4 @@
-namespace IDM.Web.Models
+namespace IDM.Web.Models.ViewModels
 {
     public class ErrorViewModel
     {

@@ -1,0 +1,51 @@
+﻿@model GroupViewModel
+@{
+    ViewData["Title"] = "Internal SG List";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Action</td>
+            <td>Alias Name</td>
+            <td>Display Name</td>
+            <td>Owner</td>
+            <td>Admin 1</td>
+            <td>Admin 2</td>
+            <td>Admin 3</td>
+            <td>Mail Address</td>
+            <td>Status</td>
+            <td>Created Date</td>
+            <td>Modified Date</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.groupList == null || Model.groupList.Count == 0)
+        {
+                <tr>
+                    <td colspan="11">
+                        No records found in the system.
+                    </td>
+                </tr>
+        }
+        else
+        {
+            @foreach (var group in Model.groupList)
+            {
+                <tr>
+                    <td>@group.inputGroup.SGAliasName</td>
+                    <td>@group.inputGroup.SGDisplayName</td>
+                    <td>@group.inputOwner.FullName</td>
+                    <td>@group.inputAdmin1.FullName</td>
+                    <td>@group.inputAdmin2.FullName</td>
+                    <td>@group.inputAdmin3.FullName</td>
+                    <td>@group.inputMailList.Where(data => data.PrimaryFlag == 1).First().MailAddress</td>
+                    <td>@group.inputAdmin3.Status</td>
+                    <td>@group.inputAdmin3.CreateDate</td>
+                    <td>@group.inputAdmin3.ModifiedDate</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
