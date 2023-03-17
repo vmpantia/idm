@@ -1,18 +1,42 @@
 html {
-  font-size: 14px;
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+}
+body {
+    margin-bottom: 60px;
+}
+
+.cstm-mng-header {
+    color: #2d3436;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.cstm-mng-button {
+    display: block;
+    width: 100%;
+    color: #2d3436;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #2d3436;
+    border-radius: 7px;
+    margin-top: 10px;
+    padding: 15px 10px;
+    font-size: 14px;
+}
+
+.cstm-mng-button svg {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.cstm-mng-button:hover {
+    background-color: rgba(45, 52, 54,.9);
+    color:white;
 }
 
 @media (min-width: 768px) {
-  html {
+    html {
     font-size: 16px;
   }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
 }
