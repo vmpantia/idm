@@ -3,27 +3,27 @@
     ViewData["Title"] = "Internal SG List";
 }
 
-<table class="table">
+<table class="cstm-table">
     <thead>
         <tr>
-            <td>Action</td>
-            <td>Alias Name</td>
-            <td>Display Name</td>
-            <td>Owner</td>
-            <td>Admin 1</td>
-            <td>Admin 2</td>
-            <td>Admin 3</td>
-            <td>Mail Address</td>
-            <td>Status</td>
-            <td>Created Date</td>
-            <td>Modified Date</td>
+            <th>Action</th>
+            <th>AliasName</th>
+            <th>DisplayName</th>
+            <th>Owner</th>
+            <th>Admin 1</th>
+            <th>Admin 2</th>
+            <th>Admin 3</th>
+            <th>Mail Address</th>
+            <th>Status</th>
+            <th>Created Date</th>
+            <th>Modified Date</th>
         </tr>
     </thead>
     <tbody>
         @if (Model.groupList == null || Model.groupList.Count == 0)
         {
                 <tr>
-                    <td colspan="11">
+                    <td class="cstm-text-center" colspan="11">
                         No records found in the system.
                     </td>
                 </tr>

@@ -14,7 +14,6 @@ body {
     font-weight: 500;
     font-size: 16px;
 }
-
 .cstm-mng-button {
     display: block;
     width: 100%;
@@ -27,7 +26,6 @@ body {
     padding: 10px;
     font-size: 14px;
 }
-
 .cstm-mng-button svg {
     width: 100%;
     margin-bottom: 10px;
@@ -35,6 +33,18 @@ body {
 .cstm-mng-button:hover {
     background-color: rgba(45, 52, 54,.9);
     color:white;
+}
+
+
+.cstm-table {
+    width: 100%;
+    color: #2d3436;
+}
+.cstm-table th {
+    color: gray;
+    text-transform: uppercase;
+    font-size: 12px;
+    border-bottom: 1px solid gainsboro;
 }
 
 @media (min-width: 768px) {
