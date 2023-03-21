@@ -1,4 +1,4 @@
-﻿using IDM.Api.Contractors;
+﻿using IDM.Business.Contractors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IDM.Api.Controllers

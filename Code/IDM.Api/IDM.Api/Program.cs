@@ -1,6 +1,6 @@
-using IDM.Api.Contractors;
-using IDM.Api.DataAccess;
-using IDM.Api.Services;
+using IDM.Business.Contractors;
+using IDM.Domain.Services;
+using IDM.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

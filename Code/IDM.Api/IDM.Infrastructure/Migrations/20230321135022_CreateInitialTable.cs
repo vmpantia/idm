@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace IDM.Api.Migrations
+namespace IDM.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class CreateInitialTable : Migration

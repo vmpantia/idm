@@ -1,11 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
-namespace IDM.Api.DataAccess.Entities
+namespace IDM.Infrastructure.DataAccess.Entities
 {
-    public class SecurityGroup_MST
+    [PrimaryKey(nameof(RequestID), nameof(Number), nameof(InternalID))]
+    public class SecurityGroup_TRN
     {
+        //Request Details
+        public string RequestID { get; set; }
+        public string Number { get; set; }
+
         //SG Details
-        [Key]
         public Guid InternalID { get; set; }
         [Required, MaxLength(30)]
         public string AliasName { get; set; }

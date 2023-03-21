@@ -1,4 +1,4 @@
-﻿namespace IDM.Api.Models.Request
+﻿namespace IDM.Business.Models.Request
 {
     public class RequestBase
     {

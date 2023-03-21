@@ -1,4 +1,4 @@
-﻿namespace IDM.Api.Exceptions
+﻿namespace IDM.Domain.Exceptions
 {
     public class ServiceException : Exception
     {

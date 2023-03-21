@@ -1,4 +1,6 @@
-﻿namespace IDM.Api.Models.Request
+﻿using IDM.Business.Models.DTOs;
+
+namespace IDM.Business.Models.Request
 {
     public class SaveSecurityGroupRequest : RequestBase
     {

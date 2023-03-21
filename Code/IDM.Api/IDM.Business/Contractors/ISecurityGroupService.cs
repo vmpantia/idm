@@ -1,7 +1,7 @@
-﻿using IDM.Api.Models;
-using IDM.Api.Models.Request;
+﻿using IDM.Business.Models.DTOs;
+using IDM.Business.Models.Request;
 
-namespace IDM.Api.Contractors
+namespace IDM.Business.Contractors
 {
     public interface ISecurityGroupService
     {

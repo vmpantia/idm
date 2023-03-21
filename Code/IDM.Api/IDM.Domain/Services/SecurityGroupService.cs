@@ -1,13 +1,13 @@
-﻿using IDM.Api.Contractors;
-using IDM.Api.DataAccess;
-using IDM.Api.DataAccess.Entities;
-using IDM.Api.Exceptions;
-using IDM.Api.Models;
-using IDM.Api.Models.Request;
+﻿using IDM.Business.Contractors;
+using IDM.Business.Models.DTOs;
+using IDM.Business.Models.Request;
 using IDM.Common;
+using IDM.Domain.Exceptions;
+using IDM.Infrastructure.DataAccess;
+using IDM.Infrastructure.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace IDM.Api.Services
+namespace IDM.Domain.Services
 {
     public class SecurityGroupService : ISecurityGroupService
     {
@@ -20,14 +20,14 @@ namespace IDM.Api.Services
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsAsync()
         {
             return await _db.SecurityGroup_MST.Where(data => data.Status != Constants.STATUS_INT_DELETION)
-                                              .Select(data => ParseSecurityGroup(data))
+                                              .Select(data => Utility.ParseSecurityGroup(data))
                                               .ToListAsync();
         }
 
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsByStatusAsync(int status)
         {
             return await _db.SecurityGroup_MST.Where(data => data.Status == status)
-                                              .Select(data => ParseSecurityGroup(data))
+                                              .Select(data => Utility.ParseSecurityGroup(data))
                                               .ToListAsync();
         }
 
@@ -37,7 +37,7 @@ namespace IDM.Api.Services
             if (result == null)
                 throw new ServiceException(Constants.ERROR_SG_NOT_FOUND);
 
-            return ParseSecurityGroup(result);
+            return Utility.ParseSecurityGroup(result);
         }
 
         public async Task SaveSGAsync(SaveSecurityGroupRequest request)
@@ -49,7 +49,7 @@ namespace IDM.Api.Services
             {
                 try
                 {
-                    var input = ParseSecurityGroup(request.inputSG);
+                    var input = Utility.ParseSecurityGroup(request.inputSG);
                     switch (request.FunctionID)
                     {
                         case Constants.FUNCTION_ID_ADD_INTERNAL_SG_BY_USER:
@@ -108,45 +108,6 @@ namespace IDM.Api.Services
                 throw new ServiceException(Constants.ERROR_SG_UPDATE);
         }
 
-        private SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data)
-        {
-            return new SecurityGroupDTO
-            {
-                InternalID = data.InternalID,
-                AliasName = data.AliasName,
-                DisplayName = data.DisplayName,
-                Type = data.Type,
-                OwnerInternalID = data.OwnerInternalID,
-                OwnerName = Constants.NA,
-                Admin1InternalID = data.Admin1InternalID,
-                Admin1Name = Constants.NA,
-                Admin2InternalID = data.Admin2InternalID,
-                Admin2Name = Constants.NA,
-                Admin3InternalID = data.Admin3InternalID,
-                Admin3Name = Constants.NA,
-                Status = data.Status,
-                StatusDescription = Utility.ConvertStatus(data.Status),
-                CreatedDate = data.CreatedDate,
-                ModifiedDate = data.ModifiedDate
-            };
-        }
-
-        private SecurityGroup_MST ParseSecurityGroup(SecurityGroupDTO data)
-        {
-            return new SecurityGroup_MST
-            {
-                InternalID = data.InternalID,
-                AliasName = data.AliasName,
-                DisplayName = data.DisplayName,
-                Type = data.Type,
-                OwnerInternalID = data.OwnerInternalID,
-                Admin1InternalID = data.Admin1InternalID,
-                Admin2InternalID = data.Admin2InternalID,
-                Admin3InternalID = data.Admin3InternalID,
-                Status = data.Status,
-                CreatedDate = data.CreatedDate,
-                ModifiedDate = data.ModifiedDate
-            };
-        }
+        
     }
 }
