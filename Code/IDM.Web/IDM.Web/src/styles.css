@@ -1,8 +1,16 @@
 .cstm-page-header{
-    background-color: black;
+    background-color: whitesmoke;
+    border-bottom: 1px solid gainsboro;
+    padding: 20px 50px;
+    margin-bottom: 20px;
     width: 100%;
-    height: 80px;
-    margin-bottom: 30px;
+    position:sticky;
+    top: 0;
+}
+.cstm-page-header a{
+    font-size: 20px;
+    text-decoration: none;
+    color: #2d3436;
 }
 
 .cstm-mng-header {
