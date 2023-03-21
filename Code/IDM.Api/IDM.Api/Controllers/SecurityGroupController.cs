@@ -5,10 +5,10 @@ namespace IDM.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class GroupController : Controller
+    public class SecurityGroupController : Controller
     {
         private readonly ISecurityGroupService _sg;
-        public GroupController(ISecurityGroupService sg)
+        public SecurityGroupController(ISecurityGroupService sg)
         {
             _sg = sg;
         }
