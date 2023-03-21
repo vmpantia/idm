@@ -4,6 +4,7 @@ using IDM.Api.DataAccess.Entities;
 using IDM.Api.Exceptions;
 using IDM.Api.Models;
 using IDM.Api.Models.Request;
+using IDM.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace IDM.Api.Services
@@ -18,8 +19,7 @@ namespace IDM.Api.Services
 
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsAsync()
         {
-            //Get all security group stored in SecurityGroup_MST with Status 0 or 1
-            return await _db.SecurityGroup_MST.Where(data => data.Status != 2)
+            return await _db.SecurityGroup_MST.Where(data => data.Status != Constants.STATUS_INT_DELETION)
                                               .Select(data => ParseSecurityGroup(data))
                                               .ToListAsync();
         }
@@ -35,7 +35,7 @@ namespace IDM.Api.Services
         {
             var result = await _db.SecurityGroup_MST.FindAsync(internalID);
             if (result == null)
-                throw new ServiceException("Security Group NOT found in the database.");
+                throw new ServiceException(Constants.ERROR_SG_NOT_FOUND);
 
             return ParseSecurityGroup(result);
         }
@@ -43,7 +43,7 @@ namespace IDM.Api.Services
         public async Task SaveSGAsync(SaveSecurityGroupRequest request)
         {
             if (request == null)
-                throw new ServiceException("Save security group request cannot be NULL or EMPTY.");
+                throw new ServiceException(Constants.ERROR_SG_SAVE_REQUEST_NULL);
 
             using (var transaction = await _db.Database.BeginTransactionAsync())
             {
@@ -52,15 +52,14 @@ namespace IDM.Api.Services
                     var input = ParseSecurityGroup(request.inputSG);
                     switch (request.FunctionID)
                     {
-                        case "001A01":
-                        case "002A01":
+                        case Constants.FUNCTION_ID_ADD_INTERNAL_SG_BY_USER:
+                        case Constants.FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER:
                             await InsertSecurityGroup_MST(input);
                             break;
-                        case "001C01":
-                        case "002C01":
+                        case Constants.FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER:
+                        case Constants.FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER:
                             await UpdateSecurityGroup_MST(input);
                             break;
-
                     }
                     await transaction.CommitAsync();
                 }
@@ -82,14 +81,14 @@ namespace IDM.Api.Services
             var result = await _db.SaveChangesAsync();
 
             if (result == 0)
-                throw new ServiceException("Error in inserting security group in the database.");
+                throw new ServiceException(Constants.ERROR_SG_INSERT);
         }
 
         private async Task UpdateSecurityGroup_MST(SecurityGroup_MST input)
         {
             var data = await _db.SecurityGroup_MST.FindAsync(input.InternalID);
             if (data == null)
-                throw new ServiceException("Security Group NOT found in the database.");
+                throw new ServiceException(Constants.ERROR_SG_NOT_FOUND);
 
             //data.InternalID = input.InternalID;
             //data.AliasName = input.AliasName;
@@ -106,7 +105,7 @@ namespace IDM.Api.Services
             var result = await _db.SaveChangesAsync();
 
             if (result == 0)
-                throw new ServiceException("Error in updating security group in the database.");
+                throw new ServiceException(Constants.ERROR_SG_UPDATE);
         }
 
         private SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data)
@@ -118,14 +117,15 @@ namespace IDM.Api.Services
                 DisplayName = data.DisplayName,
                 Type = data.Type,
                 OwnerInternalID = data.OwnerInternalID,
-                OwnerName = "N/A",
+                OwnerName = Constants.NA,
                 Admin1InternalID = data.Admin1InternalID,
-                Admin1Name = "N/A",
+                Admin1Name = Constants.NA,
                 Admin2InternalID = data.Admin2InternalID,
-                Admin2Name = "N/A",
+                Admin2Name = Constants.NA,
                 Admin3InternalID = data.Admin3InternalID,
-                Admin3Name = "N/A",
+                Admin3Name = Constants.NA,
                 Status = data.Status,
+                StatusDescription = Utility.ConvertStatus(data.Status),
                 CreatedDate = data.CreatedDate,
                 ModifiedDate = data.ModifiedDate
             };

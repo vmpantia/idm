@@ -1,0 +1,24 @@
+﻿namespace IDM.Common
+{
+    public class Constants
+    {
+        public const string NA = "N/A";
+
+        public const int STATUS_INT_ENABLED = 0;
+        public const int STATUS_INT_DISABLED = 1;
+        public const int STATUS_INT_DELETION = 2;
+        public const string STATUS_STRING_ENABLED = "Enabled";
+        public const string STATUS_STRING_DISABLED = "Disabled";
+        public const string STATUS_STRING_DELETION = "Deletion";
+
+        public const string FUNCTION_ID_ADD_INTERNAL_SG_BY_USER = "001A01";
+        public const string FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER = "002A01";
+        public const string FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER = "001C01";
+        public const string FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER = "002C01";
+
+        public const string ERROR_SG_NOT_FOUND = "Security Group NOT found in the database.";
+        public const string ERROR_SG_SAVE_REQUEST_NULL = "Save security group request cannot be NULL or EMPTY.";
+        public const string ERROR_SG_INSERT = "Error in inserting security group in the database.";
+        public const string ERROR_SG_UPDATE = "Error in updating security group in the database.";
+    }
+}

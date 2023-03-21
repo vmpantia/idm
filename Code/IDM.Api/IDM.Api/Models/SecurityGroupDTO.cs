@@ -22,6 +22,7 @@ namespace IDM.Api.Models
 
         //Common Details
         public int Status { get; set; }
+        public string StatusDescription { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
