@@ -19,23 +19,25 @@
 
 .cstm-side-bar {
     padding: 0px 20px;
+    border-right: 1px solid gainsboro;
+    width: 250px;
 }
 .cstm-side-bar ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    width: 250px;
+    width: 100%;
 }
 .cstm-side-bar .title {
     padding: 7px 0px;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 13px;
     color: dimgray;
 }
-
 .cstm-side-bar ul li a {
     color: black;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 13px;
     border-radius: 5px;
     padding: 7px 15px;
     display: block; 
@@ -44,6 +46,51 @@
 .cstm-side-bar ul li a:hover {
     background-color: whitesmoke;
 }
+
 .cstm-content{
     width: 100%;
+    padding: 0px 20px 20px 20px;
+}
+
+.cstm-badge {
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 1px 6px;
+    text-transform: uppercase;
+}
+
+.sgtype-0 {
+    background-color: rgba(41, 128, 185, .7);
+    border: 1px solid #3498db;
+}
+.sgtype-1 {
+    background-color: rgba(116, 125, 140, .7);
+    border: 1px solid #747d8c;
+}
+.status-0 {
+    background-color: rgba(39, 174, 96, .7);
+    border: 1px solid #27ae60;
+}
+.status-1 {
+    background-color: rgba(192, 57, 43, .7);
+    border: 1px solid #c0392b;
+}
+
+.cstm-table {
+    width: 100%;
+    font-size: 13px;
+}
+.cstm-table th {
+    border-bottom: 1px solid gainsboro;
+    padding: 5px;
+    font-weight: 500;
+}
+.cstm-table tr:nth-child(even){
+  background-color: whitesmoke;
+}
+.cstm-table td{
+    padding: 7px 2px;
 }

@@ -9,11 +9,10 @@ import { APIService } from 'src/app/services/api.service';
 })
 export class SecurityGroupComponent implements OnInit {
 
-  constructor(private api:APIService) { }
-
   sgList:any[];
   sgInfo:any;
 
+  constructor(private api:APIService) { }
   ngOnInit(): void {
     this.getSGs();
   }
@@ -21,7 +20,7 @@ export class SecurityGroupComponent implements OnInit {
   getSGs() {
     //Get security groups that is stored in database using API
     this.api.getSGs().subscribe(
-      (res) => {
+      (res:any[]) => {
         this.sgList = res;
       }
     )
