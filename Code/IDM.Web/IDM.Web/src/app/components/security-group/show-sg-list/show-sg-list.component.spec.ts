@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditSGComponent } from './add-edit-sg.component';
+import { ShowSGListComponent } from './show-sg-list.component';
 
-describe('AddEditSgComponent', () => {
-  let component: AddEditSGComponent;
-  let fixture: ComponentFixture<AddEditSGComponent>;
+describe('ShowSGListComponent', () => {
+  let component: ShowSGListComponent;
+  let fixture: ComponentFixture<ShowSGListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddEditSGComponent ]
+      declarations: [ ShowSGListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddEditSGComponent);
+    fixture = TestBed.createComponent(ShowSGListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
