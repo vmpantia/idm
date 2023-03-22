@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-add-edit-sg',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEditSGComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api:APIService) { }
 
   ngOnInit(): void {
   }

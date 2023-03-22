@@ -1,10 +1,27 @@
+<!-- Add and Edit Security Group Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h5 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h5>
+		<button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+	</div>
+	<div class="modal-body">
+		<p>Hello, World!</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark">Save</button>
+	</div>
+</ng-template>
 
 <!-- Content -->
 <div class="container-fluid">  
-    
+
     <!-- Page Title -->
     <div class="row mb-3">
         Security Group List
+    </div>
+    
+    <div class="cstm-actions row mb-3">
+        <button type="button" class="cstm-btn primary" data-bs-toggle="modal" data-bs-target="#sgModal" (click)="addSG(content)">Add SG</button>
     </div>
 
     <!-- Security Group List -->
@@ -59,8 +76,6 @@
                     
                     <!-- Action Buttons -->
                     <td class="text-center">
-                        <a>Edit</a>
-                        <a>Cancel</a>
                     </td>
                 </tr>
             </tbody>
