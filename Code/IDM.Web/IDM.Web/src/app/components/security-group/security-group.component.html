@@ -14,8 +14,8 @@
                 <tr>
                     <td>Alias Name</td>
                     <td>Display Name</td>
-                    <td>Owner</td>
                     <td>Type</td>
+                    <td>Owner</td>
                     <td>Admin 1</td>
                     <td>Admin 2</td>
                     <td>Admin 3</td>
@@ -37,25 +37,18 @@
                         No record found in database.
                     </td>
                 </tr>
-                <tr *ngFor="let customer of sgList">
-                    <td>{{ customer.lastName }}, {{ customer.firstName }} {{ customer.middleName }}</td>
-                    <td>{{ customer.contactNo }}</td>
-                    <td>{{ customer.address }}</td> 
-
-                    <!-- Status Condition -->
-                    <ng-container *ngIf="customer.status == 0;">
-                        <td class="text-center"><span class="badge bg-success">Enabled</span></td>
-                    </ng-container>
-                    <ng-container *ngIf="customer.status == 1;">
-                        <td class="text-center"><span class="badge bg-secondary">Disabled</span></td>
-                    </ng-container>
-                    <ng-container *ngIf="customer.status == 2;">
-                        <td class="text-center"><span class="badge bg-danger">Deletion</span></td>
-                    </ng-container>
-
-                    <td class="text-center">{{ customer.createdDate| date: "MM-dd-YYYY" }}</td>
-                    <td class="text-center">{{ customer.modifiedDate | date: "MM-dd-YYYY" }}</td>
-
+                <tr *ngFor="let sg of sgList">
+                    <td>{{ sg.AliasName }}</td>
+                    <td>{{ sg.DisplayName }}</td>
+                    <td>{{ sg.TypeDescription }}</td>
+                    <td>{{ sg.Owner }}</td> 
+                    <td>{{ sg.Admin1 }}</td> 
+                    <td>{{ sg.Admin2 }}</td> 
+                    <td>{{ sg.Admin3 }}</td> 
+                    <td>{{ sg.StatusDescription }}</td> 
+                    <td>{{ sg.CreatedDate| date: "MM-dd-YYYY" }}</td> 
+                    <td>{{ sg.ModifiedDate| date: "MM-dd-YYYY" }}</td> 
+                    
                     <!-- Action Buttons -->
                     <td class="text-center">
                         <button type="button" class="btn btn-warning btn-sm"
