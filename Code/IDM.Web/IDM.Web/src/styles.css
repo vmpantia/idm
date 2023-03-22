@@ -12,45 +12,34 @@
     text-decoration: none;
     color: #2d3436;
 }
-
-.cstm-mng-header {
-    color: #2d3436;
-    border-bottom: 1px dashed gainsboro;
-    padding-bottom: 10px;
-    font-weight: 500;
-    font-size: 16px;
+.cstm-page-body{
+    display:inline-flex;
 }
 
-.cstm-mng-button {
-    display: block;
-    width: 100%;
-    color: #2d3436;
-    text-align: center;
+.cstm-side-bar {
+    padding: 0px 20px;
+}
+.cstm-side-bar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 250px;
+}
+.cstm-side-bar .title {
+    padding: 7px 0px;
+    font-weight: bold;
+    color: dimgray;
+}
+
+.cstm-side-bar ul li a {
+    color: black;
     text-decoration: none;
-    border: 1px solid #2d3436;
-    border-radius: 7px;
-    margin-top: 20px;
-    padding: 10px;
-    font-size: 14px;
-}
-
-.cstm-mng-button svg {
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 7px 15px;
+    display: block; 
     width: 100%;
-    margin-bottom: 10px;
 }
-
-.cstm-mng-button:hover {
-    background-color: rgba(45, 52, 54,.9);
-    color:white;
-}
-
-.cstm-table {
-    width: 100%;
-    color: #2d3436;
-}
-.cstm-table th {
-    color: gray;
-    text-transform: uppercase;
-    font-size: 12px;
-    border-bottom: 1px solid gainsboro;
+.cstm-side-bar ul li a:hover {
+    background-color: whitesmoke;
 }
