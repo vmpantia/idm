@@ -18,6 +18,17 @@ namespace IDM.Common
             }
         }
 
+        public static string ConvertType(int type)
+        {
+            switch (type)
+            {
+                case Constants.SG_TYPE_INT_INTERNAL:
+                    return Constants.SG_TYPE_STRING_INTERNAL;
+                default:
+                    return Constants.SG_TYPE_STRING_EXTERNAL;
+            }
+        }
+
         public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data)
         {
             return new SecurityGroupDTO
@@ -26,6 +37,7 @@ namespace IDM.Common
                 AliasName = data.AliasName,
                 DisplayName = data.DisplayName,
                 Type = data.Type,
+                TypeDescription = ConvertType(data.Type),
                 OwnerInternalID = data.OwnerInternalID,
                 OwnerName = Constants.NA,
                 Admin1InternalID = data.Admin1InternalID,
@@ -35,7 +47,7 @@ namespace IDM.Common
                 Admin3InternalID = data.Admin3InternalID,
                 Admin3Name = Constants.NA,
                 Status = data.Status,
-                StatusDescription = Utility.ConvertStatus(data.Status),
+                StatusDescription = ConvertStatus(data.Status),
                 CreatedDate = data.CreatedDate,
                 ModifiedDate = data.ModifiedDate
             };

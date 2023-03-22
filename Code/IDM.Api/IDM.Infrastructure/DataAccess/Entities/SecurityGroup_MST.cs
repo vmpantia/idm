@@ -11,8 +11,7 @@ namespace IDM.Infrastructure.DataAccess.Entities
         public string AliasName { get; set; }
         [Required, MaxLength(30)]
         public string DisplayName { get; set; }
-        [Required, MaxLength(1)]
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         //SG Ownership Details
         public Guid OwnerInternalID { get; set; }

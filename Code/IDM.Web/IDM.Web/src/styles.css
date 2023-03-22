@@ -13,6 +13,7 @@
     color: #2d3436;
 }
 .cstm-page-body{
+    width: 100%;
     display:inline-flex;
 }
 
@@ -42,4 +43,7 @@
 }
 .cstm-side-bar ul li a:hover {
     background-color: whitesmoke;
+}
+.cstm-content{
+    width: 100%;
 }

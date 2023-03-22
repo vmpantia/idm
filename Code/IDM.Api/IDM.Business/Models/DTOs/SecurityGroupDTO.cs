@@ -6,7 +6,8 @@
         public Guid InternalID { get; set; }
         public string AliasName { get; set; }
         public string DisplayName { get; set; }
-        public string Type { get; set; }
+        public int Type { get; set; }
+        public string TypeDescription { get; set; }
 
         //SG Ownership Details
         public Guid OwnerInternalID { get; set; }
