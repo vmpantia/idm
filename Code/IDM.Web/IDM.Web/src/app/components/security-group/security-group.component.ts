@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/services/api.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
 
 @Component({
   selector: 'app-security-group',
@@ -10,10 +11,9 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class SecurityGroupComponent implements OnInit {
 
   modalTitle:string;
-	closeResult = '';
 
-  sgList:any[];
-  sgInfo:any;
+  sgList:SecurityGroupDTO[];
+  sgInfo:SecurityGroupDTO;
 
   constructor(private api:APIService, 
               private modalService: NgbModal,
@@ -29,26 +29,28 @@ export class SecurityGroupComponent implements OnInit {
   getSGs() {
     //Get security groups that is stored in database using API
     this.api.getSGs().subscribe(
-      (res:any[]) => {
+      (res) => {
         this.sgList = res;
       }
     )
   }
 
-  editSG(content:any, internalID:any){
+  editSG(content:any, internalID:string){
     this.modalTitle = "Edit Security Group";
-		this.modalService.open(content);
+		this.modalService.open(content, { size: 'lg' });
 
   }
 
   addSG(content:any) {
     this.modalTitle = "Add Security Group";
-		this.modalService.open(content);
+		this.modalService.open(content, { size: 'lg' });
+    this.sgInfo = new SecurityGroupDTO();
   }
 
   closeModal() {
     this.modalTitle = "";
     this.modalService.dismissAll();
+    this.sgInfo = new SecurityGroupDTO();
     this.getSGs();
   }
 }

@@ -5,7 +5,7 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
 	</div>
 	<div class="modal-body">
-		<p>Hello, World!</p>
+        <app-add-edit-sg [sgInfo]="sgInfo" *ngIf="sgInfo"></app-add-edit-sg>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark">Save</button>

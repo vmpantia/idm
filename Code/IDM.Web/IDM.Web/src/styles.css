@@ -111,3 +111,7 @@
     background-color: rgba(192, 57, 43, .7);
     border: 1px solid #c0392b;
 }
+
+.cstm-info {
+    font-weight: 500;
+}
