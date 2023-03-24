@@ -51,6 +51,11 @@ export class SecurityGroupComponent implements OnInit {
     this.modalTitle = "";
     this.modalService.dismissAll();
     this.sgInfo = new SecurityGroupDTO();
-    this.getSGs();
+
+    let mainAccordion = document.getElementById("main-accordion") as HTMLInputElement;
+    if(mainAccordion !== null){
+       mainAccordion.setAttribute("activeIds", "ngb-panel-0");
+       console.log(mainAccordion.getAttribute("activeIds"))  
+    }
   }
 }

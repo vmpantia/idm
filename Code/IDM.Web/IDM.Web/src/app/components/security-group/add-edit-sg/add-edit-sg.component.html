@@ -2,61 +2,77 @@
 <!-- Content -->
 <div class="container">
 
-    <!-- Notes -->
-    <div class="row">
-        <div class="col-12 alert alert-warning" role="alert">
-            Field with <b>Asterisk(*)</b>  are Required.
-        </div>
-    </div>
-
     <!-- SG Information -->
-    <div class="row pb-2 mb-3 border-bottom">
-        <div class="cstm-info">
-            <span>INFORMATION</span>
-        </div>
-    </div>
     <div class="row mb-3">
-        <div class="mb-3">
-            <label class="form-label">* Security Group Type:</label>
-            <div class="d-inline-flex col-12">
-                <div class="form-check me-3">
-                    <input type="radio" class="form-check-input" name="rbType" id="internalType" checked (change)="changeValueType(0)"/>
-                    <label class="form-check-label" for="internalType"> Internal Security Group </label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" name="rbType" id="externalType" (change)="changeValueType(1)"/>
-                    <label class="form-check-label" for="externalType"> External Security Group </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">* Display Name:</label>
-            <div class="d-inline-flex mb-3 col-12">
-                <input type="text" #firstLayer class="form-control me-2" id="txtFirstLayer" (input)="changeValueLayer(firstLayer)">
-                <input type="text" #secondLayer class="form-control me-2" id="txtSecondLayer" (input)="changeValueLayer(secondLayer)">
-                <input type="text" #thirdLayer class="form-control me-2" id="txtThirdLayer" (input)="changeValueLayer(thirdLayer)">
-                <input type="text" #fourthLayer class="form-control" id="txtFourthLayer" (input)="changeValueLayer(fourthLayer)">
-            </div>
-            <div class="d-inline-flex col-12">
-                <input type="text" class="form-control" [(ngModel)]="currentSGInfo.displayName" id="txtDisplayName" disabled maxlength="30">
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">* Alias Name:</label>
-            <input type="text" class="form-control" [(ngModel)]="currentSGInfo.aliasName" id="txtAliasName" disabled maxlength="30">
-        </div>
+        <ngb-accordion>
+            <ngb-panel>
+                <ng-template ngbPanelTitle>
+                    <div class="cstm-info">
+                        <span>SECURITY GROUP INFORMATION</span>
+                    </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="mb-3">
+                        <label class="form-label">* Security Group Type:</label>
+                        <div class="d-inline-flex col-12">
+                            <div class="form-check me-3">
+                                <input type="radio" class="form-check-input" name="rbType" id="internalType" checked (change)="changeValueType(0)"/>
+                                <label class="form-check-label" for="internalType"> Internal Security Group </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="rbType" id="externalType" (change)="changeValueType(1)"/>
+                                <label class="form-check-label" for="externalType"> External Security Group </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">* Display Name:</label>
+                        <div class="d-inline-flex mb-3 col-12">
+                            <input type="text" #firstLayer class="form-control me-2" id="txtFirstLayer" (input)="changeValueLayer(firstLayer)">
+                            <input type="text" #secondLayer class="form-control me-2" id="txtSecondLayer" (input)="changeValueLayer(secondLayer)">
+                            <input type="text" #thirdLayer class="form-control me-2" id="txtThirdLayer" (input)="changeValueLayer(thirdLayer)">
+                            <input type="text" #fourthLayer class="form-control" id="txtFourthLayer" (input)="changeValueLayer(fourthLayer)">
+                        </div>
+                        <div class="d-inline-flex col-12">
+                            <input type="text" class="form-control" [(ngModel)]="currentSGInfo.displayName" id="txtDisplayName" disabled maxlength="30">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">* Alias Name:</label>
+                        <input type="text" class="form-control" [(ngModel)]="currentSGInfo.aliasName" id="txtAliasName" disabled maxlength="30">
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+    
+    <!-- SG Email Addresses -->
+    <div class="row mb-3">
+        <ngb-accordion>
+            <ngb-panel>
+                <ng-template ngbPanelTitle>
+                    <div class="cstm-info">
+                        <span>EMAIL ADDRESSES</span>
+                    </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
     </div>
 
-    <div class="row pb-2 mb-3 border-bottom">
-        <div class="cstm-info">
-            <span>EMAIL ADDRESSES</span>
-        </div>
+    <div class="row mb-3">
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+            <ngb-panel>
+                <ng-template ngbPanelTitle>
+                    <div class="cstm-info">
+                        <span>OWNER INFORMATION</span>
+                    </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
     </div>
-
-    <div class="row pb-2 mb-3 border-bottom">
-        <div class="cstm-info">
-            <span>OWNER INFORMATION</span>
-        </div>
-    </div>
+    
 </div>
