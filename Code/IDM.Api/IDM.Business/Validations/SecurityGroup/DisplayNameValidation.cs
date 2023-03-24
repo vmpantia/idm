@@ -1,6 +1,8 @@
 ﻿using IDM.Business.Models.DTOs;
+using IDM.Common;
 using IDM.Infrastructure.DataAccess;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
 
 namespace IDM.Business.Validations.SecurityGroup
 {
@@ -11,7 +13,7 @@ namespace IDM.Business.Validations.SecurityGroup
         {
             _db = validationContext.GetService(typeof(IDMDbContext)) as IDMDbContext;
             if(_db == null)
-                return new ValidationResult("System database not working.");
+                return new ValidationResult(Constants.ERROR_NO_DATABASE_FOUND);
 
             bool isAdd;
             var group = validationContext.ObjectInstance as SecurityGroupDTO;
@@ -22,7 +24,7 @@ namespace IDM.Business.Validations.SecurityGroup
             isAdd = group.InternalID == Guid.Empty;
 
             if (isAdd && IsDisplayNameExist(group.DisplayName))
-                    return new ValidationResult("Display Name is already exist in the database.");
+                    return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
 
             var currentGroup = _db.SecurityGroup_MST.Find(group.InternalID);
             if(currentGroup != null)
@@ -30,7 +32,7 @@ namespace IDM.Business.Validations.SecurityGroup
                 //Check if DisplayName has change
                 if (currentGroup.DisplayName != group.DisplayName &&
                     IsDisplayNameExist(group.DisplayName))
-                    return new ValidationResult("Display Name is already exist in the database.");
+                    return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
             }
 
             return ValidationResult.Success;

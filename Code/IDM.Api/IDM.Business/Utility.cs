@@ -1,7 +1,8 @@
 ﻿using IDM.Business.Models.DTOs;
+using IDM.Common;
 using IDM.Infrastructure.DataAccess.Entities;
 
-namespace IDM.Common
+namespace IDM.Business
 {
     public class Utility
     {

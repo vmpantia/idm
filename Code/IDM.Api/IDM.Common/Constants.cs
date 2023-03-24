@@ -25,5 +25,8 @@
         public const string ERROR_SG_SAVE_REQUEST_NULL = "Save security group request cannot be NULL or EMPTY.";
         public const string ERROR_SG_INSERT = "Error in inserting security group in the database.";
         public const string ERROR_SG_UPDATE = "Error in updating security group in the database.";
+        public const string ERROR_SG_ALIASNAME_EXIST = "Alias Name is already exist in the database.";
+        public const string ERROR_SG_DISPLAYNAME_EXIST = "Display Name is already exist in the database.";
+        public const string ERROR_NO_DATABASE_FOUND = "No database found.";
     }
 }
