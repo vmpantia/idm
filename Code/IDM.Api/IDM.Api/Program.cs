@@ -1,7 +1,10 @@
+using IDM.Business;
 using IDM.Business.Contractors;
 using IDM.Domain.Services;
 using IDM.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
