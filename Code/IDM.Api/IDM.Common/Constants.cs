@@ -16,10 +16,10 @@
         public const string SG_TYPE_STRING_INTERNAL = "Internal";
         public const string SG_TYPE_STRING_EXTERNAL = "External";
 
-        public const string FUNCTION_ID_ADD_INTERNAL_SG_BY_USER = "001A01";
-        public const string FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER = "002A01";
-        public const string FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER = "001C01";
-        public const string FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER = "002C01";
+        public const string FUNCTION_ID_ADD_INTERNAL_SG_BY_USER = "01A01";
+        public const string FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER = "01C01";
+        public const string FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER = "02A01";
+        public const string FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER = "02C01";
 
         public const string ERROR_SG_NOT_FOUND = "Security Group NOT found in the database.";
         public const string ERROR_SG_SAVE_REQUEST_NULL = "Save security group request cannot be NULL or EMPTY.";

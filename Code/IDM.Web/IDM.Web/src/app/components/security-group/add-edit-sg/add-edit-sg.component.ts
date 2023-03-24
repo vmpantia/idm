@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Constant } from 'src/app/commons/constant.model';
+import { SaveSecurityGroupRequest } from 'src/app/models/requests/save-security-group-request.model';
 import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
 import { APIService } from 'src/app/services/api.service';
 
@@ -56,8 +58,32 @@ export class AddEditSGComponent implements OnInit {
 
     this.currentSGInfo.type = value;
   }
+
   saveSG() {
-    
+
+    let model = new SaveSecurityGroupRequest();
+    model.functionID = "01A01";
+    model.requestStatus = "A2";
+    model.inputSG = this.currentSGInfo;
+
+    //Save security group in database using API
+    this.api.saveSG(model).subscribe(
+      (res) => {
+        //s//wal("Success","Customer saved successfully", "success")
+        //.then(() => {
+        //  //If success reload page
+        //  window.location.reload();
+        //})
+      },
+      (err:HttpErrorResponse) => {
+        //If error store the error in errorMessages
+        if(err.error?.length !== 0) {
+          //this.errorMessages.push(err.error);
+          return;
+        }
+        //this.errorMessages.push(err.error.title);
+      }
+    );
   }
 
 }

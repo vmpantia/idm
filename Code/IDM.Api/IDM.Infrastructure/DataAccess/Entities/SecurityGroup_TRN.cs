@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IDM.Infrastructure.DataAccess.Entities
 {
-    [PrimaryKey(nameof(RequestID), nameof(Number), nameof(InternalID))]
+    [PrimaryKey(nameof(RequestID), nameof(Number))]
     public class SecurityGroup_TRN
     {
         //Request Details
