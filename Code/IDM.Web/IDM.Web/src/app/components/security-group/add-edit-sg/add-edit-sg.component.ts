@@ -4,6 +4,7 @@ import { Constant } from 'src/app/commons/constant.model';
 import { SaveSecurityGroupRequest } from 'src/app/models/requests/save-security-group-request.model';
 import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
 import { APIService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-edit-sg',
@@ -69,11 +70,11 @@ export class AddEditSGComponent implements OnInit {
     //Save security group in database using API
     this.api.saveSG(model).subscribe(
       (res) => {
-        //s//wal("Success","Customer saved successfully", "success")
-        //.then(() => {
-        //  //If success reload page
-        //  window.location.reload();
-        //})
+        Swal.fire("Success","Customer saved successfully", "success")
+        .then(() => {
+          //If success reload page
+          window.location.reload();
+        })
       },
       (err:HttpErrorResponse) => {
         //If error store the error in errorMessages
