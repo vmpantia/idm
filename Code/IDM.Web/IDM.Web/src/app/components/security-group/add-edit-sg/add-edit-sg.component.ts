@@ -21,6 +21,8 @@ export class AddEditSGComponent implements OnInit {
   thirdLayer:string = Constant.EMPTY_STRING;
   fourthLayer:string = Constant.EMPTY_STRING;
 
+  errors:any[] = [];
+
   constructor(private api:APIService) { }
 
   ngOnInit(): void {
@@ -61,7 +63,7 @@ export class AddEditSGComponent implements OnInit {
   }
 
   saveSG() {
-
+    this.errors = [];
     let model = new SaveSecurityGroupRequest();
     model.functionID = "01A01";
     model.requestStatus = "A2";
@@ -69,20 +71,32 @@ export class AddEditSGComponent implements OnInit {
 
     //Save security group in database using API
     this.api.saveSG(model).subscribe(
-      (res) => {
+      (response:any) => {
         Swal.fire("Success","Customer saved successfully", "success")
         .then(() => {
           //If success reload page
           window.location.reload();
         })
       },
-      (err:HttpErrorResponse) => {
-        //If error store the error in errorMessages
-        if(err.error?.length !== 0) {
-          //this.errorMessages.push(err.error);
+      (error:HttpErrorResponse) => {
+        let response = error as HttpErrorResponse
+        //System Errors
+        if(response.error == undefined) {
+          this.errors.push(response.message);
+          console.log(this.errors);
           return;
         }
-        //this.errorMessages.push(err.error.title);
+
+        //API Error Title
+        if(response.error.length === 0) {
+          this.errors.push(response.error.title);
+          console.log(this.errors);
+          return;
+        }
+
+        //API Error Validation
+        this.errors.push(response.error.errors);
+        console.log(this.errors);
       }
     );
   }
