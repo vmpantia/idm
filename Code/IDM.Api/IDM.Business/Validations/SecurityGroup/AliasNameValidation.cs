@@ -24,8 +24,13 @@ namespace IDM.Business.Validations.SecurityGroup
             isAdd = group.InternalID == Guid.Empty;
 
             //If add check if the alias name is already exist
-            if (isAdd && IsAliasNameExist(group.AliasName))
+            if (isAdd)
+            {
+                if (IsAliasNameExist(group.AliasName))
                     return new ValidationResult(Constants.ERROR_SG_ALIASNAME_EXIST);
+
+                return ValidationResult.Success;
+            }
 
             //If edit get current group info
             var currentGroup = _db.SecurityGroup_MST.Find(group.InternalID);

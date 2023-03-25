@@ -25,8 +25,13 @@ namespace IDM.Business.Validations.SecurityGroup
             isAdd = group.InternalID == Guid.Empty;
 
             //If add check if the display name is already exist
-            if (isAdd && IsDisplayNameExist(group.DisplayName))
-                return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
+            if (isAdd) 
+            { 
+                if(IsDisplayNameExist(group.DisplayName))
+                    return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
+
+                return ValidationResult.Success;
+            }
 
             //If edit get current group info
             var currentGroup = _db.SecurityGroup_MST.Find(group.InternalID);

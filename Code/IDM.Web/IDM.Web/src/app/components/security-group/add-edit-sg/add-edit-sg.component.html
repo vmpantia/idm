@@ -27,23 +27,28 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">* Display Name:</label>
-                        <div class="d-inline-flex mb-3 col-12">
+                        <div class="d-inline-flex mb-3">
                             <input type="text" #firstLayer class="form-control me-2" id="txtFirstLayer" (input)="changeValueLayer(firstLayer)">
                             <input type="text" #secondLayer class="form-control me-2" id="txtSecondLayer" (input)="changeValueLayer(secondLayer)">
                             <input type="text" #thirdLayer class="form-control me-2" id="txtThirdLayer" (input)="changeValueLayer(thirdLayer)">
                             <input type="text" #fourthLayer class="form-control" id="txtFourthLayer" (input)="changeValueLayer(fourthLayer)">
                         </div>
-                        <div class="d-inline-flex col-12">
-                            <input type="text" class="form-control" [(ngModel)]="currentSGInfo.displayName" id="txtDisplayName" disabled>
+                        <div class="mb-3">
+                            <input type="text" id="txtDisplayName" readonly
+                                [ngClass]="errors.length !== 0 && errors[0]['inputSG.DisplayName'] ? 'form-control is-invalid' : 'form-control'" 
+                                [ngModel]="currentSGInfo.displayName">
+                            <!-- Error Message -->
+                            <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.DisplayName']">
+                                {{ errors[0]["inputSG.DisplayName"][0] }}
+                            </div>      
                         </div>
-                        <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.DisplayName']">
-                            {{ errors[0]["inputSG.DisplayName"][0] }}
-                        </div>      
                     </div>
                     <div class="mb-3">
                         <label class="form-label">* Alias Name:</label>
-                        <input type="text" class="form-control" [(ngModel)]="currentSGInfo.aliasName" id="txtAliasName" disabled>
-                        
+                        <input type="text" id="txtAliasName" readonly 
+                            [ngClass]="errors.length !== 0 && errors[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
+                            [ngModel]="currentSGInfo.aliasName">
+                        <!-- Error Message -->
                         <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.AliasName']">
                             {{ errors[0]['inputSG.AliasName'][0] }}
                         </div>
