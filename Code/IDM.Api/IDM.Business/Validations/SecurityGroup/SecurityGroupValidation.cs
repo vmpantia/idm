@@ -1,43 +1,40 @@
 ﻿using IDM.Business.Models.DTOs;
+using IDM.Business.Models.Request;
 using IDM.Common;
 using IDM.Infrastructure.DataAccess;
 using System.ComponentModel.DataAnnotations;
 
 namespace IDM.Business.Validations.SecurityGroup
 {
-    public class AliasNameValidation : ValidationAttribute
+    public class SecurityGroupValidation : ValidationAttribute
     {
         private IDMDbContext _db;
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             _db = validationContext.GetService(typeof(IDMDbContext)) as IDMDbContext;
-            if(_db == null)
+            if (_db == null)
                 return new ValidationResult(Constants.ERROR_DATABASE_NOT_FOUND);
 
-            bool isAdd;
-            var group = validationContext.ObjectInstance as SecurityGroupDTO;
+            bool isEdit;
+            var request = validationContext.ObjectInstance as SaveSecurityGroupRequest;
 
-            if (group == null)
+            if (request == null)
                 return new ValidationResult(Constants.ERROR_MODEL_NOT_FOUND);
 
-            //Identify if transaction is Add or Edit
-            isAdd = group.InternalID == Guid.Empty;
+            //Identify if transaction Edit
+            isEdit = request.FunctionID == Constants.FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER ||
+                     request.FunctionID == Constants.FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER;
 
-            //If add check if the alias name is already exist
-            if (isAdd && IsAliasNameExist(group.AliasName))
-                    return new ValidationResult(Constants.ERROR_SG_ALIASNAME_EXIST);
+            if (!isEdit)
+                return ValidationResult.Success;
 
             //If edit get current group info
-            var currentGroup = _db.SecurityGroup_MST.Find(group.InternalID);
-            if(currentGroup == null)
+            var currentGroup = _db.SecurityGroup_MST.Find(request.inputSG.InternalID);
+            if (currentGroup == null)
                 return new ValidationResult(Constants.ERROR_SG_NOT_EXIST);
 
-            //Check if alias name has change
-            if(currentGroup.AliasName != group.AliasName &&
-                IsAliasNameExist(group.AliasName))
-            {
-                return new ValidationResult(Constants.ERROR_SG_ALIASNAME_EXIST);
-            }
+            if(Utility.IsDataPrestine<SecurityGroupDTO>(request.inputSG, Utility.ParseSecurityGroup(currentGroup)))
+                return new ValidationResult(Constants.ERROR_SG_NO_CHANGES);
 
             return ValidationResult.Success;
         }

@@ -6,6 +6,22 @@ namespace IDM.Business
 {
     public class Utility
     {
+        public static bool IsDataPrestine<T>(T newData, T oldData)
+        {
+            bool result;
+
+            var properties = newData.GetType().GetProperties();
+            foreach(var property in properties)
+            {
+                var newValue = property.GetValue(newData);
+                var oldValue = property.GetValue(newData);
+
+                if (newValue != oldValue)
+                    return false;
+            }
+            return true;
+        }
+
         public static string ConvertStatus(int status)
         {
             switch (status)

@@ -12,27 +12,32 @@ namespace IDM.Business.Validations.SecurityGroup
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             _db = validationContext.GetService(typeof(IDMDbContext)) as IDMDbContext;
-            if(_db == null)
-                return new ValidationResult(Constants.ERROR_NO_DATABASE_FOUND);
+            if (_db == null)
+                return new ValidationResult(Constants.ERROR_DATABASE_NOT_FOUND);
 
             bool isAdd;
             var group = validationContext.ObjectInstance as SecurityGroupDTO;
 
             if (group == null)
-                return ValidationResult.Success;
+                return new ValidationResult(Constants.ERROR_MODEL_NOT_FOUND);
 
+            //Identify if transaction is Add or Edit
             isAdd = group.InternalID == Guid.Empty;
 
+            //If add check if the display name is already exist
             if (isAdd && IsDisplayNameExist(group.DisplayName))
-                    return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
+                return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
 
+            //If edit get current group info
             var currentGroup = _db.SecurityGroup_MST.Find(group.InternalID);
-            if(currentGroup != null)
+            if (currentGroup == null)
+                return new ValidationResult(Constants.ERROR_SG_NOT_EXIST);
+
+            //Check if display name has change
+            if (currentGroup.DisplayName != group.DisplayName &&
+                IsDisplayNameExist(group.DisplayName))
             {
-                //Check if DisplayName has change
-                if (currentGroup.DisplayName != group.DisplayName &&
-                    IsDisplayNameExist(group.DisplayName))
-                    return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
+                return new ValidationResult(Constants.ERROR_SG_DISPLAYNAME_EXIST);
             }
 
             return ValidationResult.Success;
