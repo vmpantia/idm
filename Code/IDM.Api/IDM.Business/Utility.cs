@@ -87,5 +87,18 @@ namespace IDM.Business
                 ModifiedDate = data.ModifiedDate
             };
         }
+
+        public static MailAddress_MST ParseSGMailAddress(Guid sgInternalID, string mailAddress, int mailType)
+        {
+            return new MailAddress_MST
+            {
+                MailAddress = mailAddress,
+                RelationID = sgInternalID,
+                OwnerType = 0,
+                MailType = mailType,
+                PrimaryFlag = 1,
+                Status = 0
+            };
+        }
     }
 }

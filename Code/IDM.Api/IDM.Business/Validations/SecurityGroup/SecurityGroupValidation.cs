@@ -11,37 +11,31 @@ namespace IDM.Business.Validations.SecurityGroup
         private IDMDbContext _db;
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
+            bool isAdd;
+
             _db = validationContext.GetService(typeof(IDMDbContext)) as IDMDbContext;
             if (_db == null)
                 return new ValidationResult(Constants.ERROR_DATABASE_NOT_FOUND);
 
-            bool isEdit;
             var request = validationContext.ObjectInstance as SaveSecurityGroupRequest;
-
             if (request == null)
                 return new ValidationResult(Constants.ERROR_MODEL_NOT_FOUND);
 
-            //Identify if transaction Edit
-            isEdit = request.FunctionID == Constants.FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER ||
-                     request.FunctionID == Constants.FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER;
+            //Identify if transaction is Add or Edit
+            isAdd = request.inputSG.InternalID == Guid.Empty;
 
-            if (!isEdit)
+            if (isAdd)
                 return ValidationResult.Success;
 
             //If edit get current group info
             var currentGroup = _db.SecurityGroup_MST.Find(request.inputSG.InternalID);
             if (currentGroup == null)
-                return new ValidationResult(Constants.ERROR_SG_NOT_EXIST);
+                return new ValidationResult(Constants.ERROR_SG_NOT_FOUND);
 
-            if(Utility.IsDataPrestine<SecurityGroupDTO>(request.inputSG, Utility.ParseSecurityGroup(currentGroup)))
+            if (Utility.IsDataPrestine<SecurityGroupDTO>(request.inputSG, Utility.ParseSecurityGroup(currentGroup)))
                 return new ValidationResult(Constants.ERROR_SG_NO_CHANGES);
 
             return ValidationResult.Success;
-        }
-
-        private bool IsAliasNameExist(string aliasName)
-        {
-            return _db.SecurityGroup_MST.Where(data => data.AliasName == aliasName).Any();
         }
     }
 }

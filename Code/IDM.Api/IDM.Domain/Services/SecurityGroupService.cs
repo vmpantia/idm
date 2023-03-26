@@ -1,4 +1,5 @@
-﻿using IDM.Business;
+﻿using Azure.Core;
+using IDM.Business;
 using IDM.Business.Contractors;
 using IDM.Business.Models.DTOs;
 using IDM.Business.Models.Request;
@@ -13,9 +14,11 @@ namespace IDM.Domain.Services
     public class SecurityGroupService : ISecurityGroupService
     {
         private readonly IDMDbContext _db;
-        public SecurityGroupService(IDMDbContext db)
+        private readonly IMailService _mail;
+        public SecurityGroupService(IDMDbContext db, IMailService mail)
         {
             _db = db;
+            _mail = mail;
         }
 
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsAsync()
@@ -50,16 +53,18 @@ namespace IDM.Domain.Services
             {
                 try
                 {
-                    var input = Utility.ParseSecurityGroup(request.inputSG);
                     switch (request.FunctionID)
                     {
                         case Constants.FUNCTION_ID_ADD_INTERNAL_SG_BY_USER:
                         case Constants.FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER:
-                            await InsertSecurityGroup_MST(input);
+                            await InsertSecurityGroup_MST(request.inputSG);
+                            await _mail.InsertMailAdresss_MST(_db, request.inputSG);
                             break;
                         case Constants.FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER:
                         case Constants.FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER:
-                            await UpdateSecurityGroup_MST(input);
+                            await UpdateSecurityGroup_MST(request.inputSG);
+                            await _mail.DeleteMailAddress_MST(_db, request.inputSG.InternalID);
+                            await _mail.InsertMailAdresss_MST(_db, request.inputSG);
                             break;
                     }
                     await transaction.CommitAsync();
@@ -72,20 +77,20 @@ namespace IDM.Domain.Services
             }
         }
 
-        private async Task InsertSecurityGroup_MST(SecurityGroup_MST input)
+        private async Task InsertSecurityGroup_MST(SecurityGroupDTO input)
         {
             input.InternalID = Guid.NewGuid();
             input.CreatedDate = DateTime.Now;
             input.ModifiedDate = null;
 
-            await _db.AddAsync(input);
+            await _db.AddAsync(Utility.ParseSecurityGroup(input));
             var result = await _db.SaveChangesAsync();
 
-            if (result == 0)
+            if (result <= 0)
                 throw new ServiceException(Constants.ERROR_SG_INSERT);
         }
 
-        private async Task UpdateSecurityGroup_MST(SecurityGroup_MST input)
+        private async Task UpdateSecurityGroup_MST(SecurityGroupDTO input)
         {
             var data = await _db.SecurityGroup_MST.FindAsync(input.InternalID);
             if (data == null)
@@ -105,7 +110,7 @@ namespace IDM.Domain.Services
 
             var result = await _db.SaveChangesAsync();
 
-            if (result == 0)
+            if (result <= 0)
                 throw new ServiceException(Constants.ERROR_SG_UPDATE);
         }
 

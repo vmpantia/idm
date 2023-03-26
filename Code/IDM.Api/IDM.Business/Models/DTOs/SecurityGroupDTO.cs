@@ -9,15 +9,9 @@ namespace IDM.Business.Models.DTOs
     {
         //SG Details
         public Guid InternalID { get; set; }
-        [Required, 
-         DisplayName("Alias Name"), 
-         MaxLength(30),
-         AliasNameValidation]
+        [DisplayName("Alias Name"),  Required,  MaxLength(30), NameValidation]
         public string AliasName { get; set; }
-        [Required,
-         DisplayName("Display Name"),
-         MaxLength(30),
-         DisplayNameValidation]
+        [DisplayName("Display Name"), Required, MaxLength(30), NameValidation]
         public string DisplayName { get; set; }
         public int Type { get; set; }
         public string TypeDescription { get; set; } = string.Empty;
@@ -31,6 +25,18 @@ namespace IDM.Business.Models.DTOs
         public string Admin2Name { get; set; } = string.Empty;
         public Guid Admin3InternalID { get; set; }
         public string Admin3Name { get; set; } = string.Empty;
+
+        //Email Addresses
+        [DisplayName("Primary Mail Address"), Required, MaxLength(30), EmailAddress, MailAddressValidation]
+        public string PrimaryMailAddrress { get; set; }
+        [DisplayName("IDM Mail Address"), Required, MaxLength(30), EmailAddress, MailAddressValidation]
+        public string IDMMailAddress { get; set; }
+        [DisplayName("Regional Mail Address"), Required, MaxLength(30), EmailAddress, MailAddressValidation]
+        public string RegionalMailAddress { get; set; }
+        [DisplayName("Company Mail Address 1"), MaxLength(30), EmailAddress, MailAddressValidation]
+        public string CompanyMailAddress1 { get; set; } = string.Empty;
+        [DisplayName("Company Mail Address 2"), MaxLength(30), EmailAddress, MailAddressValidation]
+        public string CompanyMailAddress2 { get; set; } = string.Empty;
 
         //Common Details
         public int Status { get; set; }
