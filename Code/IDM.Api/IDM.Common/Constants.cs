@@ -3,6 +3,8 @@
     public class Constants
     {
         public const string NA = "N/A";
+        public const string SLASH = "/";
+        public const string DASH = "-";
 
         public const int STATUS_INT_ENABLED = 0;
         public const int STATUS_INT_DISABLED = 1;
@@ -29,6 +31,10 @@
         public const string ERROR_SG_DISPLAYNAME_EXIST = "Display Name is already exist in the database.";
         public const string ERROR_SG_NOT_EXIST = "Security Group not exist.";
         public const string ERROR_SG_NO_CHANGES = "No changes made in security group.";
+        public const string ERROR_SG_INVALID_DISPLAYNAME_FOR_INTERNAL = "Invalid Display Name for Internal SG";
+        public const string ERROR_SG_INVALID_DISPLAYNAME_FOR_EXTERNAL = "Invalid Display Name for External SG";
+        public const string ERROR_SG_INVALID_ALIASNAME_FOR_INTERNAL = "Invalid Alias Name for Internal SG";
+        public const string ERROR_SG_INVALID_ALIASNAME_FOR_EXTERNAL = "Invalid Alias Name for External SG";
         public const string ERROR_MODEL_NOT_FOUND = "Model not found.";
         public const string ERROR_DATABASE_NOT_FOUND = "Database not found.";
     }

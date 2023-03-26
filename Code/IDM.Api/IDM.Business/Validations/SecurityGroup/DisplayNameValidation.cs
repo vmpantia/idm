@@ -24,6 +24,14 @@ namespace IDM.Business.Validations.SecurityGroup
             //Identify if transaction is Add or Edit
             isAdd = group.InternalID == Guid.Empty;
 
+            //Check display name format 
+            var splittedDisplayName = group.DisplayName.Split(Constants.SLASH);
+            if (group.Type == Constants.SG_TYPE_INT_INTERNAL && splittedDisplayName.Length <= 2)
+                return new ValidationResult(Constants.ERROR_SG_INVALID_DISPLAYNAME_FOR_INTERNAL);
+
+            if (group.Type == Constants.SG_TYPE_INT_EXTERNAL && splittedDisplayName.Length <= 3)
+                return new ValidationResult(Constants.ERROR_SG_INVALID_DISPLAYNAME_FOR_EXTERNAL);
+
             //If add check if the display name is already exist
             if (isAdd) 
             { 

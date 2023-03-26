@@ -16,49 +16,74 @@ export class AddEditSGComponent implements OnInit {
   @Input() sgInfo:SecurityGroupDTO;
   currentSGInfo:SecurityGroupDTO;
 
-  firstLayer:string = Constant.EMPTY_STRING;
-  secondLayer:string = Constant.EMPTY_STRING;
-  thirdLayer:string = Constant.EMPTY_STRING;
-  fourthLayer:string = Constant.EMPTY_STRING;
-
+  isAdd:boolean;
   errors:any[] = [];
 
   constructor(private api:APIService) { }
 
   ngOnInit(): void {
+    //Check if the transaction is a Add or Edit Security Group
+    this.isAdd = this.sgInfo.internalID == Constant.GUID_EMPTY;
+    //Store sgInfo in currentSGInfo
     this.currentSGInfo = this.sgInfo;
+    //Populate DisplayName layers
+    this.populateLayers();
   }
+  
+  populateLayers() {
+    if(this.currentSGInfo.displayName === Constant.STRING_EMPTY)
+      return;
 
-  changeValueLayer(input:any){
-    let value = input.value
-    switch(input.id){
-      case "txtFirstLayer":
-        this.firstLayer = value;
-        break;
-      case "txtSecondLayer":
-        this.secondLayer = value;
-        break;
-      case "txtThirdLayer":
-        this.thirdLayer = value;
-        break;
-      default: /* txtFourthLayer */
-        this.fourthLayer = value;
-        break;
+    let splittedDisplayName = this.currentSGInfo.displayName.split(Constant.SLASH);
+    for(let idx = 0; idx < splittedDisplayName.length; idx++){
+      this.setInputValue("txtLayer" + [idx+1] , splittedDisplayName[idx]);
     }
-    this.currentSGInfo.aliasName = this.firstLayer + "-" + this.secondLayer + "-" + this.thirdLayer + "-" + this.fourthLayer;
-    this.currentSGInfo.displayName = this.firstLayer + "/" + this.secondLayer + "/" + this.thirdLayer + "/" + this.fourthLayer;
   }
 
-  changeValueType(value:number){
+  setInputValue(inputID:string, value:string){
+    let input = document.getElementById(inputID) as HTMLInputElement;
+    if(input === undefined || input === null)
+      return;
+      
+    input.value = value;
+  }
+
+  changeLayersValue(){
+    let inputLayers = document.getElementsByName("layer"); 
+    if(inputLayers == null || inputLayers.length == 0) 
+      return;
+
+    inputLayers.forEach((layer) => {
+      let input = layer as HTMLInputElement;
+      if(input === undefined || input === null)
+        return;
+
+      if(input.id === "txtLayer1") {
+        this.currentSGInfo.displayName = input.value;
+        return;
+      }
+
+      if(input.value === Constant.STRING_EMPTY)
+        return;
+
+      this.currentSGInfo.displayName += Constant.SLASH + input.value;
+    })
+    
+    //Change aliasName if the transaction is Add
+    if(this.isAdd)
+      this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
+  }
+
+  changeTypeValue(value:number){
     let isInternal = value == 0;
-    let input = document.getElementById("txtFirstLayer") as HTMLInputElement;
 
-    if(input !== null){
-      input.value = isInternal ? Constant.EMPTY_STRING : "Partner";
-      input.disabled = !isInternal;
-      this.changeValueLayer(input);
-    }
+    let input = document.getElementById("txtLayer1") as HTMLInputElement;
+    if(input === undefined || input === null)
+      return;
 
+    input.value = isInternal ? Constant.STRING_EMPTY : "Partner";
+    input.disabled = !isInternal;
+    this.changeLayersValue();
     this.currentSGInfo.type = value;
   }
 

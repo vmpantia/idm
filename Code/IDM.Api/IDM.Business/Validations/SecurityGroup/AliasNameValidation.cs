@@ -23,6 +23,14 @@ namespace IDM.Business.Validations.SecurityGroup
             //Identify if transaction is Add or Edit
             isAdd = group.InternalID == Guid.Empty;
 
+            //Check alias name format 
+            var splittedAliasName = group.AliasName.Split(Constants.DASH);
+            if (group.Type == Constants.SG_TYPE_INT_INTERNAL && splittedAliasName.Length <= 2)
+                return new ValidationResult(Constants.ERROR_SG_INVALID_ALIASNAME_FOR_INTERNAL);
+
+            if (group.Type == Constants.SG_TYPE_INT_EXTERNAL && splittedAliasName.Length <= 3)
+                return new ValidationResult(Constants.ERROR_SG_INVALID_ALIASNAME_FOR_EXTERNAL);
+
             //If add check if the alias name is already exist
             if (isAdd)
             {
