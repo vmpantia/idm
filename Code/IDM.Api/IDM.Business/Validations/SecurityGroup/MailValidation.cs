@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IDM.Business.Validations.SecurityGroup
 {
-    public class MailAddressValidation : ValidationAttribute
+    public class MailValidation : ValidationAttribute
     {
         private IDMDbContext _db;
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -35,8 +35,11 @@ namespace IDM.Business.Validations.SecurityGroup
 
         private bool IsMailAddressExist(SecurityGroupDTO input, object value)
         {
-            var mailProperties = input.GetType().GetProperties().Where(data => data.Name.Contains("MailAddrress")).ToList();
-            return mailProperties.Where(data => data.GetValue(input) == value).Count() > 1;
+            if (value == null || string.IsNullOrEmpty((string)value))
+                return false;
+
+            var mailProperties = input.GetType().GetProperties().Where(data => data.Name.Contains(Constants.ATTR_MAILADDRESS)).ToList();
+            return mailProperties.Where(data => data.GetValue(input)?.ToString() == value.ToString()).Count() > 1;
         }
 
         private bool IsMailAddressExist(string mailAddress)

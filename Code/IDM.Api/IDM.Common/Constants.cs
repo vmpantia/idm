@@ -38,10 +38,11 @@
         public const string ERROR_DATABASE_NOT_FOUND = "Database not found.";
         public const string ERROR_MODEL_NOT_FOUND = "Model not found.";
         public const string ERROR_VALUE_EXIST_DB = "The {0} field is already exist in the database.";
-        public const string ERROR_VALUE_EXIST_FORM = "The {0} field is already exist in the database.";
+        public const string ERROR_VALUE_EXIST_FORM = "The {0} field is already exist in the form.";
         public const string ERROR_VALUE_NULL = "The {0} field can't be NULL.";
 
         public const string ATTR_SG_ALIASNAME = "AliasName";
         public const string ATTR_SG_DISPLAYNAME = "DisplayName";
+        public const string ATTR_MAILADDRESS = "MailAddress";
     }
 }

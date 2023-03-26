@@ -35,7 +35,7 @@
             <label class="form-label">* Display Name:</label>
             <input type="text" id="txtDisplayName" readonly
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.DisplayName'] ? 'form-control is-invalid' : 'form-control'" 
-                [ngModel]="currentSGInfo.displayName">
+                [(ngModel)]="currentSGInfo.displayName">
             <!-- Error Message -->
             <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.DisplayName']">
                 {{ errors[0]["inputSG.DisplayName"][0] }}
@@ -47,7 +47,7 @@
             <label class="form-label">* Alias Name:</label>
             <input type="text" id="txtAliasName" readonly 
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
-                [ngModel]="currentSGInfo.aliasName">
+                [(ngModel)]="currentSGInfo.aliasName">
             <!-- Error Message -->
             <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.AliasName']">
                 {{ errors[0]['inputSG.AliasName'][0] }}
@@ -60,25 +60,45 @@
         <div class="cstm-info">
             <span>EMAIL ADDRESSES</span>
         </div>
-        <div class="mb-3 col-12">
-            <label class="form-label">* IDM Address:</label>
-            <input type="text" class="form-control">   
-        </div>
         <div class="mb-3 col-6">
-            <label class="form-label">Secondary Address:</label>
-            <input type="text" class="form-control">   
+            <label class="form-label">* IDM Address:</label>
+            <input type="text" id="txtIDMMailAddress" 
+                [ngClass]="errors.length !== 0 && errors[0]['inputSG.IDMMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
+                [(ngModel)]="currentSGInfo.idmMailAddress">
+            <!-- Error Message -->
+            <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.IDMMailAddress']">
+                {{ errors[0]['inputSG.IDMMailAddress'][0] }}
+            </div> 
         </div>
         <div class="mb-3 col-6">
             <label class="form-label">* Regional Address:</label>
-            <input type="text" class="form-control">   
+            <input type="text" id="txtRegionalMailAddress" 
+                [ngClass]="errors.length !== 0 && errors[0]['inputSG.RegionalMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
+                [(ngModel)]="currentSGInfo.regionalMailAddress">
+            <!-- Error Message -->
+            <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.RegionalMailAddress']">
+                {{ errors[0]['inputSG.RegionalMailAddress'][0] }}
+            </div> 
         </div>
         <div class="mb-3 col-6">
             <label class="form-label">Company Address 1:</label>
-            <input type="text" class="form-control">   
+            <input type="text" id="txtCompanyMailAddress1" 
+                [ngClass]="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress1'] ? 'form-control is-invalid' : 'form-control'" 
+                [(ngModel)]="currentSGInfo.companyMailAddress2">
+            <!-- Error Message -->
+            <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress1']">
+                {{ errors[0]['inputSG.CompanyMailAddress1'][0] }}
+            </div> 
         </div>
         <div class="mb-3 col-6">
             <label class="form-label">Company Address 2:</label>
-            <input type="text" class="form-control">   
+            <input type="text" id="txtCompanyMailAddress2" 
+                [ngClass]="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress2'] ? 'form-control is-invalid' : 'form-control'" 
+                [(ngModel)]="currentSGInfo.companyMailAddress2">
+            <!-- Error Message -->
+            <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress2']">
+                {{ errors[0]['inputSG.CompanyMailAddress2'][0] }}
+            </div> 
         </div>
     </div>
 

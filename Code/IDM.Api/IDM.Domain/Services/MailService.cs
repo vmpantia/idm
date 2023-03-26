@@ -22,7 +22,7 @@ namespace IDM.Domain.Services
             };
 
             //Set PrimaryFlag to 0 of PrimaryMailAddress
-            mailList.Where(data => data.MailAddress == input.PrimaryMailAddrress).First().PrimaryFlag = 0;
+            mailList.Where(data => data.MailAddress == input.PrimaryMailAddress).First().PrimaryFlag = 0;
 
             await db.MailAddress_MST.AddRangeAsync(mailList);
             var result = await db.SaveChangesAsync();

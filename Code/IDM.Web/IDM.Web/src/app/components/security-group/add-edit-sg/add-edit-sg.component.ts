@@ -103,6 +103,7 @@ export class AddEditSGComponent implements OnInit {
     model.functionID = "01A01";
     model.requestStatus = "A2";
     model.inputSG = this.currentSGInfo;
+    console.log(model);
 
     //Save security group in database using API
     this.api.saveSG(model).subscribe(
