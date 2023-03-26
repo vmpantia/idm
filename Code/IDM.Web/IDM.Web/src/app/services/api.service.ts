@@ -15,7 +15,9 @@ export class APIService {
   getSGs():Observable<SecurityGroupDTO[]> {
     return this.http.get<SecurityGroupDTO[]>(Constant.URL + 'SecurityGroup/GetSGs');
   }
-  
+  getSGByID(internalID:string):Observable<SecurityGroupDTO> {
+    return this.http.get<SecurityGroupDTO>(Constant.URL + 'SecurityGroup/GetSGByID?internalID=' + internalID);
+  }
   saveSG(model:SaveSecurityGroupRequest) {
     return this.http.post(Constant.URL + 'SecurityGroup/SaveSG', model);
   }

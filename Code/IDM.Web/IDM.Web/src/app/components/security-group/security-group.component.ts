@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/services/api.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
+import { Constant } from 'src/app/commons/constant.model';
 
 @Component({
   selector: 'app-security-group',
@@ -13,7 +14,7 @@ export class SecurityGroupComponent implements OnInit {
   modalTitle:string;
 
   sgList:SecurityGroupDTO[];
-  sgInfo:SecurityGroupDTO;
+  internalID:string;
 
   constructor(private api:APIService, 
               private modalService: NgbModal,
@@ -29,33 +30,27 @@ export class SecurityGroupComponent implements OnInit {
   getSGs() {
     //Get security groups that is stored in database using API
     this.api.getSGs().subscribe(
-      (res) => {
-        this.sgList = res;
+      (response:any) => {
+        this.sgList = response;
       }
     )
   }
 
   editSG(content:any, internalID:string){
     this.modalTitle = "Edit Security Group";
-		this.modalService.open(content, { size: 'lg' });
-
+		this.modalService.open(content, { size: 'xl' });
+    this.internalID = internalID;
   }
 
   addSG(content:any) {
     this.modalTitle = "Add Security Group";
-		this.modalService.open(content, { size: 'lg' });
-    this.sgInfo = new SecurityGroupDTO();
+		this.modalService.open(content, { size: 'xl' });
+    this.internalID = Constant.GUID_EMPTY;
   }
 
   closeModal() {
     this.modalTitle = "";
     this.modalService.dismissAll();
-    this.sgInfo = new SecurityGroupDTO();
-
-    let mainAccordion = document.getElementById("main-accordion") as HTMLInputElement;
-    if(mainAccordion !== null){
-       mainAccordion.setAttribute("activeIds", "ngb-panel-0");
-       console.log(mainAccordion.getAttribute("activeIds"))  
-    }
+    this.internalID = Constant.GUID_EMPTY;
   }
 }

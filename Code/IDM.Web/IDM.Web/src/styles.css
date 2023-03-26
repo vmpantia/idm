@@ -114,6 +114,9 @@
 
 .cstm-info {
     font-weight: 500;
+    border-bottom: 1px dashed gainsboro;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .cstm-error-message{

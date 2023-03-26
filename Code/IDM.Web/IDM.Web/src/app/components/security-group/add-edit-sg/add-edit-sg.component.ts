@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class AddEditSGComponent implements OnInit {
 
-  @Input() sgInfo:SecurityGroupDTO;
+  @Input()id:string;
   currentSGInfo:SecurityGroupDTO;
 
   isAdd:boolean;
@@ -23,11 +23,21 @@ export class AddEditSGComponent implements OnInit {
 
   ngOnInit(): void {
     //Check if the transaction is a Add or Edit Security Group
-    this.isAdd = this.sgInfo.internalID == Constant.GUID_EMPTY;
-    //Store sgInfo in currentSGInfo
-    this.currentSGInfo = this.sgInfo;
-    //Populate DisplayName layers
-    this.populateLayers();
+    this.isAdd = this.id == Constant.GUID_EMPTY;
+
+    if(this.isAdd) {
+      this.currentSGInfo = new SecurityGroupDTO();
+    }
+    else {
+      this.api.getSGByID(this.id).subscribe(
+        (response:any) => {
+          this.currentSGInfo = response;
+          //Populate DisplayName layers
+          this.populateLayers();
+        }
+      )
+    }
+    
   }
   
   populateLayers() {

@@ -5,7 +5,7 @@ export class SecurityGroupDTO {
     public internalID:string = Constant.GUID_EMPTY;
     public aliasName:string = Constant.STRING_EMPTY;
     public displayName:string = Constant.STRING_EMPTY;
-    public type:number;
+    public type:number = 0;
     public typeDescription:string = Constant.STRING_EMPTY;
 
     //SG Ownership Details
@@ -19,7 +19,7 @@ export class SecurityGroupDTO {
     public admin3Name:string = Constant.STRING_EMPTY;
 
     //Common Details
-    public status:number;
+    public status:number = 0;
     public statusDescription:string = Constant.STRING_EMPTY;;
     public createdDate:Date = new Date()
     public modifiedDate:Date = new Date()

@@ -4,87 +4,63 @@
 
     <!-- SG Information -->
     <div class="row mb-3">
-        <ngb-accordion>
-            <ngb-panel>
-                <ng-template ngbPanelTitle>
-                    <div class="cstm-info">
-                        <span>SECURITY GROUP INFORMATION</span>
-                    </div>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <div class="mb-3">
-                        <label class="form-label">* Security Group Type:</label>
-                        <div class="d-inline-flex col-12">
-                            <div class="form-check me-3">
-                                <input type="radio" class="form-check-input" name="rbType" id="internalType" checked (change)="changeTypeValue(0)"/>
-                                <label class="form-check-label" for="internalType"> Internal Security Group </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" name="rbType" id="externalType" (change)="changeTypeValue(1)"/>
-                                <label class="form-check-label" for="externalType"> External Security Group </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">* Display Name:</label>
-                        <div class="d-inline-flex mb-3">
-                            <input type="text" class="form-control me-2" id="txtLayer1" name="layer" (change)="changeLayersValue()">
-                            <input type="text" class="form-control me-2" id="txtLayer2" name="layer"  (change)="changeLayersValue()">
-                            <input type="text" class="form-control me-2" id="txtLayer3" name="layer"  (change)="changeLayersValue()">
-                            <input type="text" class="form-control" id="txtLayer4" name="layer"  (change)="changeLayersValue()">
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" id="txtDisplayName" readonly
-                                [ngClass]="errors.length !== 0 && errors[0]['inputSG.DisplayName'] ? 'form-control is-invalid' : 'form-control'" 
-                                [ngModel]="currentSGInfo.displayName">
-                            <!-- Error Message -->
-                            <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.DisplayName']">
-                                {{ errors[0]["inputSG.DisplayName"][0] }}
-                            </div>      
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">* Alias Name:</label>
-                        <input type="text" id="txtAliasName" readonly 
-                            [ngClass]="errors.length !== 0 && errors[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
-                            [ngModel]="currentSGInfo.aliasName">
-                        <!-- Error Message -->
-                        <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.AliasName']">
-                            {{ errors[0]['inputSG.AliasName'][0] }}
-                        </div>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+        <div class="cstm-info">
+            <span>SECURITY GROUP INFORMATION</span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">* Select Type:</label>
+            <div class="d-inline-flex col-12">
+                <div class="form-check me-3">
+                    <input type="radio" class="form-check-input" name="rbType" id="internalType"  [checked]="currentSGInfo.type === 0" checked (change)="changeTypeValue(0)"/>
+                    <label class="form-check-label" for="internalType"> Internal Security Group </label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="rbType" id="externalType" [checked]="currentSGInfo.type === 1" (change)="changeTypeValue(1)"/>
+                    <label class="form-check-label" for="externalType"> External Security Group </label>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">* Display Name:</label>
+            <div class="d-inline-flex mb-4 col-12">
+                <input type="text" class="form-control me-2" id="txtLayer1" name="layer" (change)="changeLayersValue()">
+                <input type="text" class="form-control me-2" id="txtLayer2" name="layer"  (change)="changeLayersValue()">
+                <input type="text" class="form-control me-2" id="txtLayer3" name="layer"  (change)="changeLayersValue()">
+                <input type="text" class="form-control" id="txtLayer4" name="layer"  (change)="changeLayersValue()">
+            </div>
+            <div class="col-12">
+                <input type="text" id="txtDisplayName" readonly
+                    [ngClass]="errors.length !== 0 && errors[0]['inputSG.DisplayName'] ? 'form-control is-invalid' : 'form-control'" 
+                    [ngModel]="currentSGInfo.displayName">
+                <!-- Error Message -->
+                <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.DisplayName']">
+                    {{ errors[0]["inputSG.DisplayName"][0] }}
+                </div>      
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">* Alias Name:</label>
+            <input type="text" id="txtAliasName" readonly 
+                [ngClass]="errors.length !== 0 && errors[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngModel]="currentSGInfo.aliasName">
+            <!-- Error Message -->
+            <div class="cstm-error-message" *ngIf="errors.length !== 0 && errors[0]['inputSG.AliasName']">
+                {{ errors[0]['inputSG.AliasName'][0] }}
+            </div>
+        </div>
     </div>
     
     <!-- SG Email Addresses -->
     <div class="row mb-3">
-        <ngb-accordion>
-            <ngb-panel>
-                <ng-template ngbPanelTitle>
-                    <div class="cstm-info">
-                        <span>EMAIL ADDRESSES</span>
-                    </div>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+        <div class="cstm-info">
+            <span>EMAIL ADDRESSES</span>
+        </div>
     </div>
 
     <div class="row mb-3">
-        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-            <ngb-panel>
-                <ng-template ngbPanelTitle>
-                    <div class="cstm-info">
-                        <span>OWNER INFORMATION</span>
-                    </div>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+        <div class="cstm-info">
+            <span>OWNER INFORMATION</span>
+        </div>
     </div>
 
     <!-- Save Button -->

@@ -5,7 +5,7 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
 	</div>
 	<div class="modal-body">
-        <app-add-edit-sg [sgInfo]="sgInfo" *ngIf="sgInfo"></app-add-edit-sg>
+        <app-add-edit-sg [id]="internalID" *ngIf="internalID"></app-add-edit-sg>
 	</div>
 </ng-template>
 
@@ -73,6 +73,7 @@
                     
                     <!-- Action Buttons -->
                     <td class="text-center">
+                        <button type="button" class="cstm-btn primary" data-bs-toggle="modal" data-bs-target="#sgModal" (click)="editSG(content, sg.internalID)">Edit</button>
                     </td>
                 </tr>
             </tbody>
