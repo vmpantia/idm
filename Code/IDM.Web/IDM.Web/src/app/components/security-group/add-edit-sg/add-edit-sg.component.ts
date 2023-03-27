@@ -80,8 +80,11 @@ export class AddEditSGComponent implements OnInit {
     })
     
     //Change aliasName if the transaction is Add
-    if(this.isAdd)
+    if(this.isAdd) {
       this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
+      this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName;
+      this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName;
+    } 
   }
 
   changeTypeValue(value:number){
@@ -97,12 +100,42 @@ export class AddEditSGComponent implements OnInit {
     this.currentSGInfo.type = value;
   }
 
+  parseSG(input:SecurityGroupDTO){
+    let parsedInput = new SecurityGroupDTO();
+
+    //SG Details
+    parsedInput.internalID = input.internalID;
+    parsedInput.aliasName = input.aliasName.trim();
+    parsedInput.displayName = input.displayName.trim();
+    parsedInput.type = input.type;
+
+    //Ownership Details
+    parsedInput.ownerInternalID = input.ownerInternalID;
+    parsedInput.admin1InternalID = input.admin1InternalID;
+    parsedInput.admin2InternalID = input.admin2InternalID;
+    parsedInput.admin3InternalID = input.admin3InternalID;
+
+    //Email Addresses
+    parsedInput.primaryMailAddress = input.primaryMailAddress.trim();
+    parsedInput.idmMailAddress = input.idmMailAddress.trim() + Constant.IDM_DOMAIN;
+    parsedInput.regionalMailAddress = input.regionalMailAddress.trim() + Constant.JP_IDM_DOMAIN;
+    parsedInput.companyMailAddress1 = input.companyMailAddress1.trim();
+    parsedInput.companyMailAddress2 = input.companyMailAddress2.trim();
+
+    //Common
+    parsedInput.status = input.status;
+    parsedInput.createdDate = input.createdDate;
+    parsedInput.modifiedDate = input.modifiedDate;
+    console.log(parsedInput);
+    return parsedInput;
+  }
+
   saveSG() {
     this.errors = [];
     let model = new SaveSecurityGroupRequest();
     model.functionID = "01A01";
     model.requestStatus = "A2";
-    model.inputSG = this.currentSGInfo;
+    model.inputSG = this.parseSG(this.currentSGInfo);
     console.log(model);
 
     //Save security group in database using API

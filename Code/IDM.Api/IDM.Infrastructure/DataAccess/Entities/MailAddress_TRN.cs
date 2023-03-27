@@ -12,6 +12,7 @@ namespace IDM.Infrastructure.DataAccess.Entities
         public string Number { get; set; }
 
         //MailAddress Details
+        [MaxLength(50)]
         public string MailAddress { get; set; }
         public Guid RelationID { get; set; } /*Security Group, Account InternalID*/
         public int OwnerType { get; set; }

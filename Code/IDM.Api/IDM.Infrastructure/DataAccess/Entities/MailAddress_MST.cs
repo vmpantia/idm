@@ -8,7 +8,7 @@ namespace IDM.Infrastructure.DataAccess.Entities
     public class MailAddress_MST
     {
         //MailAddress Details
-        [Key, MaxLength(30)]
+        [Key, MaxLength(50)]
         public string MailAddress { get; set; }
         public Guid RelationID { get; set; } /*Security Group, Account InternalID*/
         public int OwnerType { get; set; }
