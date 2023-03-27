@@ -11,6 +11,11 @@ namespace IDM.Domain.Services
 {
     public class MailService : IMailService
     {
+        public IEnumerable<MailAddress_MST> GetMailAddressByRelationID(IDMDbContext db, Guid relationID)
+        {
+            return db.MailAddress_MST.Where(data => data.RelationID == relationID);
+        }
+
         public async Task InsertMailAdresss_MST(IDMDbContext db, SecurityGroupDTO input)
         {
             var mailList = new List<MailAddress_MST>

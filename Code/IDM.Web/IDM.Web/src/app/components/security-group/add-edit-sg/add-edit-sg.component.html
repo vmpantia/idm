@@ -26,8 +26,7 @@
         <div class="d-inline-flex mb-3 col-12">
             <input type="text" class="form-control me-2" id="txtLayer1" name="layer" (change)="changeLayersValue()">
             <input type="text" class="form-control me-2" id="txtLayer2" name="layer" (change)="changeLayersValue()">
-            <input type="text" class="form-control me-2" id="txtLayer3" name="layer" (change)="changeLayersValue()">
-            <input type="text" class="form-control" id="txtLayer4" name="layer" (change)="changeLayersValue()">
+            <input type="text" class="form-control" id="txtLayer3" name="layer" (change)="changeLayersValue()">
         </div>
 
         <!-- SG Display Name -->
@@ -45,7 +44,7 @@
         <!-- SG Alias Name -->
         <div class="mb-3 col-6">
             <label class="form-label">* Alias Name:</label>
-            <input type="text" id="txtAliasName" readonly 
+            <input type="text" id="txtAliasName" readonly
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.aliasName">
             <!-- Error Message -->
@@ -67,7 +66,6 @@
             <select class="form-select" id="selPrimaryMailAddress" 
                     [ngClass]="errors.length !== 0 && errors[0]['inputSG.PrimaryMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
                     [(ngModel)]="currentSGInfo.primaryMailAddress">
-                <option value ="">Select Mail Address</option>
                 <option *ngFor="let mail of mailAddresses" [value]="mail">
                     {{mail}}
                 </option>
@@ -84,7 +82,7 @@
             <input type="text" id="txtIDMMailAddress" name="mailaddress"
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.IDMMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.idmMailAddress"
-                (change)="changePrimarySelection(true)">
+                (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
             <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.IDMMailAddress']">
                 {{ errors[0]['inputSG.IDMMailAddress'][0] }}
@@ -102,7 +100,7 @@
             <input type="text" id="txtRegionalMailAddress" name="mailaddress"
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.RegionalMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.regionalMailAddress"
-                (change)="changePrimarySelection(true)">
+                (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
             <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.RegionalMailAddress']">
                 {{ errors[0]['inputSG.RegionalMailAddress'][0] }}
@@ -120,7 +118,7 @@
             <input type="text" id="txtCompanyMailAddress1" name="mailaddress"
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress1'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.companyMailAddress1"
-                (change)="changePrimarySelection(true)">
+                (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
             <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress1']">
                 {{ errors[0]['inputSG.CompanyMailAddress1'][0] }}
@@ -132,7 +130,7 @@
             <input type="text" id="txtCompanyMailAddress2" name="mailaddress"
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress2'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.companyMailAddress2"
-                (change)="changePrimarySelection(true)">
+                (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
             <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress2']">
                 {{ errors[0]['inputSG.CompanyMailAddress2'][0] }}

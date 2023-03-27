@@ -21,26 +21,26 @@ namespace IDM.Domain.Services
 
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsAsync()
         {
-            List<SecurityGroupDTO> result = new List<SecurityGroupDTO>();
+            var result = new List<SecurityGroupDTO>();
             var groups = await _db.SecurityGroup_MST.Where(data => data.Status != Constants.STATUS_INT_DELETION)
                                                     .ToListAsync();
             groups.ForEach(group =>
             {
-                var mailAddresses = _db.MailAddress_MST.Where(data => data.RelationID == group.InternalID).ToList();
-                result.Add(Utility.ParseSecurityGroup(group, mailAddresses));
+                var mailAddresses = _mail.GetMailAddressByRelationID(_db, group.InternalID);
+                result.Add(Utility.ParseSecurityGroup(group, mailAddresses.ToList()));
             });
             return result;
         }
 
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsByStatusAsync(int status)
         {
-            List<SecurityGroupDTO> result = new List<SecurityGroupDTO>();
+            var result = new List<SecurityGroupDTO>();
             var groups = await _db.SecurityGroup_MST.Where(data => data.Status == status)
                                                     .ToListAsync();
             groups.ForEach(group =>
             {
-                var mailAddresses = _db.MailAddress_MST.Where(data => data.RelationID == group.InternalID).ToList();
-                result.Add(Utility.ParseSecurityGroup(group, mailAddresses));
+                var mailAddresses = _mail.GetMailAddressByRelationID(_db, group.InternalID);
+                result.Add(Utility.ParseSecurityGroup(group, mailAddresses.ToList()));
             });
             return result;
         }
@@ -51,9 +51,9 @@ namespace IDM.Domain.Services
             if (group == null)
                 throw new ServiceException(Constants.ERROR_SG_NOT_FOUND);
 
-            var mailAddresses = _db.MailAddress_MST.Where(data => data.RelationID == group.InternalID).ToList();
+            var mailAddresses = _mail.GetMailAddressByRelationID(_db, group.InternalID);
 
-            return Utility.ParseSecurityGroup(group, mailAddresses);
+            return Utility.ParseSecurityGroup(group, mailAddresses.ToList());
         }
 
         public async Task SaveSGAsync(SaveSecurityGroupRequest request)

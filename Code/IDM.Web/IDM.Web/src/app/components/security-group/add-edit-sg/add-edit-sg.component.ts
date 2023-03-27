@@ -17,7 +17,7 @@ export class AddEditSGComponent implements OnInit {
   
   errors:any[] = [];
   mailAddresses:string[] = [];
-  currentSGInfo:SecurityGroupDTO;
+  currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
   isAdd:boolean;
 
   constructor(private api:APIService) { }
@@ -33,21 +33,33 @@ export class AddEditSGComponent implements OnInit {
       this.api.getSGByID(this.id).subscribe(
         (response:any) => {
           this.currentSGInfo = response;
-          //Populate DisplayName layers
+          //Remove the domain in mail addresses
+          this.currentSGInfo.idmMailAddress = this.currentSGInfo.idmMailAddress.split("@")[0];
+          this.currentSGInfo.regionalMailAddress = this.currentSGInfo.regionalMailAddress.split("@")[0];
           this.populateLayers();
-          this.changePrimarySelection(false);
+          this.populatePrimaryMailSelection();
+          this.changeTypeValue(this.currentSGInfo.type);
         }
       )
     }
   }
+
+  changeTypeValue(value:number) {
+    this.currentSGInfo.type = value
+    this.changeLayersValue();
+  }
   
   populateLayers() {
+    let defaultLayer = 3;
     if(this.currentSGInfo.displayName === Constant.STRING_EMPTY)
       return;
 
     let splittedDisplayName = this.currentSGInfo.displayName.split(Constant.SLASH);
     for(let idx = 0; idx < splittedDisplayName.length; idx++){
-      this.setInputValue("txtLayer" + [idx+1] , splittedDisplayName[idx]);
+      if((idx + 1) > defaultLayer)
+        this.setInputValue("txtLayer" + defaultLayer, Constant.SLASH + splittedDisplayName[idx]);
+      else
+        this.setInputValue("txtLayer" + [idx + 1], splittedDisplayName[idx]);
     }
   }
 
@@ -55,80 +67,53 @@ export class AddEditSGComponent implements OnInit {
     let input = document.getElementById(inputID) as HTMLInputElement;
     if(input === undefined || input === null)
       return;
-      
-    input.value = value;
+
+    input.value += value;
   }
   
-  changePrimarySelection(isInput:boolean) {
+  populatePrimaryMailSelection() {
     this.mailAddresses = [];
-    let inputMailAddresses = document.getElementsByName("mailaddress"); 
+    if(this.currentSGInfo.idmMailAddress !== Constant.STRING_EMPTY)
+      this.mailAddresses.push(this.currentSGInfo.idmMailAddress + Constant.IDM_DOMAIN);
+      
+    if(this.currentSGInfo.regionalMailAddress !== Constant.STRING_EMPTY)
+      this.mailAddresses.push(this.currentSGInfo.regionalMailAddress + Constant.PH_IDM_DOMAIN);
+      
+    if(this.currentSGInfo.companyMailAddress1 !== Constant.STRING_EMPTY)
+      this.mailAddresses.push(this.currentSGInfo.companyMailAddress1);
 
-    if(inputMailAddresses == null || inputMailAddresses.length == 0) 
-      return;
-
-    inputMailAddresses.forEach((mail) => {
-      let input = mail as HTMLInputElement;
-
-      if(input.value === Constant.STRING_EMPTY)
-        return;
-
-
-      switch(input.id){
-        case "txtIDMMailAddress":
-          input.value = isInput ? input.value : this.currentSGInfo.aliasName;
-          this.mailAddresses.push(input.value + Constant.IDM_DOMAIN);
-          break;
-        case "txtRegionalMailAddress":
-          input.value = isInput ? input.value : this.currentSGInfo.aliasName;
-          this.mailAddresses.push(input.value + Constant.PH_IDM_DOMAIN);
-          break;
-        default:
-          this.mailAddresses.push(input.value);
-      }
-    })
+    if(this.currentSGInfo.companyMailAddress2 !== Constant.STRING_EMPTY)
+      this.mailAddresses.push(this.currentSGInfo.companyMailAddress2);
   }
 
   changeLayersValue() {
+    let newDisplayName = Constant.STRING_EMPTY;
     let inputLayers = document.getElementsByName("layer"); 
     if(inputLayers == null || inputLayers.length == 0) 
       return;
 
     inputLayers.forEach((layer) => {
       let input = layer as HTMLInputElement;
-      if(input === undefined || input === null)
-        return;
-
       if(input.id === "txtLayer1") {
-        this.currentSGInfo.displayName = input.value;
+        newDisplayName = input.value;
         return;
       }
 
       if(input.value === Constant.STRING_EMPTY)
         return;
 
-      this.currentSGInfo.displayName += Constant.SLASH + input.value;
+      newDisplayName += Constant.SLASH + input.value;
     })
-    
-    //Change aliasName if the transaction is Add
+
+    //Change display name if the transaction is add or edit
+    this.currentSGInfo.displayName = this.currentSGInfo.type == 0 ? newDisplayName : "Partner" + Constant.SLASH + newDisplayName;
     if(this.isAdd) {
+      //Change alias name, IDM mail address, regional mail address if the transaction is Add
       this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
       this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName;
       this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName;
+      this.populatePrimaryMailSelection();
     }
-    this.changePrimarySelection(false);
-  }
-
-  changeTypeValue(value:number) {
-    let isInternal = value == 0;
-
-    let input = document.getElementById("txtLayer1") as HTMLInputElement;
-    if(input === undefined || input === null)
-      return;
-
-    input.value = isInternal ? Constant.STRING_EMPTY : "Partner";
-    input.disabled = !isInternal;
-    this.changeLayersValue();
-    this.currentSGInfo.type = value;
   }
 
   parseSG(input:SecurityGroupDTO) {

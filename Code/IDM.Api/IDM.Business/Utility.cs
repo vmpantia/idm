@@ -15,7 +15,7 @@ namespace IDM.Business
             foreach(var property in properties)
             {
                 var newValue = property.GetValue(newData);
-                var oldValue = property.GetValue(newData);
+                var oldValue = property.GetValue(oldData);
 
                 if (newValue != oldValue)
                     return false;
@@ -47,7 +47,7 @@ namespace IDM.Business
             }
         }
 
-        private static string GetMailAddress(List<MailAddress_MST> mailaddesses, int mailType = -1)
+        private static string SelectMailAddress(List<MailAddress_MST> mailaddesses, int mailType = -1)
         {
             List<MailAddress_MST> result;
 
@@ -55,9 +55,9 @@ namespace IDM.Business
                 return string.Empty;
 
             if(mailType < 0)
-                result = mailaddesses.Where(data => data.MailType == mailType).ToList();
-            else
                 result = mailaddesses.Where(data => data.PrimaryFlag == Constants.MAIL_FLAG_PRIMARY).ToList();
+            else
+                result = mailaddesses.Where(data => data.MailType == mailType).ToList();
 
             if (result.Any())
                 return result.First().MailAddress ?? string.Empty;
@@ -82,11 +82,11 @@ namespace IDM.Business
                 Admin2Name = Constants.NA,
                 Admin3InternalID = group.Admin3InternalID,
                 Admin3Name = Constants.NA,
-                PrimaryMailAddress = GetMailAddress(mailaddesses),
-                IDMMailAddress = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_IDM),
-                RegionalMailAddress = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_REGIONAL),
-                CompanyMailAddress1 = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_COMPANY1),
-                CompanyMailAddress2 = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_COMPANY2),
+                PrimaryMailAddress = SelectMailAddress(mailaddesses),
+                IDMMailAddress = SelectMailAddress(mailaddesses, Constants.MAIL_TYPE_IDM),
+                RegionalMailAddress = SelectMailAddress(mailaddesses, Constants.MAIL_TYPE_REGIONAL),
+                CompanyMailAddress1 = SelectMailAddress(mailaddesses, Constants.MAIL_TYPE_COMPANY1),
+                CompanyMailAddress2 = SelectMailAddress(mailaddesses, Constants.MAIL_TYPE_COMPANY2),
                 Status = group.Status,
                 StatusDescription = ConvertStatus(group.Status),
                 CreatedDate = group.CreatedDate,
