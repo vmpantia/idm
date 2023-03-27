@@ -10,15 +10,19 @@ namespace IDM.Business.Validations.SecurityGroup
         private IDMDbContext _db;
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
+            //Get IDMDbContext database in service
             _db = validationContext.GetService(typeof(IDMDbContext)) as IDMDbContext;
-
+            //Check if there's no database found in service
             if (_db == null)
                 return new ValidationResult(Constants.ERROR_DATABASE_NOT_FOUND);
 
+            //Check if the value is null
             if (value == null)
                 return new ValidationResult(string.Format(Constants.ERROR_VALUE_NULL, validationContext.DisplayName));
 
+            //Get model in validatonContext.ObjectInstance
             var group = validationContext.ObjectInstance as SecurityGroupDTO;
+            //Check if there's no model found in validation context
             if (group == null)
                 return new ValidationResult(Constants.ERROR_MODEL_NOT_FOUND);
 
