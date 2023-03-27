@@ -1,6 +1,7 @@
 ﻿using IDM.Business.Models.DTOs;
 using IDM.Common;
 using IDM.Infrastructure.DataAccess.Entities;
+using System.ComponentModel;
 
 namespace IDM.Business
 {
@@ -46,27 +47,50 @@ namespace IDM.Business
             }
         }
 
-        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data)
+        private static string GetMailAddress(List<MailAddress_MST> mailaddesses, int mailType = -1)
+        {
+            List<MailAddress_MST> result;
+
+            if (mailaddesses == null || mailaddesses.Count == 0)
+                return string.Empty;
+
+            if(mailType < 0)
+                result = mailaddesses.Where(data => data.MailType == mailType).ToList();
+            else
+                result = mailaddesses.Where(data => data.PrimaryFlag == Constants.MAIL_FLAG_PRIMARY).ToList();
+
+            if (result.Any())
+                return result.First().MailAddress ?? string.Empty;
+
+            return string.Empty;
+        }
+
+        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST group, List<MailAddress_MST> mailaddesses)
         {
             return new SecurityGroupDTO
             {
-                InternalID = data.InternalID,
-                AliasName = data.AliasName,
-                DisplayName = data.DisplayName,
-                Type = data.Type,
-                TypeDescription = ConvertType(data.Type),
-                OwnerInternalID = data.OwnerInternalID,
+                InternalID = group.InternalID,
+                AliasName = group.AliasName,
+                DisplayName = group.DisplayName,
+                Type = group.Type,
+                TypeDescription = ConvertType(group.Type),
+                OwnerInternalID = group.OwnerInternalID,
                 OwnerName = Constants.NA,
-                Admin1InternalID = data.Admin1InternalID,
+                Admin1InternalID = group.Admin1InternalID,
                 Admin1Name = Constants.NA,
-                Admin2InternalID = data.Admin2InternalID,
+                Admin2InternalID = group.Admin2InternalID,
                 Admin2Name = Constants.NA,
-                Admin3InternalID = data.Admin3InternalID,
+                Admin3InternalID = group.Admin3InternalID,
                 Admin3Name = Constants.NA,
-                Status = data.Status,
-                StatusDescription = ConvertStatus(data.Status),
-                CreatedDate = data.CreatedDate,
-                ModifiedDate = data.ModifiedDate
+                PrimaryMailAddress = GetMailAddress(mailaddesses),
+                IDMMailAddress = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_IDM),
+                RegionalMailAddress = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_REGIONAL),
+                CompanyMailAddress1 = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_COMPANY1),
+                CompanyMailAddress2 = GetMailAddress(mailaddesses, Constants.MAIL_TYPE_COMPANY2),
+                Status = group.Status,
+                StatusDescription = ConvertStatus(group.Status),
+                CreatedDate = group.CreatedDate,
+                ModifiedDate = group.ModifiedDate
             };
         }
 

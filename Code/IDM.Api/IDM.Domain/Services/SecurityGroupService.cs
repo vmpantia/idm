@@ -1,12 +1,10 @@
-﻿using Azure.Core;
-using IDM.Business;
+﻿using IDM.Business;
 using IDM.Business.Contractors;
 using IDM.Business.Models.DTOs;
 using IDM.Business.Models.Request;
 using IDM.Common;
 using IDM.Domain.Exceptions;
 using IDM.Infrastructure.DataAccess;
-using IDM.Infrastructure.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace IDM.Domain.Services
@@ -23,25 +21,39 @@ namespace IDM.Domain.Services
 
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsAsync()
         {
-            return await _db.SecurityGroup_MST.Where(data => data.Status != Constants.STATUS_INT_DELETION)
-                                              .Select(data => Utility.ParseSecurityGroup(data))
-                                              .ToListAsync();
+            List<SecurityGroupDTO> result = new List<SecurityGroupDTO>();
+            var groups = await _db.SecurityGroup_MST.Where(data => data.Status != Constants.STATUS_INT_DELETION)
+                                                    .ToListAsync();
+            groups.ForEach(group =>
+            {
+                var mailAddresses = _db.MailAddress_MST.Where(data => data.RelationID == group.InternalID).ToList();
+                result.Add(Utility.ParseSecurityGroup(group, mailAddresses));
+            });
+            return result;
         }
 
         public async Task<IEnumerable<SecurityGroupDTO>> GetSGsByStatusAsync(int status)
         {
-            return await _db.SecurityGroup_MST.Where(data => data.Status == status)
-                                              .Select(data => Utility.ParseSecurityGroup(data))
-                                              .ToListAsync();
+            List<SecurityGroupDTO> result = new List<SecurityGroupDTO>();
+            var groups = await _db.SecurityGroup_MST.Where(data => data.Status == status)
+                                                    .ToListAsync();
+            groups.ForEach(group =>
+            {
+                var mailAddresses = _db.MailAddress_MST.Where(data => data.RelationID == group.InternalID).ToList();
+                result.Add(Utility.ParseSecurityGroup(group, mailAddresses));
+            });
+            return result;
         }
 
         public async Task<SecurityGroupDTO> GetSGByIDAsync(Guid internalID)
         {
-            var result = await _db.SecurityGroup_MST.FindAsync(internalID);
-            if (result == null)
+            var group = await _db.SecurityGroup_MST.FindAsync(internalID);
+            if (group == null)
                 throw new ServiceException(Constants.ERROR_SG_NOT_FOUND);
 
-            return Utility.ParseSecurityGroup(result);
+            var mailAddresses = _db.MailAddress_MST.Where(data => data.RelationID == group.InternalID).ToList();
+
+            return Utility.ParseSecurityGroup(group, mailAddresses);
         }
 
         public async Task SaveSGAsync(SaveSecurityGroupRequest request)

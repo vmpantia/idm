@@ -39,8 +39,8 @@ namespace IDM.Business.Validations.SecurityGroup
                 return new ValidationResult(Constants.ERROR_SG_NOT_FOUND);
 
             //Check if the data is prestine
-            if (Utility.IsDataPrestine<SecurityGroupDTO>(request.inputSG, Utility.ParseSecurityGroup(currentGroup)))
-                return new ValidationResult(Constants.ERROR_SG_NO_CHANGES);
+            //if (Utility.IsDataPrestine<SecurityGroupDTO>(request.inputSG, Utility.ParseSecurityGroup(currentGroup)))
+            //    return new ValidationResult(Constants.ERROR_SG_NO_CHANGES);
 
             return ValidationResult.Success;
         }

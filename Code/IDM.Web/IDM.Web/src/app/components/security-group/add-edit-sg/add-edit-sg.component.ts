@@ -13,11 +13,12 @@ import Swal from 'sweetalert2';
 })
 export class AddEditSGComponent implements OnInit {
 
-  isAdd:boolean;
+  @Input()id:string;
+  
   errors:any[] = [];
   mailAddresses:string[] = [];
-  @Input()id:string;
   currentSGInfo:SecurityGroupDTO;
+  isAdd:boolean;
 
   constructor(private api:APIService) { }
 
@@ -34,6 +35,7 @@ export class AddEditSGComponent implements OnInit {
           this.currentSGInfo = response;
           //Populate DisplayName layers
           this.populateLayers();
+          this.changePrimarySelection(false);
         }
       )
     }
@@ -60,7 +62,6 @@ export class AddEditSGComponent implements OnInit {
   changePrimarySelection(isInput:boolean) {
     this.mailAddresses = [];
     let inputMailAddresses = document.getElementsByName("mailaddress"); 
-    console.log(inputMailAddresses);
 
     if(inputMailAddresses == null || inputMailAddresses.length == 0) 
       return;
@@ -135,8 +136,8 @@ export class AddEditSGComponent implements OnInit {
 
     //SG Details
     parsedInput.internalID = input.internalID;
-    parsedInput.aliasName = input.aliasName?.trim();
-    parsedInput.displayName = input.displayName?.trim();
+    parsedInput.aliasName = input.aliasName.trim();
+    parsedInput.displayName = input.displayName.trim();
     parsedInput.type = input.type;
 
     //Ownership Details
@@ -146,11 +147,11 @@ export class AddEditSGComponent implements OnInit {
     parsedInput.admin3InternalID = input.admin3InternalID;
 
     //Email Addresses
-    parsedInput.primaryMailAddress = input.primaryMailAddress?.trim();
-    parsedInput.idmMailAddress = input.idmMailAddress?.trim() + Constant.IDM_DOMAIN;
-    parsedInput.regionalMailAddress = input.regionalMailAddress?.trim() + Constant.PH_IDM_DOMAIN;
-    parsedInput.companyMailAddress1 = input.companyMailAddress1?.trim();
-    parsedInput.companyMailAddress2 = input.companyMailAddress2?.trim();
+    parsedInput.primaryMailAddress = input.primaryMailAddress.trim();
+    parsedInput.idmMailAddress = input.idmMailAddress == Constant.STRING_EMPTY ?  Constant.STRING_EMPTY : input.idmMailAddress.trim() + Constant.IDM_DOMAIN;
+    parsedInput.regionalMailAddress = input.regionalMailAddress  == Constant.STRING_EMPTY ?  Constant.STRING_EMPTY : input.regionalMailAddress.trim() + Constant.PH_IDM_DOMAIN;
+    parsedInput.companyMailAddress1 = input.companyMailAddress1.trim();
+    parsedInput.companyMailAddress2 = input.companyMailAddress2.trim();
 
     //Common
     parsedInput.status = input.status;
@@ -162,7 +163,7 @@ export class AddEditSGComponent implements OnInit {
   saveSG() {
     this.errors = [];
     let model = new SaveSecurityGroupRequest();
-    model.functionID = "01A01";
+    model.functionID = this.isAdd ? "01A01" : "01C01";
     model.requestStatus = "A2";
     model.inputSG = this.parseSG(this.currentSGInfo);
 
