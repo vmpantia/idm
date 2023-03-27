@@ -105,8 +105,8 @@ export class AddEditSGComponent implements OnInit {
 
     //SG Details
     parsedInput.internalID = input.internalID;
-    parsedInput.aliasName = input.aliasName.trim();
-    parsedInput.displayName = input.displayName.trim();
+    parsedInput.aliasName = input.aliasName?.trim();
+    parsedInput.displayName = input.displayName?.trim();
     parsedInput.type = input.type;
 
     //Ownership Details
@@ -116,17 +116,16 @@ export class AddEditSGComponent implements OnInit {
     parsedInput.admin3InternalID = input.admin3InternalID;
 
     //Email Addresses
-    parsedInput.primaryMailAddress = input.primaryMailAddress.trim();
-    parsedInput.idmMailAddress = input.idmMailAddress.trim() + Constant.IDM_DOMAIN;
-    parsedInput.regionalMailAddress = input.regionalMailAddress.trim() + Constant.JP_IDM_DOMAIN;
-    parsedInput.companyMailAddress1 = input.companyMailAddress1.trim();
-    parsedInput.companyMailAddress2 = input.companyMailAddress2.trim();
+    parsedInput.primaryMailAddress = input.primaryMailAddress?.trim();
+    parsedInput.idmMailAddress = input.idmMailAddress?.trim() + Constant.IDM_DOMAIN;
+    parsedInput.regionalMailAddress = input.regionalMailAddress?.trim() + Constant.JP_IDM_DOMAIN;
+    parsedInput.companyMailAddress1 = input.companyMailAddress1?.trim();
+    parsedInput.companyMailAddress2 = input.companyMailAddress2?.trim();
 
     //Common
     parsedInput.status = input.status;
     parsedInput.createdDate = input.createdDate;
     parsedInput.modifiedDate = input.modifiedDate;
-    console.log(parsedInput);
     return parsedInput;
   }
 
@@ -136,7 +135,6 @@ export class AddEditSGComponent implements OnInit {
     model.functionID = "01A01";
     model.requestStatus = "A2";
     model.inputSG = this.parseSG(this.currentSGInfo);
-    console.log(model);
 
     //Save security group in database using API
     this.api.saveSG(model).subscribe(
@@ -152,20 +150,17 @@ export class AddEditSGComponent implements OnInit {
         //System Errors
         if(response.error == undefined) {
           this.errors.push(response.message);
-          console.log(this.errors);
           return;
         }
 
         //API Error Title
         if(response.error.length === 0) {
           this.errors.push(response.error.title);
-          console.log(this.errors);
           return;
         }
 
         //API Error Validation
         this.errors.push(response.error.errors);
-        console.log(this.errors);
       }
     );
   }
