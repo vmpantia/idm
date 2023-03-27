@@ -47,6 +47,23 @@ namespace IDM.Business
             }
         }
 
+        public static int GetMailTypeByAttribute(string attribute)
+        {
+            switch (attribute)
+            {
+                case Constants.ATTR_IDM_MAIL_ADDRESS:
+                    return Constants.MAIL_TYPE_IDM;
+                case Constants.ATTR_REG_MAIL_ADDRESS:
+                    return Constants.MAIL_TYPE_REGIONAL;
+                case Constants.ATTR_COMP1_MAIL_ADDRESS:
+                    return Constants.MAIL_TYPE_COMPANY1;
+                case Constants.ATTR_COMP2_MAIL_ADDRESS:
+                    return Constants.MAIL_TYPE_COMPANY2;
+                default:
+                    return -1;
+            }
+        }
+
         private static string SelectMailAddress(List<MailAddress_MST> mailaddesses, int mailType = -1)
         {
             List<MailAddress_MST> result;

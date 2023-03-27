@@ -27,15 +27,15 @@ namespace IDM.Business.Models.DTOs
         public string Admin3Name { get; set; } = string.Empty;
 
         //Email Addresses
-        [DisplayName("Primary Mail Address"), Required, MaxLength(50), EmailAddress, MailValidation]
+        [DisplayName("Primary Mail Address"), Required, MaxLength(50), EmailAddress, SGMailAddressValidation]
         public string PrimaryMailAddress { get; set; }
-        [DisplayName("IDM Mail Address"), Required, MaxLength(50), EmailAddress, MailValidation]
+        [DisplayName("IDM Mail Address"), Required, MaxLength(50), EmailAddress, SGMailAddressValidation]
         public string IDMMailAddress { get; set; }
-        [DisplayName("Regional Mail Address"), Required, MaxLength(50), EmailAddress, MailValidation]
+        [DisplayName("Regional Mail Address"), Required, MaxLength(50), EmailAddress, SGMailAddressValidation]
         public string RegionalMailAddress { get; set; }
-        [DisplayName("Company Mail Address 1"), MaxLength(50), EmailAddress, MailValidation]
+        [DisplayName("Company Mail Address 1"), MaxLength(50), EmailAddress, SGMailAddressValidation]
         public string CompanyMailAddress1 { get; set; } = string.Empty;
-        [DisplayName("Company Mail Address 2"), MaxLength(50), EmailAddress, MailValidation]
+        [DisplayName("Company Mail Address 2"), MaxLength(50), EmailAddress, SGMailAddressValidation]
         public string CompanyMailAddress2 { get; set; } = string.Empty;
 
         //Common Details

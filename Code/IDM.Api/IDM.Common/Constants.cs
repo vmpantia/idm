@@ -54,6 +54,7 @@
         public const string ERROR_SG_NAME_INVALID_FOR_INTERNAL = "The {0} is invalid for Internal SG.";
         public const string ERROR_SG_NAME_INVALID_FOR_EXTERNAL = "The {0} is invalid for External SG.";
 
+        public const string ERROR_MAIL_NOT_FOUND = "Mail address not found in the database.";
         public const string ERROR_MAILS_INSERT = "Error in inserting mail addresses in the database.";
         public const string ERROR_MAILS_DELETE = "Error in deleting mail addresses in the database.";
 
@@ -68,6 +69,10 @@
         public const string ATTR_SG_DISPLAYNAME = "DisplayName";
         public const string ATTR_MAILADDRESS = "MailAddress";
         public const string ATTR_PRIMARY_MAIL_ADDRESS = "PrimaryMailAddress";
+        public const string ATTR_IDM_MAIL_ADDRESS = "IDMMailAddress";
+        public const string ATTR_REG_MAIL_ADDRESS = "RegionalMailAddress";
+        public const string ATTR_COMP1_MAIL_ADDRESS = "CompanyMailAddress1";
+        public const string ATTR_COMP2_MAIL_ADDRESS = "CompanyMailAddress2";
         #endregion
     }
 }

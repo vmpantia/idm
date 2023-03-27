@@ -5,7 +5,6 @@ namespace IDM.Business.Models.Request
 {
     public class SaveSecurityGroupRequest : RequestBase
     {
-        [SecurityGroupValidation]
         public SecurityGroupDTO inputSG { get; set; }
     }
 }

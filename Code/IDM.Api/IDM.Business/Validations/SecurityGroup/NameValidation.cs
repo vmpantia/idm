@@ -45,9 +45,9 @@ namespace IDM.Business.Validations.SecurityGroup
             }
 
             //Check alias name or display name format 
-            if(group?.Type == Constants.SG_TYPE_INT_INTERNAL && splittedValue.Length <= 2)
+            if(group.Type == Constants.SG_TYPE_INT_INTERNAL && splittedValue.Length <= 2)
                 return new ValidationResult(string.Format(Constants.ERROR_SG_NAME_INVALID_FOR_INTERNAL, validationContext.DisplayName));
-            if(group?.Type == Constants.SG_TYPE_INT_EXTERNAL && splittedValue.Length <= 3) 
+            if(group.Type == Constants.SG_TYPE_INT_EXTERNAL && splittedValue.Length <= 3) 
                 return new ValidationResult(string.Format(Constants.ERROR_SG_NAME_INVALID_FOR_EXTERNAL, validationContext.DisplayName));
             
             //Check if the transaction is Add
