@@ -6,13 +6,36 @@
         public const string SLASH = "/";
         public const string DASH = "-";
 
+        #region Mail Address
+
+        #region Owner Type
+        public const int MAIL_OWNER_TYPE_GROUP = 0;
+        #endregion
+
+        #region Primary Flag
+        public const int MAIL_FLAG_PRIMARY = 0;
+        public const int MAIL_FLAG_SECONDARY = 1;
+        #endregion
+
+        #region Mail Type
+        public const int MAIL_TYPE_IDM = 0;
+        public const int MAIL_TYPE_REGIONAL = 1;
+        public const int MAIL_TYPE_COMPANY1 = 2;
+        public const int MAIL_TYPE_COMPANY2 = 3;
+        #endregion
+
+        #endregion
+
+        #region Status
         public const int STATUS_INT_ENABLED = 0;
         public const int STATUS_INT_DISABLED = 1;
         public const int STATUS_INT_DELETION = 2;
         public const string STATUS_STRING_ENABLED = "Enabled";
         public const string STATUS_STRING_DISABLED = "Disabled";
         public const string STATUS_STRING_DELETION = "Deletion";
+        #endregion
 
+        #region Error Messages
         public const int SG_TYPE_INT_INTERNAL = 0;
         public const int SG_TYPE_INT_EXTERNAL = 1;
         public const string SG_TYPE_STRING_INTERNAL = "Internal";
@@ -45,5 +68,6 @@
         public const string ATTR_SG_DISPLAYNAME = "DisplayName";
         public const string ATTR_MAILADDRESS = "MailAddress";
         public const string ATTR_PRIMARY_MAIL_ADDRESS = "PrimaryMailAddress";
+        #endregion
     }
 }

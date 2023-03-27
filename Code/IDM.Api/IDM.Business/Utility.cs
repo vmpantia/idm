@@ -94,10 +94,12 @@ namespace IDM.Business
             {
                 MailAddress = mailAddress,
                 RelationID = sgInternalID,
-                OwnerType = 0,
+                OwnerType = Constants.MAIL_OWNER_TYPE_GROUP,
                 MailType = mailType,
-                PrimaryFlag = 1,
-                Status = 0
+                PrimaryFlag = Constants.MAIL_FLAG_SECONDARY,
+                Status = Constants.STATUS_INT_ENABLED,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = null                
             };
         }
     }

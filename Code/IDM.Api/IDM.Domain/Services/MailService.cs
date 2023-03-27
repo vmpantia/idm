@@ -15,14 +15,14 @@ namespace IDM.Domain.Services
         {
             var mailList = new List<MailAddress_MST>
             {
-                Utility.ParseSGMailAddress(input.InternalID, input.IDMMailAddress, 0),
-                Utility.ParseSGMailAddress(input.InternalID, input.RegionalMailAddress, 1),
-                Utility.ParseSGMailAddress(input.InternalID, input.CompanyMailAddress1, 2),
-                Utility.ParseSGMailAddress(input.InternalID, input.CompanyMailAddress2, 3)
+                Utility.ParseSGMailAddress(input.InternalID, input.IDMMailAddress, Constants.MAIL_TYPE_IDM),
+                Utility.ParseSGMailAddress(input.InternalID, input.RegionalMailAddress, Constants.MAIL_TYPE_REGIONAL),
+                Utility.ParseSGMailAddress(input.InternalID, input.CompanyMailAddress1, Constants.MAIL_TYPE_COMPANY1),
+                Utility.ParseSGMailAddress(input.InternalID, input.CompanyMailAddress2, Constants.MAIL_TYPE_COMPANY2)
             };
 
             //Set PrimaryFlag to 0 of PrimaryMailAddress
-            mailList.Where(data => data.MailAddress == input.PrimaryMailAddress).First().PrimaryFlag = 0;
+            mailList.Where(data => data.MailAddress == input.PrimaryMailAddress).First().PrimaryFlag = Constants.MAIL_FLAG_PRIMARY;
 
             await db.MailAddress_MST.AddRangeAsync(mailList);
             var result = await db.SaveChangesAsync();
