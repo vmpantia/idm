@@ -44,5 +44,6 @@
         public const string ATTR_SG_ALIASNAME = "AliasName";
         public const string ATTR_SG_DISPLAYNAME = "DisplayName";
         public const string ATTR_MAILADDRESS = "MailAddress";
+        public const string ATTR_PRIMARY_MAIL_ADDRESS = "PrimaryMailAddress";
     }
 }

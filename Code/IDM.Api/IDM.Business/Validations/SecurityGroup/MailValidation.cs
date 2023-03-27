@@ -42,7 +42,8 @@ namespace IDM.Business.Validations.SecurityGroup
             if (value == null || string.IsNullOrEmpty((string)value))
                 return false;
 
-            var mailProperties = input.GetType().GetProperties().Where(data => data.Name.Contains(Constants.ATTR_MAILADDRESS)).ToList();
+            var mailProperties = input.GetType().GetProperties().Where(data => data.Name.Contains(Constants.ATTR_MAILADDRESS) &&
+                                                                               data.Name != Constants.ATTR_PRIMARY_MAIL_ADDRESS).ToList();
             return mailProperties.Where(data => data.GetValue(input)?.ToString() == value.ToString()).Count() > 1;
         }
 

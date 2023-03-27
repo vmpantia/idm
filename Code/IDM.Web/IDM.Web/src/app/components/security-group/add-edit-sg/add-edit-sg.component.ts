@@ -13,11 +13,11 @@ import Swal from 'sweetalert2';
 })
 export class AddEditSGComponent implements OnInit {
 
-  @Input()id:string;
-  currentSGInfo:SecurityGroupDTO;
-
   isAdd:boolean;
   errors:any[] = [];
+  mailAddresses:string[] = [];
+  @Input()id:string;
+  currentSGInfo:SecurityGroupDTO;
 
   constructor(private api:APIService) { }
 
@@ -37,7 +37,6 @@ export class AddEditSGComponent implements OnInit {
         }
       )
     }
-    
   }
   
   populateLayers() {
@@ -50,15 +49,45 @@ export class AddEditSGComponent implements OnInit {
     }
   }
 
-  setInputValue(inputID:string, value:string){
+  setInputValue(inputID:string, value:string) {
     let input = document.getElementById(inputID) as HTMLInputElement;
     if(input === undefined || input === null)
       return;
       
     input.value = value;
   }
+  
+  changePrimarySelection(isInput:boolean) {
+    this.mailAddresses = [];
+    let inputMailAddresses = document.getElementsByName("mailaddress"); 
+    console.log(inputMailAddresses);
 
-  changeLayersValue(){
+    if(inputMailAddresses == null || inputMailAddresses.length == 0) 
+      return;
+
+    inputMailAddresses.forEach((mail) => {
+      let input = mail as HTMLInputElement;
+
+      if(input.value === Constant.STRING_EMPTY)
+        return;
+
+
+      switch(input.id){
+        case "txtIDMMailAddress":
+          input.value = isInput ? input.value : this.currentSGInfo.aliasName;
+          this.mailAddresses.push(input.value + Constant.IDM_DOMAIN);
+          break;
+        case "txtRegionalMailAddress":
+          input.value = isInput ? input.value : this.currentSGInfo.aliasName;
+          this.mailAddresses.push(input.value + Constant.PH_IDM_DOMAIN);
+          break;
+        default:
+          this.mailAddresses.push(input.value);
+      }
+    })
+  }
+
+  changeLayersValue() {
     let inputLayers = document.getElementsByName("layer"); 
     if(inputLayers == null || inputLayers.length == 0) 
       return;
@@ -84,10 +113,11 @@ export class AddEditSGComponent implements OnInit {
       this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
       this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName;
       this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName;
-    } 
+    }
+    this.changePrimarySelection(false);
   }
 
-  changeTypeValue(value:number){
+  changeTypeValue(value:number) {
     let isInternal = value == 0;
 
     let input = document.getElementById("txtLayer1") as HTMLInputElement;
@@ -100,7 +130,7 @@ export class AddEditSGComponent implements OnInit {
     this.currentSGInfo.type = value;
   }
 
-  parseSG(input:SecurityGroupDTO){
+  parseSG(input:SecurityGroupDTO) {
     let parsedInput = new SecurityGroupDTO();
 
     //SG Details
@@ -118,7 +148,7 @@ export class AddEditSGComponent implements OnInit {
     //Email Addresses
     parsedInput.primaryMailAddress = input.primaryMailAddress?.trim();
     parsedInput.idmMailAddress = input.idmMailAddress?.trim() + Constant.IDM_DOMAIN;
-    parsedInput.regionalMailAddress = input.regionalMailAddress?.trim() + Constant.JP_IDM_DOMAIN;
+    parsedInput.regionalMailAddress = input.regionalMailAddress?.trim() + Constant.PH_IDM_DOMAIN;
     parsedInput.companyMailAddress1 = input.companyMailAddress1?.trim();
     parsedInput.companyMailAddress2 = input.companyMailAddress2?.trim();
 
@@ -164,5 +194,4 @@ export class AddEditSGComponent implements OnInit {
       }
     );
   }
-
 }
