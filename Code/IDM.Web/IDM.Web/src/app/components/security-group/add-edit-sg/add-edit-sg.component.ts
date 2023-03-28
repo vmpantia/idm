@@ -22,6 +22,7 @@ export class AddEditSGComponent implements OnInit {
   mailAddresses:string[] = [];
   currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
   isAdd:boolean;
+  isSaving:boolean;
 
   constructor(private api:APIService) { }
 
@@ -175,6 +176,7 @@ export class AddEditSGComponent implements OnInit {
   }
 
   saveSG() {
+    this.isSaving = true;
     this.resetError();
     let model = new SaveSecurityGroupRequest();
     model.functionID = this.isAdd ? "01A01" : "01C01";
@@ -184,7 +186,7 @@ export class AddEditSGComponent implements OnInit {
     //Save security group in database using API
     this.api.saveSG(model).subscribe(
       (response:any) => {
-        Swal.fire("Success","Customer saved successfully", "success")
+        Swal.fire("Success","Security Group saved successfully", "success")
         .then(() => {
           //If success reload page
           window.location.reload();
@@ -193,18 +195,16 @@ export class AddEditSGComponent implements OnInit {
       (error:HttpErrorResponse) => {
         let response = error as HttpErrorResponse
         //System Errors
-        if(response.error == undefined) {
+        if(response.error == undefined)
           this.errorMessage = response.message;
-          return;
-        }
         //API Unexpected Error
-        if(response.error.errors === undefined) {
+        else if (response.error.errors === undefined) 
           this.errorMessage = response.error;
-          return;
-        }
         //API Validation Error
-        this.errorFields.push(response.error.errors);
+        else
+          this.errorFields.push(response.error.errors);
       }
     );
+    this.isSaving = false;
   }
 }
