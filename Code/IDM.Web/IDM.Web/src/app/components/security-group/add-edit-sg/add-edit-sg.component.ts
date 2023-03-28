@@ -4,6 +4,7 @@ import { Constant } from 'src/app/commons/constant.model';
 import { SaveSecurityGroupRequest } from 'src/app/models/requests/save-security-group-request.model';
 import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
 import { APIService } from 'src/app/services/api.service';
+import { UtilityService } from 'src/app/services/utility.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,7 +25,7 @@ export class AddEditSGComponent implements OnInit {
   isAdd:boolean;
   isSaving:boolean;
 
-  constructor(private api:APIService) { }
+  constructor(private api:APIService, private utility:UtilityService) { }
 
   ngOnInit(): void {
     //Check if the transaction is a Add or Edit Security Group
@@ -149,6 +150,7 @@ export class AddEditSGComponent implements OnInit {
     parsedInput.aliasName = input.aliasName.trim();
     parsedInput.displayName = input.displayName.trim();
     parsedInput.type = input.type;
+    parsedInput.typeDescription = this.utility.convertType(input.type);
 
     //Ownership Details
     parsedInput.ownerInternalID = input.ownerInternalID;
@@ -165,6 +167,7 @@ export class AddEditSGComponent implements OnInit {
 
     //Common
     parsedInput.status = input.status;
+    parsedInput.statusDescription = this.utility.convertStatus(input.status);
     parsedInput.createdDate = input.createdDate;
     parsedInput.modifiedDate = input.modifiedDate;
     return parsedInput;

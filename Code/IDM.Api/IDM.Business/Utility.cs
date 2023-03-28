@@ -7,20 +7,20 @@ namespace IDM.Business
 {
     public class Utility
     {
-        public static bool IsDataPrestine<T>(T newData, T oldData)
+        public static bool IsDataPrestine<T>(T newData, T oldData, out List<string> propertiesChanged)
         {
-            bool result;
+            propertiesChanged = new List<string>();
 
             var properties = newData.GetType().GetProperties();
             foreach(var property in properties)
             {
-                var newValue = property.GetValue(newData);
-                var oldValue = property.GetValue(oldData);
+                var newValue = property.GetValue(newData)?.ToString();
+                var oldValue = property.GetValue(oldData)?.ToString();
 
                 if (newValue != oldValue)
-                    return false;
+                    propertiesChanged.Add(property.Name);
             }
-            return true;
+            return propertiesChanged.Count == 0;
         }
 
         public static string ConvertStatus(int status)
@@ -51,13 +51,13 @@ namespace IDM.Business
         {
             switch (attribute)
             {
-                case Constants.ATTR_IDM_MAIL_ADDRESS:
+                case Constants.PROPERTY_IDM_MAIL_ADDRESS:
                     return Constants.MAIL_TYPE_IDM;
-                case Constants.ATTR_REG_MAIL_ADDRESS:
+                case Constants.PROPERTY_REG_MAIL_ADDRESS:
                     return Constants.MAIL_TYPE_REGIONAL;
-                case Constants.ATTR_COMP1_MAIL_ADDRESS:
+                case Constants.PROPERTY_COMP1_MAIL_ADDRESS:
                     return Constants.MAIL_TYPE_COMPANY1;
-                case Constants.ATTR_COMP2_MAIL_ADDRESS:
+                case Constants.PROPERTY_COMP2_MAIL_ADDRESS:
                     return Constants.MAIL_TYPE_COMPANY2;
                 default:
                     return -1;
@@ -133,8 +133,8 @@ namespace IDM.Business
         {
             var result = new List<MailAddress_MST>();
 
-            var getMailProperties = input.GetType().GetProperties().Where(data => data.Name.Contains(Constants.ATTR_MAILADDRESS))
-                                                                   .Where(data => data.Name != Constants.ATTR_PRIMARY_MAIL_ADDRESS)
+            var getMailProperties = input.GetType().GetProperties().Where(data => data.Name.Contains(Constants.PROPERTY_MAIL_ADDRESS))
+                                                                   .Where(data => data.Name != Constants.PROPERTY_PRIMARY_MAIL_ADDRESS)
                                                                    .ToList();
             getMailProperties.ForEach(property =>
             {

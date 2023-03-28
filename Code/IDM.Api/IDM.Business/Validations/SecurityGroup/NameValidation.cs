@@ -33,13 +33,13 @@ namespace IDM.Business.Validations.SecurityGroup
             var group = validationContext.ObjectInstance as SecurityGroupDTO;
             //Check if there's no model found in validation context
             if(group == null)
-                return new ValidationResult(Constants.ERROR_MODEL_NOT_FOUND);
+                return new ValidationResult(string.Format(Constants.ERROR_MODEL_NOT_FOUND, "Security Group"));
 
             //Check attribute name to be check using validationContext.MemberName
             switch (validationContext.MemberName?.ToString())
             {
                 //Case for AliasName attribute
-                case Constants.ATTR_SG_ALIASNAME:
+                case Constants.PROPERTY_SG_ALIASNAME:
                     splittedValue = ((string)value).Split(Constants.DASH);
                     break;
                 default: //Case for DisplayName attribute

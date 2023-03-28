@@ -6,6 +6,22 @@
         public const string SLASH = "/";
         public const string DASH = "-";
 
+        #region Status
+        public const int STATUS_INT_ENABLED = 0;
+        public const int STATUS_INT_DISABLED = 1;
+        public const int STATUS_INT_DELETION = 2;
+        public const string STATUS_STRING_ENABLED = "Enabled";
+        public const string STATUS_STRING_DISABLED = "Disabled";
+        public const string STATUS_STRING_DELETION = "Deletion";
+        #endregion
+
+        #region Type
+        public const int SG_TYPE_INT_INTERNAL = 0;
+        public const int SG_TYPE_INT_EXTERNAL = 1;
+        public const string SG_TYPE_STRING_INTERNAL = "Internal";
+        public const string SG_TYPE_STRING_EXTERNAL = "External";
+        #endregion
+
         #region Mail Address
 
         #region Owner Type
@@ -26,53 +42,36 @@
 
         #endregion
 
-        #region Status
-        public const int STATUS_INT_ENABLED = 0;
-        public const int STATUS_INT_DISABLED = 1;
-        public const int STATUS_INT_DELETION = 2;
-        public const string STATUS_STRING_ENABLED = "Enabled";
-        public const string STATUS_STRING_DISABLED = "Disabled";
-        public const string STATUS_STRING_DELETION = "Deletion";
-        #endregion
-
         #region Error Messages
-        public const int SG_TYPE_INT_INTERNAL = 0;
-        public const int SG_TYPE_INT_EXTERNAL = 1;
-        public const string SG_TYPE_STRING_INTERNAL = "Internal";
-        public const string SG_TYPE_STRING_EXTERNAL = "External";
-
         public const string FUNCTION_ID_ADD_INTERNAL_SG_BY_USER = "01A01";
         public const string FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER = "01C01";
         public const string FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER = "02A01";
         public const string FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER = "02C01";
 
-        public const string ERROR_SG_NOT_FOUND = "Security group not found in the database.";
         public const string ERROR_SG_SAVE_REQUEST_NULL = "Save security group request cannot be NULL or EMPTY.";
         public const string ERROR_SG_INSERT = "Error in inserting security group in the database.";
         public const string ERROR_SG_UPDATE = "Error in updating security group in the database.";
-        public const string ERROR_SG_NO_CHANGES = "No changes made in security group.";
         public const string ERROR_SG_NAME_INVALID_FOR_INTERNAL = "The {0} is invalid for Internal SG.";
         public const string ERROR_SG_NAME_INVALID_FOR_EXTERNAL = "The {0} is invalid for External SG.";
 
-        public const string ERROR_MAIL_NOT_FOUND = "Mail address not found in the database.";
         public const string ERROR_MAILS_INSERT = "Error in inserting mail addresses in the database.";
         public const string ERROR_MAILS_DELETE = "Error in deleting mail addresses in the database.";
 
         //Common Error
-        public const string ERROR_DATABASE_NOT_FOUND = "Database not found.";
-        public const string ERROR_MODEL_NOT_FOUND = "Model not found.";
-        public const string ERROR_VALUE_EXIST_DB = "The {0} field is already exist in the database.";
-        public const string ERROR_VALUE_EXIST_FORM = "The {0} field is already exist in the form.";
-        public const string ERROR_VALUE_NULL = "The {0} field can't be NULL.";
+        public const string ERROR_MODEL_NOT_FOUND = "{0} model not found.";
+        public const string ERROR_VALUE_EXIST_DB = "{0} is already exist in the database.";
+        public const string ERROR_VALUE_NOT_FOUND_DB = "{0} not found in the database.";
+        public const string ERROR_NO_CHANGES_MADE = "No changes made in {0}.";
 
-        public const string ATTR_SG_ALIASNAME = "AliasName";
-        public const string ATTR_SG_DISPLAYNAME = "DisplayName";
-        public const string ATTR_MAILADDRESS = "MailAddress";
-        public const string ATTR_PRIMARY_MAIL_ADDRESS = "PrimaryMailAddress";
-        public const string ATTR_IDM_MAIL_ADDRESS = "IDMMailAddress";
-        public const string ATTR_REG_MAIL_ADDRESS = "RegionalMailAddress";
-        public const string ATTR_COMP1_MAIL_ADDRESS = "CompanyMailAddress1";
-        public const string ATTR_COMP2_MAIL_ADDRESS = "CompanyMailAddress2";
+        public const string PROPERTY_SG_ALIASNAME = "AliasName";
+        public const string PROPERTY_SG_DISPLAYNAME = "DisplayName";
+
+        public const string PROPERTY_MAIL_ADDRESS = "MailAddress";
+        public const string PROPERTY_PRIMARY_MAIL_ADDRESS = "PrimaryMailAddress";
+        public const string PROPERTY_IDM_MAIL_ADDRESS = "IDMMailAddress";
+        public const string PROPERTY_REG_MAIL_ADDRESS = "RegionalMailAddress";
+        public const string PROPERTY_COMP1_MAIL_ADDRESS = "CompanyMailAddress1";
+        public const string PROPERTY_COMP2_MAIL_ADDRESS = "CompanyMailAddress2";
         #endregion
     }
 }
