@@ -18,14 +18,7 @@ namespace IDM.Domain.Services
 
         public async Task InsertMailAdresss_MST(IDMDbContext db, SecurityGroupDTO input)
         {
-            var mailList = new List<MailAddress_MST>
-            {
-                Utility.ParseSGMailAddress(input.InternalID, input.IDMMailAddress, Constants.MAIL_TYPE_IDM),
-                Utility.ParseSGMailAddress(input.InternalID, input.RegionalMailAddress, Constants.MAIL_TYPE_REGIONAL),
-                Utility.ParseSGMailAddress(input.InternalID, input.CompanyMailAddress1, Constants.MAIL_TYPE_COMPANY1),
-                Utility.ParseSGMailAddress(input.InternalID, input.CompanyMailAddress2, Constants.MAIL_TYPE_COMPANY2)
-            };
-
+            var mailList = Utility.ParseMailAddresses(input);
             //Set PrimaryFlag to 0 of PrimaryMailAddress
             mailList.Where(data => data.MailAddress == input.PrimaryMailAddress).First().PrimaryFlag = Constants.MAIL_FLAG_PRIMARY;
 

@@ -129,13 +129,33 @@ namespace IDM.Business
             };
         }
 
-        public static MailAddress_MST ParseSGMailAddress(Guid sgInternalID, string mailAddress, int mailType)
+        public static List<MailAddress_MST> ParseMailAddresses(SecurityGroupDTO input)
+        {
+            var result = new List<MailAddress_MST>();
+
+            var getMailProperties = input.GetType().GetProperties().Where(data => data.Name.Contains(Constants.ATTR_MAILADDRESS))
+                                                                   .Where(data => data.Name != Constants.ATTR_PRIMARY_MAIL_ADDRESS)
+                                                                   .ToList();
+            getMailProperties.ForEach(property =>
+            {
+                var mail = property.GetValue(input)?.ToString();
+                if (string.IsNullOrEmpty(mail))
+                    return;
+
+                var mailType = GetMailTypeByAttribute(property.Name);
+                result.Add(ParseMailAddress(input.InternalID, mail, mailType, Constants.MAIL_OWNER_TYPE_GROUP));
+            });
+
+            return result;
+        }
+
+        public static MailAddress_MST ParseMailAddress(Guid sgInternalID, string mailAddress, int mailType, int ownerType)
         {
             return new MailAddress_MST
             {
                 MailAddress = mailAddress,
                 RelationID = sgInternalID,
-                OwnerType = Constants.MAIL_OWNER_TYPE_GROUP,
+                OwnerType = ownerType,
                 MailType = mailType,
                 PrimaryFlag = Constants.MAIL_FLAG_SECONDARY,
                 Status = Constants.STATUS_INT_ENABLED,
