@@ -122,6 +122,8 @@ export class AddEditSGComponent implements OnInit {
 
   populatePrimaryMailSelection() {
     this.mailAddresses = [];
+    this.currentSGInfo.primaryMailAddress = Constant.STRING_EMPTY;
+
     if(this.currentSGInfo.idmMailAddress !== Constant.STRING_EMPTY)
       this.mailAddresses.push(this.currentSGInfo.idmMailAddress + Constant.IDM_DOMAIN);
       

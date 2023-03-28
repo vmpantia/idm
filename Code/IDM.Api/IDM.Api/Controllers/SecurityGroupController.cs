@@ -75,7 +75,7 @@ namespace IDM.Api.Controllers
             }
             catch (Exception ex)
             {
-                return Conflict(ex.Message);
+                return Conflict(ex);
             }
         }
     }
