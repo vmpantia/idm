@@ -112,12 +112,12 @@ export class AddEditSGComponent implements OnInit {
 
   createIDMMailAddress() {
     if(this.isAdd)
-      this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName + Constant.IDM_DOMAIN;
+      this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName;
   }
 
   createRegionalMailAddress() {
     if(this.isAdd)
-      this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName + Constant.PH_IDM_DOMAIN;
+      this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName;
   }
 
   populatePrimaryMailSelection() {

@@ -45,7 +45,7 @@
         <!-- SG Alias Name -->
         <div class="mb-3 col-6">
             <label class="form-label">* Alias Name:</label>
-            <input type="text" id="txtAliasName" readonly
+            <input type="text" id="txtAliasName" disabled
                 [ngClass]="errors.length !== 0 && errors[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.aliasName">
             <!-- Error Message -->
