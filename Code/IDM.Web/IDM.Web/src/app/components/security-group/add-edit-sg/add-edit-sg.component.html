@@ -12,21 +12,22 @@
         <label class="form-label">* Select Type:</label>
         <div class="d-inline-flex mb-3 col-12">
             <div class="form-check me-3">
-                <input type="radio" class="form-check-input" name="rbType" id="internalType" [checked]="currentSGInfo.type === 0" (change)="changeTypeValue(0)"/>
+                <input type="radio" class="form-check-input" name="rbType" id="internalType" [disabled]="!isAdd" [checked]="currentSGInfo.type === 0" (change)="changeTypeValue(0)"/>
                 <label class="form-check-label" for="internalType"> Internal Security Group </label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" name="rbType" id="externalType" [checked]="currentSGInfo.type === 1" (change)="changeTypeValue(1)"/>
+                <input type="radio" class="form-check-input" name="rbType" id="externalType" [disabled]="!isAdd" [checked]="currentSGInfo.type === 1" (change)="changeTypeValue(1)"/>
                 <label class="form-check-label" for="externalType"> External Security Group </label>
             </div>
         </div>
 
-        <!-- SG Name Layers -->
-        <label class="form-label">Security Group Name Layer(s):</label>
+        <!-- SG Display Name Layer -->
+        <label class="form-label">Security Group Display Name:</label>
         <div class="d-inline-flex mb-3 col-12">
-            <input type="text" class="form-control me-2" id="txtLayer1" name="layer" (change)="changeLayersValue()">
-            <input type="text" class="form-control me-2" id="txtLayer2" name="layer" (change)="changeLayersValue()">
-            <input type="text" class="form-control" id="txtLayer3" name="layer" (change)="changeLayersValue()">
+            <input type="text" class="form-control me-2" id="txtDisplayName1" name="displayName" (change)="changeDisplayNameValue()">
+            <input type="text" class="form-control me-2" id="txtDisplayName2" name="displayName" (change)="changeDisplayNameValue()">
+            <input type="text" class="form-control me-2" id="txtDisplayName3" name="displayName" (change)="changeDisplayNameValue()">
+            <input type="text" class="form-control"      id="txtDisplayName4" name="displayName" (change)="changeDisplayNameValue()">
         </div>
 
         <!-- SG Display Name -->

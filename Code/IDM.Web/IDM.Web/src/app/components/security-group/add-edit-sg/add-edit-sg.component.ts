@@ -37,8 +37,7 @@ export class AddEditSGComponent implements OnInit {
           this.currentSGInfo.idmMailAddress = this.currentSGInfo.idmMailAddress.split("@")[0];
           this.currentSGInfo.regionalMailAddress = this.currentSGInfo.regionalMailAddress.split("@")[0];
           this.populateLayers();
-          this.populatePrimaryMailSelection();
-          this.changeTypeValue(this.currentSGInfo.type);
+          this.changeDisplayNameValue();
         }
       )
     }
@@ -46,20 +45,20 @@ export class AddEditSGComponent implements OnInit {
 
   changeTypeValue(value:number) {
     this.currentSGInfo.type = value
-    this.changeLayersValue();
+    this.changeDisplayNameValue();
   }
   
   populateLayers() {
-    let defaultLayer = 3;
+    let defaultLayer = 4;
     if(this.currentSGInfo.displayName === Constant.STRING_EMPTY)
       return;
 
     let splittedDisplayName = this.currentSGInfo.displayName.split(Constant.SLASH);
     for(let idx = 0; idx < splittedDisplayName.length; idx++){
       if((idx + 1) > defaultLayer)
-        this.setInputValue("txtLayer" + defaultLayer, Constant.SLASH + splittedDisplayName[idx]);
+        this.setInputValue("txtDisplayName" + defaultLayer, Constant.SLASH + splittedDisplayName[idx]);
       else
-        this.setInputValue("txtLayer" + [idx + 1], splittedDisplayName[idx]);
+        this.setInputValue("txtDisplayName" + [idx + 1], splittedDisplayName[idx]);
     }
   }
 
@@ -70,7 +69,57 @@ export class AddEditSGComponent implements OnInit {
 
     input.value += value;
   }
+
+  changeDisplayNameValue() {
+    this.createDisplayName();
+    this.createAliasName();
+    this.createIDMMailAddress();
+    this.createRegionalMailAddress();
+    this.populatePrimaryMailSelection();
+  }
+
+  joinDisplayName(){
+    let newDisplayName = Constant.STRING_EMPTY;
+    let inputLayers = document.getElementsByName("displayName"); 
+
+    inputLayers.forEach((layer) => {
+      let input = layer as HTMLInputElement;
+      if(input.id === "txtDisplayName1") {
+        newDisplayName = input.value;
+        return;
+      }
+
+      if(input.value === Constant.STRING_EMPTY)
+        return; 
+      
+      if(newDisplayName !== Constant.STRING_EMPTY)
+        newDisplayName += Constant.SLASH;
+      
+      newDisplayName += input.value;
+    })
+    return newDisplayName;
+  }
   
+  createDisplayName(){
+    let newDisplayName = this.joinDisplayName();
+    this.currentSGInfo.displayName = this.currentSGInfo.type == 0 ? newDisplayName : "Partner" + Constant.SLASH + newDisplayName;
+  }
+
+  createAliasName(){
+    if(this.isAdd)
+      this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
+  }
+
+  createIDMMailAddress() {
+    if(this.isAdd)
+      this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName + Constant.IDM_DOMAIN;
+  }
+
+  createRegionalMailAddress() {
+    if(this.isAdd)
+      this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName + Constant.PH_IDM_DOMAIN;
+  }
+
   populatePrimaryMailSelection() {
     this.mailAddresses = [];
     if(this.currentSGInfo.idmMailAddress !== Constant.STRING_EMPTY)
@@ -84,36 +133,6 @@ export class AddEditSGComponent implements OnInit {
 
     if(this.currentSGInfo.companyMailAddress2 !== Constant.STRING_EMPTY)
       this.mailAddresses.push(this.currentSGInfo.companyMailAddress2);
-  }
-
-  changeLayersValue() {
-    let newDisplayName = Constant.STRING_EMPTY;
-    let inputLayers = document.getElementsByName("layer"); 
-    if(inputLayers == null || inputLayers.length == 0) 
-      return;
-
-    inputLayers.forEach((layer) => {
-      let input = layer as HTMLInputElement;
-      if(input.id === "txtLayer1") {
-        newDisplayName = input.value;
-        return;
-      }
-
-      if(input.value === Constant.STRING_EMPTY)
-        return;
-
-      newDisplayName += Constant.SLASH + input.value;
-    })
-
-    //Change display name if the transaction is add or edit
-    this.currentSGInfo.displayName = this.currentSGInfo.type == 0 ? newDisplayName : "Partner" + Constant.SLASH + newDisplayName;
-    if(this.isAdd) {
-      //Change alias name, IDM mail address, regional mail address if the transaction is Add
-      this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
-      this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName;
-      this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName;
-      this.populatePrimaryMailSelection();
-    }
   }
 
   parseSG(input:SecurityGroupDTO) {
