@@ -15,7 +15,10 @@ export class AddEditSGComponent implements OnInit {
 
   @Input()id:string;
   
-  errors:any[] = [];
+  //Error Variables
+  errorFields:any[] = [];
+  errorMessage:any;
+  
   mailAddresses:string[] = [];
   currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
   isAdd:boolean;
@@ -166,8 +169,13 @@ export class AddEditSGComponent implements OnInit {
     return parsedInput;
   }
 
+  resetError(){
+    this.errorFields = [];
+    this.errorMessage = Constant.STRING_EMPTY;
+  }
+
   saveSG() {
-    this.errors = [];
+    this.resetError();
     let model = new SaveSecurityGroupRequest();
     model.functionID = this.isAdd ? "01A01" : "01C01";
     model.requestStatus = "A2";
@@ -186,18 +194,16 @@ export class AddEditSGComponent implements OnInit {
         let response = error as HttpErrorResponse
         //System Errors
         if(response.error == undefined) {
-          this.errors.push(response.message);
+          this.errorMessage = response.message;
           return;
         }
-
-        //API Error Title
-        if(response.error.length === 0) {
-          this.errors.push(response.error.title);
+        //API Unexpected Error
+        if(response.error.errors === undefined) {
+          this.errorMessage = response.error;
           return;
         }
-
-        //API Error Validation
-        this.errors.push(response.error.errors);
+        //API Validation Error
+        this.errorFields.push(response.error.errors);
       }
     );
   }

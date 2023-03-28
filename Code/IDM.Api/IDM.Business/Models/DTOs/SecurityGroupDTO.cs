@@ -9,9 +9,9 @@ namespace IDM.Business.Models.DTOs
     {
         //SG Details
         public Guid InternalID { get; set; }
-        [DisplayName("Alias Name"),  Required,  MaxLength(30), NameValidation]
+        [DisplayName("Alias Name"), NameValidation(true, 30)]
         public string AliasName { get; set; }
-        [DisplayName("Display Name"), Required, MaxLength(30), NameValidation]
+        [DisplayName("Display Name"), NameValidation(true, 30)]
         public string DisplayName { get; set; }
         public int Type { get; set; }
         public string TypeDescription { get; set; } = string.Empty;

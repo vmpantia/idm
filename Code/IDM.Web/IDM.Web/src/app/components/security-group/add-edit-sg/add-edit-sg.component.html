@@ -2,12 +2,16 @@
 <!-- Content -->
 <div class="container">
 
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        {{ errorMessage }}
+     </div>
+
     <!-- SG Information -->
     <div class="row mb-3">
         <div class="cstm-info">
             <span>SECURITY GROUP INFORMATION</span>
         </div>
-        
+
         <!-- SG Type -->
         <label class="form-label">* Select Type:</label>
         <div class="d-inline-flex mb-3 col-12">
@@ -34,11 +38,11 @@
         <div class="mb-3 col-6">
             <label class="form-label">* Display Name:</label>
             <input type="text" id="txtDisplayName" readonly
-                [ngClass]="errors.length !== 0 && errors[0]['inputSG.DisplayName'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.DisplayName'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.displayName">
             <!-- Error Message -->
-            <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.DisplayName']">
-                {{ errors[0]["inputSG.DisplayName"][0] }}
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.DisplayName']">
+                {{ errorFields[0]["inputSG.DisplayName"][0] }}
             </div>      
         </div>
 
@@ -46,11 +50,11 @@
         <div class="mb-3 col-6">
             <label class="form-label">* Alias Name:</label>
             <input type="text" id="txtAliasName" disabled
-                [ngClass]="errors.length !== 0 && errors[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.aliasName">
             <!-- Error Message -->
-            <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.AliasName']">
-                {{ errors[0]['inputSG.AliasName'][0] }}
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName']">
+                {{ errorFields[0]['inputSG.AliasName'][0] }}
             </div>
         </div>
     </div>
@@ -65,15 +69,15 @@
         <div class="mb-3 col-12">
             <label class="form-label">* Select Primary Mail Address:</label>
             <select class="form-select" id="selPrimaryMailAddress" 
-                    [ngClass]="errors.length !== 0 && errors[0]['inputSG.PrimaryMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.PrimaryMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
                     [(ngModel)]="currentSGInfo.primaryMailAddress">
                 <option *ngFor="let mail of mailAddresses" [value]="mail">
                     {{mail}}
                 </option>
             </select>
             <!-- Error Message -->
-            <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.PrimaryMailAddress']">
-                {{ errors[0]['inputSG.PrimaryMailAddress'][0] }}
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.PrimaryMailAddress']">
+                {{ errorFields[0]['inputSG.PrimaryMailAddress'][0] }}
             </div> 
         </div>
 
@@ -81,12 +85,12 @@
         <div class="mb-3 col-8">
             <label class="form-label">* IDM Mail Address:</label>
             <input type="text" id="txtIDMMailAddress" name="mailaddress"
-                [ngClass]="errors.length !== 0 && errors[0]['inputSG.IDMMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.IDMMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.idmMailAddress"
                 (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
-            <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.IDMMailAddress']">
-                {{ errors[0]['inputSG.IDMMailAddress'][0] }}
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.IDMMailAddress']">
+                {{ errorFields[0]['inputSG.IDMMailAddress'][0] }}
             </div> 
         </div>
         <!-- IDM Mail Address Domain -->
@@ -99,12 +103,12 @@
         <div class="mb-3 col-8">
             <label class="form-label">* Regional Mail Address:</label>
             <input type="text" id="txtRegionalMailAddress" name="mailaddress"
-                [ngClass]="errors.length !== 0 && errors[0]['inputSG.RegionalMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.RegionalMailAddress'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.regionalMailAddress"
                 (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
-            <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.RegionalMailAddress']">
-                {{ errors[0]['inputSG.RegionalMailAddress'][0] }}
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.RegionalMailAddress']">
+                {{ errorFields[0]['inputSG.RegionalMailAddress'][0] }}
             </div> 
         </div>
         <!-- Regional Mail Address Domain -->
@@ -117,24 +121,24 @@
         <div class="mb-3 col-6">
             <label class="form-label">Company Mail Address 1:</label>
             <input type="text" id="txtCompanyMailAddress1" name="mailaddress"
-                [ngClass]="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress1'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyMailAddress1'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.companyMailAddress1"
                 (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
-            <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress1']">
-                {{ errors[0]['inputSG.CompanyMailAddress1'][0] }}
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyMailAddress1']">
+                {{ errorFields[0]['inputSG.CompanyMailAddress1'][0] }}
             </div> 
         </div>
         <!-- Company Mail Address 2 -->
         <div class="mb-3 col-6">
             <label class="form-label">Company Mail Address 2:</label>
             <input type="text" id="txtCompanyMailAddress2" name="mailaddress"
-                [ngClass]="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress2'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyMailAddress2'] ? 'form-control is-invalid' : 'form-control'" 
                 [(ngModel)]="currentSGInfo.companyMailAddress2"
                 (change)="populatePrimaryMailSelection()">
             <!-- Error Message -->
-            <div class="invalid-feedback" *ngIf="errors.length !== 0 && errors[0]['inputSG.CompanyMailAddress2']">
-                {{ errors[0]['inputSG.CompanyMailAddress2'][0] }}
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyMailAddress2']">
+                {{ errorFields[0]['inputSG.CompanyMailAddress2'][0] }}
             </div> 
         </div>
     </div>
