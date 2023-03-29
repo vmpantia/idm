@@ -31,7 +31,7 @@ namespace IDM.Business
                     return Constants.STATUS_STRING_ENABLED;
                 case Constants.STATUS_INT_DISABLED:
                     return Constants.STATUS_STRING_DISABLED;
-                default:
+                default: //Deletion
                     return Constants.STATUS_STRING_DELETION;
             }
         }
@@ -42,7 +42,7 @@ namespace IDM.Business
             {
                 case Constants.SG_TYPE_INT_INTERNAL:
                     return Constants.SG_TYPE_STRING_INTERNAL;
-                default:
+                default: //External
                     return Constants.SG_TYPE_STRING_EXTERNAL;
             }
         }
@@ -59,6 +59,16 @@ namespace IDM.Business
                     return Constants.MAIL_TYPE_STRING_COMPANY1;
                 default: //Company Mail 2
                     return Constants.MAIL_TYPE_STRING_COMPANY2;
+            }
+        }   
+        public static string ConvertPrimaryFlag(int primary)
+        {
+            switch (primary)
+            {
+                case Constants.MAIL_FLAG_INT_PRIMARY:
+                    return Constants.MAIL_FLAG_STRING_PRIMARY;
+                default: //Secondary
+                    return Constants.MAIL_FLAG_STRING_SECONDARY;
             }
         }
 
@@ -136,9 +146,11 @@ namespace IDM.Business
                     RelationID = mail.RelationID,
                     OwnerType = mail.OwnerType,
                     MailType = mail.MailType,
-                    MailDescription = CovertMailType(mail.MailType),
+                    MailTypeDescription = CovertMailType(mail.MailType),
                     PrimaryFlag = mail.PrimaryFlag,
+                    PrimaryFlagDescription = ConvertPrimaryFlag(mail.PrimaryFlag),
                     Status = mail.Status,
+                    StatusDescription = ConvertStatus(mail.Status),
                     CreatedDate = mail.CreatedDate,
                     ModifiedDate = mail.ModifiedDate
                 });

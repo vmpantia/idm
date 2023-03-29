@@ -13,8 +13,9 @@ namespace IDM.Business.Models.DTOs
         public Guid RelationID { get; set; } /*Security Group or Account InternalID*/
         public int OwnerType { get; set; }
         public int MailType { get; set; }
-        public string MailDescription { get; set; } = string.Empty;
+        public string MailTypeDescription { get; set; } = string.Empty;
         public int PrimaryFlag { get; set; }
+        public string PrimaryFlagDescription { get; set; } = string.Empty;
 
         //Common Details
         public int Status { get; set; }

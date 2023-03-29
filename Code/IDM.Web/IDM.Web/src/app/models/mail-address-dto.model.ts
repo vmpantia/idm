@@ -6,8 +6,9 @@ export class MailAddressDTO {
     public relationID:string = Constant.GUID_EMPTY;
     public ownerType:number = 0;
     public mailType:number = 0;
-    public mailDescription:string = Constant.STRING_EMPTY;
+    public mailTypeDescription:string = Constant.STRING_EMPTY;
     public primaryFlag:number = 0;
+    public primaryFlagDescription:string = Constant.STRING_EMPTY;
 
     //Common Details
     public status:number = 0;

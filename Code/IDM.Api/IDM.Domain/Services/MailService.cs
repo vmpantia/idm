@@ -47,7 +47,7 @@ namespace IDM.Domain.Services
             if (inputMails.Count == 0)
                 return "Please input atleast 1 mail address.";
 
-            if (!inputMails.Exists(data => data.PrimaryFlag == Constants.MAIL_FLAG_PRIMARY))
+            if (!inputMails.Exists(data => data.PrimaryFlag == Constants.MAIL_FLAG_INT_PRIMARY))
                 return "Please select primary mail address.";
 
             foreach(var mail in inputMails)

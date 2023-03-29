@@ -111,6 +111,14 @@
     background-color: rgba(192, 57, 43, .7);
     border: 1px solid #c0392b;
 }
+.primaryflg-0 {
+    background-color: rgba(41, 128, 185, .7);
+    border: 1px solid #3498db;
+}
+.primaryflg-1 {
+    background-color: rgba(116, 125, 140, .7);
+    border: 1px solid #747d8c;
+}
 
 .cstm-info {
     font-weight: 500;

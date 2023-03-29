@@ -29,8 +29,10 @@
         #endregion
 
         #region Primary Flag
-        public const int MAIL_FLAG_PRIMARY = 0;
-        public const int MAIL_FLAG_SECONDARY = 1;
+        public const int MAIL_FLAG_INT_PRIMARY = 0;
+        public const int MAIL_FLAG_INT_SECONDARY = 1;
+        public const string MAIL_FLAG_STRING_PRIMARY = "Primary";
+        public const string MAIL_FLAG_STRING_SECONDARY = "Secondary";
         #endregion
 
         #region Mail Type

@@ -64,6 +64,46 @@
         <div class="cstm-info">
             <span>EMAIL ADDRESSES</span>
         </div>
+
+        <div class="mb-3 col-12">
+            <table class="cstm-table">
+                <thead>
+                    <tr>
+                        <th>Mail Address</th>
+                        <th>Description</th>
+                        <th class="text-center">Primary</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr *ngIf="currentSGInfo.mailAddresses === undefined">
+                        <td class="text-center" colspan="11">
+                            Loading....
+                        </td>   
+                    </tr>
+                    <tr *ngIf="currentSGInfo.mailAddresses?.length === 0">
+                        <td class="text-center" colspan="11">
+                            No record found in database.
+                        </td>
+                    </tr>
+                    <tr *ngFor="let mail of currentSGInfo.mailAddresses">
+                        <td>{{ mail.mailAddress }}</td>
+                        <td>{{ mail.mailTypeDescription }}</td>
+                        <td class="text-center">
+                            <span class="cstm-badge primaryflg-{{ mail.primaryFlag }}">
+                                {{ mail.primaryFlagDescription }}
+                            </span>
+                        </td>
+                        
+                        <!-- Action Buttons -->
+                        <td class="text-center">
+                            <button type="button" class="cstm-btn primary">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="row mb-3">
