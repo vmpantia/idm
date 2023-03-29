@@ -39,8 +39,6 @@ export class AddEditSGComponent implements OnInit {
         (response:any) => {
           this.currentSGInfo = response;
           //Remove the domain in mail addresses
-          this.currentSGInfo.idmMailAddress = this.currentSGInfo.idmMailAddress.split("@")[0];
-          this.currentSGInfo.regionalMailAddress = this.currentSGInfo.regionalMailAddress.split("@")[0];
           this.populateLayers();
           this.changeDisplayNameValue();
         }
@@ -78,9 +76,6 @@ export class AddEditSGComponent implements OnInit {
   changeDisplayNameValue() {
     this.createDisplayName();
     this.createAliasName();
-    this.createIDMMailAddress();
-    this.createRegionalMailAddress();
-    this.populatePrimaryMailSelection();
   }
 
   joinDisplayName(){
@@ -115,33 +110,6 @@ export class AddEditSGComponent implements OnInit {
       this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
   }
 
-  createIDMMailAddress() {
-    if(this.isAdd)
-      this.currentSGInfo.idmMailAddress = this.currentSGInfo.aliasName;
-  }
-
-  createRegionalMailAddress() {
-    if(this.isAdd)
-      this.currentSGInfo.regionalMailAddress = this.currentSGInfo.aliasName;
-  }
-
-  populatePrimaryMailSelection() {
-    this.mailAddresses = [];
-    //this.currentSGInfo.primaryMailAddress = Constant.STRING_EMPTY;
-
-    if(this.currentSGInfo.idmMailAddress !== Constant.STRING_EMPTY)
-      this.mailAddresses.push(this.currentSGInfo.idmMailAddress + Constant.IDM_DOMAIN);
-      
-    if(this.currentSGInfo.regionalMailAddress !== Constant.STRING_EMPTY)
-      this.mailAddresses.push(this.currentSGInfo.regionalMailAddress + Constant.PH_IDM_DOMAIN);
-      
-    if(this.currentSGInfo.companyMailAddress1 !== Constant.STRING_EMPTY)
-      this.mailAddresses.push(this.currentSGInfo.companyMailAddress1);
-
-    if(this.currentSGInfo.companyMailAddress2 !== Constant.STRING_EMPTY)
-      this.mailAddresses.push(this.currentSGInfo.companyMailAddress2);
-  }
-
   parseSG(input:SecurityGroupDTO) {
     let parsedInput = new SecurityGroupDTO();
 
@@ -157,13 +125,6 @@ export class AddEditSGComponent implements OnInit {
     parsedInput.admin1InternalID = input.admin1InternalID;
     parsedInput.admin2InternalID = input.admin2InternalID;
     parsedInput.admin3InternalID = input.admin3InternalID;
-
-    //Email Addresses
-    parsedInput.primaryMailAddress = input.primaryMailAddress.trim();
-    parsedInput.idmMailAddress = input.idmMailAddress == Constant.STRING_EMPTY ?  Constant.STRING_EMPTY : input.idmMailAddress.trim() + Constant.IDM_DOMAIN;
-    parsedInput.regionalMailAddress = input.regionalMailAddress  == Constant.STRING_EMPTY ?  Constant.STRING_EMPTY : input.regionalMailAddress.trim() + Constant.PH_IDM_DOMAIN;
-    parsedInput.companyMailAddress1 = input.companyMailAddress1.trim();
-    parsedInput.companyMailAddress2 = input.companyMailAddress2.trim();
 
     //Common
     parsedInput.status = input.status;

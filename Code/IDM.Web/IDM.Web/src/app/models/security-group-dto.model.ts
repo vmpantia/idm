@@ -18,13 +18,6 @@ export class SecurityGroupDTO {
     public admin3InternalID:string = Constant.GUID_EMPTY;;
     public admin3Name:string = Constant.STRING_EMPTY;
 
-    //Email Addresses
-    public primaryMailAddress:string = Constant.STRING_EMPTY;
-    public idmMailAddress:string = Constant.STRING_EMPTY;
-    public regionalMailAddress:string = Constant.STRING_EMPTY;
-    public companyMailAddress1:string = Constant.STRING_EMPTY;
-    public companyMailAddress2:string = Constant.STRING_EMPTY;
-
     //Common Details
     public status:number = 0;
     public statusDescription:string = Constant.STRING_EMPTY;;
