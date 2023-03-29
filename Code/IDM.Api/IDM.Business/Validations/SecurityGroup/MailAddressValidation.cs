@@ -6,13 +6,13 @@ using System.Runtime.Serialization;
 
 namespace IDM.Business.Validations.SecurityGroup
 {
-    public class EmailAddressValidation : ValidationAttribute
+    public class MailAddressValidation : ValidationAttribute
     {
         private readonly RequiredAttribute _requiredAttribute;
         private readonly MaxLengthAttribute _maxLengthAttribute;
         private readonly EmailAddressAttribute _emailAttribute;
         private readonly bool _isRequired;
-        public EmailAddressValidation(bool isRequired = false, int maxLength = 255)
+        public MailAddressValidation(bool isRequired = false, int maxLength = 255)
         {
             _isRequired = isRequired;
 

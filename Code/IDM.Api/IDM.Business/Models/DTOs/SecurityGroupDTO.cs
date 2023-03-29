@@ -25,18 +25,9 @@ namespace IDM.Business.Models.DTOs
         public string Admin2Name { get; set; } = string.Empty;
         public Guid Admin3InternalID { get; set; }
         public string Admin3Name { get; set; } = string.Empty;
-
-        //Email Addresses
-        [DisplayName("Primary Mail Address"), EmailAddressValidation(true, 50)]
-        public string PrimaryMailAddress { get; set; }
-        [DisplayName("IDM Mail Address"), EmailAddressValidation(true, 50)]
-        public string IDMMailAddress { get; set; }
-        [DisplayName("Regional Mail Address"), EmailAddressValidation(true, 50)]
-        public string RegionalMailAddress { get; set; }
-        [DisplayName("Company Mail Address 1"), EmailAddressValidation(false, 50)]
-        public string CompanyMailAddress1 { get; set; } = string.Empty;
-        [DisplayName("Company Mail Address 2"), EmailAddressValidation(false, 50)]
-        public string CompanyMailAddress2 { get; set; } = string.Empty;
+        
+        //SG Mail Address List
+        public List<MailAddressDTO> MailAddresses { get; set; }
 
         //Common Details
         public int Status { get; set; }

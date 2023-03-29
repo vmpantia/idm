@@ -16,13 +16,11 @@ namespace IDM.Domain.Services
             return db.MailAddress_MST.Where(data => data.RelationID == relationID);
         }
 
-        public async Task InsertMailAdresss_MST(IDMDbContext db, SecurityGroupDTO input)
+        public async Task InsertMailAdresss_MST(IDMDbContext db, List<MailAddressDTO> mailAddresses, Guid relationID)
         {
-            var mailList = Utility.ParseMailAddresses(input);
-            //Set PrimaryFlag to 0 of PrimaryMailAddress
-            mailList.Where(data => data.MailAddress == input.PrimaryMailAddress).First().PrimaryFlag = Constants.MAIL_FLAG_PRIMARY;
-
-            await db.MailAddress_MST.AddRangeAsync(mailList);
+            //Get mail Address 
+            var mails = Utility.ParseMailAddress(mailAddresses, relationID);
+            await db.MailAddress_MST.AddRangeAsync(mails);
             var result = await db.SaveChangesAsync();
 
             if (result <= 0)

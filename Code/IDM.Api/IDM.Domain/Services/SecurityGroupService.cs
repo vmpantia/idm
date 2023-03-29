@@ -74,13 +74,13 @@ namespace IDM.Domain.Services
                         case Constants.FUNCTION_ID_ADD_INTERNAL_SG_BY_USER:
                         case Constants.FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER:
                             await InsertSecurityGroup_MST(request.inputSG);
-                            await _mail.InsertMailAdresss_MST(_db, request.inputSG);
+                            await _mail.InsertMailAdresss_MST(_db, request.inputSG.MailAddresses, request.inputSG.InternalID);
                             break;
                         case Constants.FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER:
                         case Constants.FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER:
                             await UpdateSecurityGroup_MST(request.inputSG);
                             await _mail.DeleteMailAddress_MST(_db, request.inputSG.InternalID);
-                            await _mail.InsertMailAdresss_MST(_db, request.inputSG);
+                            await _mail.InsertMailAdresss_MST(_db, request.inputSG.MailAddresses, request.inputSG.InternalID);
                             break;
                     }
                     await transaction.CommitAsync();

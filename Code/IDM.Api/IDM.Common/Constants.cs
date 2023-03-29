@@ -34,10 +34,14 @@
         #endregion
 
         #region Mail Type
-        public const int MAIL_TYPE_IDM = 0;
-        public const int MAIL_TYPE_REGIONAL = 1;
-        public const int MAIL_TYPE_COMPANY1 = 2;
-        public const int MAIL_TYPE_COMPANY2 = 3;
+        public const int MAIL_TYPE_INT_IDM = 0;
+        public const int MAIL_TYPE_INT_REGIONAL = 1;
+        public const int MAIL_TYPE_INT_COMPANY1 = 2;
+        public const int MAIL_TYPE_INT_COMPANY2 = 3;
+        public const string MAIL_TYPE_STRING_IDM = "IDM Mail";
+        public const string MAIL_TYPE_STRING_REGIONAL = "Regional Mail";
+        public const string MAIL_TYPE_STRING_COMPANY1 = "Company Mail 1";
+        public const string MAIL_TYPE_STRING_COMPANY2 = "Company Mail 2";
         #endregion
 
         #endregion
