@@ -130,8 +130,7 @@ namespace IDM.Domain.Services
                 throw new ServiceException(Constants.ERROR_SG_UPDATE);
         }
 
-
-        public async Task<string> ValidateSecurityGroup(SecurityGroupDTO input)
+        private async Task<string> ValidateSecurityGroup(SecurityGroupDTO input)
         {
             var isAdd = input.InternalID == Guid.Empty;
             var propertiesChanged = new List<string>();
@@ -152,13 +151,13 @@ namespace IDM.Domain.Services
 
             if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_SG_DISPLAYNAME))
                 if(IsSGDisplayNameExist(input.DisplayName))
-                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, "Display Name");
+                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.DisplayName);
 
             if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_SG_ALIASNAME))
                 if (IsSGAliasNameExist(input.AliasName))
-                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, "Alias Name");
+                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.AliasName);
 
-            return string.Empty;
+            return await _mail.ValidateMailAddresses(_db, input.MailAddresses, isAdd);
         }
 
         private bool IsSGDisplayNameExist(string displayName) => _db.SecurityGroup_MST.Where(data => data.DisplayName == displayName).Any();
