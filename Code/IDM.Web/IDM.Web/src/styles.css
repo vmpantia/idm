@@ -1,3 +1,5 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
 .cstm-page-header{
     background-color: whitesmoke;
     border-bottom: 1px solid gainsboro;
@@ -70,6 +72,22 @@
     background-color: #34495e;
 }
 
+.red {
+    background-color: #e74c3c;
+    color:white;
+}
+.red:enabled:hover {
+    background-color: #c0392b;
+    color:white;
+}
+.green {
+    background-color: #2ecc71;
+    color:white;
+}
+.green:enabled:hover {
+    background-color: #27ae60;
+}
+
 .cstm-table {
     width: 100%;
     font-size: 13px;
@@ -84,6 +102,30 @@
 }
 .cstm-table td{
     padding: 7px 2px;
+}
+
+.cstm-table input {
+    border-radius: 3px;
+    border: 1px solid gainsboro;
+    padding: 3px 3px;
+    width: 100%;
+}
+
+.cstm-table select {
+    border-radius: 3px;
+    border: 1px solid gainsboro;
+    padding: 3px 3px;
+    width: 100%;
+}
+.cstm-table div {
+    display:flex;
+}
+
+.cstm-table button {
+    border-radius: 3px;
+    border: 1px solid gainsboro;
+    padding: 3px 3px;
+    width: 100%;
 }
 
 .cstm-badge {

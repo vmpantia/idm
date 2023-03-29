@@ -98,9 +98,61 @@
                         
                         <!-- Action Buttons -->
                         <td class="text-center">
-                            <button type="button" class="cstm-btn primary">Edit</button>
+                            <div>
+                                <button type="button" class="green" title="Edit" [disabled]="isAddMailAddress"
+                                    (click)="editMailAddress(mail)">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </button>
+                                <button type="button" class="red" title="Delete" [disabled]="isAddMailAddress"
+                                    (click)="deleteMailAddress(mail)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
+
+                    <tr *ngIf="!isAddMailAddress">
+                        <td class="text-center" colspan="11">
+                            <button type="button" class="primary" title="Add"
+                                (click)="addMailAddress()">
+                                <i class="bi bi-plus"></i>
+                                Add Mail Address
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="isAddMailAddress">
+                        <td>
+                            <input type="text" [(ngModel)]="currentMailInfo.mailAddress">
+                        </td>
+                        <td>
+                            <select [(ngModel)]="currentMailInfo.mailType">
+                                <option value="0">IDM Mail Address</option>
+                                <option value="1">Regional Mail Address</option>
+                                <option value="2">Company Mail Address 1</option>
+                                <option value="3">Company Mail Address 2</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select [(ngModel)]="currentMailInfo.primaryFlag">
+                                <option value="0">Primary</option>
+                                <option value="1">Secondary</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div>
+                                <button type="button" class="green" title="Save"
+                                    (click)="saveMailAddress()">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                                <button type="button" class="red" title="Cancel"
+                                    (click)="closeMailAddress()">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>

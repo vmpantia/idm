@@ -15,9 +15,26 @@ export class Constant {
     public static STATUS_STRING_DISABLED:string = "Disabled";
     public static STATUS_STRING_DELETION:string = "Deletion";
     
-    //Type
+    //SG Type
     public static SG_TYPE_INT_INTERNAL:number = 0;
     public static SG_TYPE_INT_EXTERNAL:number = 1;
     public static SG_TYPE_STRING_INTERNAL:string = "Internal";
     public static SG_TYPE_STRING_EXTERNAL:string = "External";
+
+    //Mail Owner Type
+    public static  MAIL_OWNER_TYPE_GROUP = 0;
+
+    public static MAIL_FLAG_INT_PRIMARY:number = 0;
+    public static MAIL_FLAG_INT_SECONDARY:number = 1;
+    public static MAIL_FLAG_STRING_PRIMARY:string = "Primary";
+    public static MAIL_FLAG_STRING_SECONDARY:string = "Secondary";
+
+    public static MAIL_TYPE_INT_IDM:number = 0;
+    public static MAIL_TYPE_INT_REGIONAL:number = 1;
+    public static MAIL_TYPE_INT_COMPANY1:number = 2;
+    public static MAIL_TYPE_INT_COMPANY2:number = 3;
+    public static MAIL_TYPE_STRING_IDM:string = "IDM Mail";
+    public static MAIL_TYPE_STRING_REGIONAL:string = "Regional Mail";
+    public static MAIL_TYPE_STRING_COMPANY1:string = "Company Mail 1";
+    public static MAIL_TYPE_STRING_COMPANY2:string = "Company Mail 2";
 }

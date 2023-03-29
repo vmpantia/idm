@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Constant } from 'src/app/commons/constant.model';
+import { MailAddressDTO } from 'src/app/models/mail-address-dto.model';
 import { SaveSecurityGroupRequest } from 'src/app/models/requests/save-security-group-request.model';
 import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
 import { APIService } from 'src/app/services/api.service';
@@ -20,10 +21,11 @@ export class AddEditSGComponent implements OnInit {
   errorFields:any[] = [];
   errorMessage:any;
   
-  mailAddresses:string[] = [];
   currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
+  currentMailInfo:MailAddressDTO = new MailAddressDTO();
+
   isAdd:boolean;
-  isSaving:boolean;
+  isAddMailAddress:boolean;
 
   constructor(private api:APIService, private utility:UtilityService) { }
 
@@ -140,7 +142,6 @@ export class AddEditSGComponent implements OnInit {
   }
 
   saveSG() {
-    this.isSaving = true;
     this.resetError();
     let model = new SaveSecurityGroupRequest();
     model.functionID = this.isAdd ? "01A01" : "01C01";
@@ -169,6 +170,26 @@ export class AddEditSGComponent implements OnInit {
           this.errorFields.push(response.error.errors);
       }
     );
-    this.isSaving = false;
+  }
+
+  addMailAddress() {
+    this.isAddMailAddress = true;
+    this.currentMailInfo = new MailAddressDTO();
+  }
+  editMailAddress(mail:MailAddressDTO){
+  }  
+  
+  deleteMailAddress(mail:MailAddressDTO){
+    let idx = this.currentSGInfo.mailAddresses.indexOf(mail);
+    this.currentSGInfo.mailAddresses.splice(idx, 1);
+  }
+  saveMailAddress(){
+    this.isAddMailAddress = false;
+    this.currentSGInfo.mailAddresses.push(this.currentMailInfo);
+    this.currentMailInfo = new MailAddressDTO();
+  }
+  closeMailAddress(){
+    this.isAddMailAddress = false;
+    this.currentMailInfo = new MailAddressDTO();
   }
 }
