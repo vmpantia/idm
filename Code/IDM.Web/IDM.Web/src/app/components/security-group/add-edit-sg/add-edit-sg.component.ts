@@ -22,10 +22,8 @@ export class AddEditSGComponent implements OnInit {
   errorMessage:any;
   
   currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
-  currentMailInfo:MailAddressDTO = new MailAddressDTO();
 
   isAdd:boolean;
-  isAddMailAddress:boolean;
 
   constructor(private api:APIService, private utility:UtilityService) { }
 
@@ -178,50 +176,24 @@ export class AddEditSGComponent implements OnInit {
 
   //---------------- Mail Address Functionalities ----------------
   addMailAddress() {
-    this.isAddMailAddress = true;
-    this.currentMailInfo = new MailAddressDTO();
+    let newMail = new MailAddressDTO();
+    this.currentSGInfo.mailAddresses.push(newMail);
+    this.resetMailError();
   }
   
-  deleteMailAddress(mail:MailAddressDTO){
-    let idx = this.currentSGInfo.mailAddresses.indexOf(mail);
+  deleteMailAddress(idx:number){
     this.currentSGInfo.mailAddresses.splice(idx, 1);
+    this.resetMailError();
   }
 
-  saveMailAddress(){
-    if(this.currentMailInfo.mailAddress === Constant.STRING_EMPTY) {
-      let input = document.getElementById("txtMailAddress") as HTMLInputElement;
-      console.log(input);
-      input.className += " is-invalid";
+  resetMailError(){
+    let defaultNoOfMail = 4;
+
+    if(this.errorFields.length === 0)
       return;
+
+    for(let idx = 0; idx < defaultNoOfMail; idx++){
+      this.errorFields[0]["inputSG.MailAddresses[" + idx + "].MailAddress"] = Constant.STRING_EMPTY;
     }
-
-    this.isAddMailAddress = false;
-    this.currentSGInfo.mailAddresses.push(this.parseMailAddress(this.currentMailInfo));
-    this.currentMailInfo = new MailAddressDTO();
-  }
-
-  closeMailAddress(){
-    this.isAddMailAddress = false;
-    this.currentMailInfo = new MailAddressDTO();
-  }
-
-  parseMailAddress(input:MailAddressDTO){
-    let parsedInput = new MailAddressDTO();
-
-    //Mail Address Details
-    parsedInput.mailAddress = input.mailAddress.trim();
-    parsedInput.relationID = input.relationID;
-    parsedInput.ownerType = input.ownerType;
-    parsedInput.mailType = input.mailType;
-    parsedInput.mailTypeDescription = this.utility.convertMailType(input.mailType);
-    parsedInput.primaryFlag = input.primaryFlag;
-    parsedInput.primaryFlagDescription = this.utility.convertPrimaryFlag(input.primaryFlag);
-    
-    //Common
-    parsedInput.status = input.status;
-    parsedInput.statusDescription = this.utility.convertStatus(input.status);
-    parsedInput.createdDate = input.createdDate;
-    parsedInput.modifiedDate = input.modifiedDate;
-    return parsedInput;
   }
 }

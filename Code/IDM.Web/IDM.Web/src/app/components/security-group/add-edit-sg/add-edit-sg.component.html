@@ -7,7 +7,7 @@
     </div>
 
     <!-- SG Information -->
-    <div class="row mb-3">
+    <div class="row">
         <div class="cstm-info">
             <span>SECURITY GROUP INFORMATION</span>
         </div>
@@ -54,81 +54,40 @@
                 [(ngModel)]="currentSGInfo.aliasName">
             <!-- Error Message -->
             <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName']">
-                {{ errorFields[0]['inputSG.MailAddresses'][0] }}
+                {{ errorFields[0]['inputSG.AliasName'][0] }}
             </div>
         </div>
     </div>
     
     <!-- SG Mail Addresses -->
-    <div class="row mb-3">
+    <div class="row">
         <div class="cstm-info">
             <span>MAIL ADDRESSES</span>
         </div>
-
 
         <div class="mb-3 col-12">
             <table class="cstm-table">
                 <thead>
                     <tr>
                         <th>Mail Address</th>
-                        <th>Description</th>
-                        <th class="text-center">Primary</th>
+                        <th>Type</th>
+                        <th class="text-center">Is Primary?</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
-       
-                    <tr *ngIf="currentSGInfo.mailAddresses === undefined">
-                        <td class="text-center" colspan="4">
-                            Loading....
-                        </td>   
-                    </tr>
-                    <tr *ngIf="currentSGInfo.mailAddresses?.length === 0">
-                        <td class="text-center" colspan="4">
-                            No record found in database.
-                        </td>
-                    </tr>
                     <tr *ngFor="let mail of currentSGInfo.mailAddresses; let i = index">
-                        <td >
-                            {{ mail.mailAddress }}
+                        <td>
+                            <input type="text" maxlength="50" class="form-control form-control-sm" 
+                                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.MailAddresses[' + i + '].MailAddress'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
+                                [(ngModel)]="mail.mailAddress">
                             <!-- Error Message -->
-                            <span class="badge bg-danger" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.MailAddresses[' + i +'].MailAddress']">
-                                {{ errorFields[0]['inputSG.MailAddresses[' + i +'].MailAddress'][0] }}
-                            </span>
-                        </td>
-                        <td>{{ mail.mailTypeDescription }}</td>
-                        <td class="text-center">
-                            <span class="cstm-badge primaryflg-{{ mail.primaryFlag }}">
-                                {{ mail.primaryFlagDescription }}
-                            </span>
-                        </td>
-                        
-                        <!-- Action Buttons -->
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger btn-sm" title="Delete" *ngIf="!isAddMailAddress"
-                                (click)="deleteMailAddress(mail)">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr *ngIf="!isAddMailAddress">
-                        <td class="text-center" colspan="11">
-                            <button type="button" class="btn btn-primary btn-sm w-100"
-                                (click)="addMailAddress()">
-                                <i class="bi bi-plus"></i>
-                                Add Mail Address
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr *ngIf="isAddMailAddress">
-                        <td>
-                            <input type="text" id="txtMailAddress" maxlength="50" class="form-control form-control-sm" [(ngModel)]="currentMailInfo.mailAddress">
+                            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.MailAddresses[' + i + '].MailAddress']">
+                                {{ errorFields[0]['inputSG.MailAddresses[' + i + '].MailAddress'][0] }}
+                            </div>   
                         </td>
                         <td>
-                            <select class="form-select form-select-sm" [(ngModel)]="currentMailInfo.mailType">
+                            <select class="form-select form-select-sm" [(ngModel)]="mail.mailType">
                                 <option value="0">IDM Mail Address</option>
                                 <option value="1">Regional Mail Address</option>
                                 <option value="2">Company Mail Address 1</option>
@@ -136,23 +95,30 @@
                             </select>
                         </td>
                         <td>
-                            <select class="form-select form-select-sm" [(ngModel)]="currentMailInfo.primaryFlag">
+                            <select class="form-select form-select-sm" [(ngModel)]="mail.primaryFlag">
                                 <option value="0">Primary</option>
                                 <option value="1">Secondary</option>
                             </select>
                         </td>
+
+                        <!-- Action Buttons -->
                         <td class="text-center">
-                            <button type="button" class="btn btn-success btn-sm me-2" title="Save"
-                                (click)="saveMailAddress()">
-                                <i class="bi bi-check"></i>
+                            <button type="button" class="btn btn-danger btn-sm" title="Delete"
+                                (click)="deleteMailAddress(i)">
+                                <i class="bi bi-trash"></i>
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm" title="Cancel"
-                                (click)="closeMailAddress()">
-                                <i class="bi bi-x"></i>
+                        </td>
+                        
+                    </tr>
+                    <tr *ngIf="currentSGInfo.mailAddresses.length < 4">
+                        <td class="text-center" colspan="4">
+                            <button type="button" class="btn btn-dark btn-sm w-100"
+                                (click)="addMailAddress()">
+                                <i class="bi bi-plus"></i>
+                                Add Mail Address
                             </button>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
