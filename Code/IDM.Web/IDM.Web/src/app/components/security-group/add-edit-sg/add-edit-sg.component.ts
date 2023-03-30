@@ -48,6 +48,12 @@ export class AddEditSGComponent implements OnInit {
 
   changeTypeValue(value:number) {
     this.currentSGInfo.type = value
+    
+    let isInternal = value == Constant.SG_TYPE_INT_INTERNAL;
+    let input = document.getElementById("txtDisplayName1") as HTMLInputElement;
+    input.value = isInternal ? Constant.STRING_EMPTY : "Partner";
+    input.disabled = !isInternal;
+
     this.changeDisplayNameValue();
   }
   
@@ -67,9 +73,6 @@ export class AddEditSGComponent implements OnInit {
 
   setInputValue(inputID:string, value:string) {
     let input = document.getElementById(inputID) as HTMLInputElement;
-    if(input === undefined || input === null)
-      return;
-
     input.value += value;
   }
 
@@ -102,7 +105,7 @@ export class AddEditSGComponent implements OnInit {
   
   createDisplayName(){
     let newDisplayName = this.joinDisplayName();
-    this.currentSGInfo.displayName = this.currentSGInfo.type == 0 ? newDisplayName : "Partner" + Constant.SLASH + newDisplayName;
+    this.currentSGInfo.displayName = newDisplayName;
   }
 
   createAliasName(){

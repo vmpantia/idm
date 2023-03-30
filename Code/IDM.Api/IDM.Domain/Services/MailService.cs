@@ -63,7 +63,5 @@ namespace IDM.Domain.Services
         }
         private bool IsMailAddressExist(IDMDbContext db, string mailAddress, Guid relationID) => db.MailAddress_MST.Where(data => data.MailAddress == mailAddress && 
                                                                                                                                   data.RelationID != relationID).Any();
-
-
     }
 }
