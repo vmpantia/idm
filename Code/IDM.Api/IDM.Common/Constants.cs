@@ -24,6 +24,11 @@
 
         #region Mail Address
 
+        #region Domain
+        public const string DOMAIN_IDM = "@idm.com";
+        public const string DOMAIN_PH_IDM = "@ph.idm.com";
+        #endregion
+
         #region Owner Type
         public const int MAIL_OWNER_TYPE_GROUP = 0;
         #endregion
@@ -63,6 +68,7 @@
         public const string ERROR_MAILS_INSERT = "Error in inserting mail addresses in the database.";
         public const string ERROR_MAILS_DELETE = "Error in deleting mail addresses in the database.";
         public const string ERROR_MAILS_NOT_VALID = "The {0} is not a valid mail address.";
+        public const string ERROR_MAILS_DOMAIN_NOT_VALUE = "The {0} must have {1} domain.";
 
         //Common Error
         public const string ERROR_MODEL_NOT_FOUND = "{0} model not found.";

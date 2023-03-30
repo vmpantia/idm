@@ -35,6 +35,14 @@ namespace IDM.Business.Validations.SecurityGroup
             if(!string.IsNullOrEmpty(value?.ToString()) && !_emailAttribute.IsValid(value))
                 return new ValidationResult(string.Format(Constants.ERROR_MAILS_NOT_VALID, value));
 
+            var model = validationContext.ObjectInstance as MailAddressDTO;
+
+            if(model.MailType == Constants.MAIL_TYPE_INT_IDM && !model.MailAddress.Contains(Constants.DOMAIN_IDM))
+                return new ValidationResult(string.Format(Constants.ERROR_MAILS_DOMAIN_NOT_VALUE, value, Constants.DOMAIN_IDM));
+
+            if (model.MailType == Constants.MAIL_TYPE_INT_REGIONAL && !model.MailAddress.Contains(Constants.DOMAIN_PH_IDM))
+                return new ValidationResult(string.Format(Constants.ERROR_MAILS_DOMAIN_NOT_VALUE, value, Constants.DOMAIN_PH_IDM));
+
             return ValidationResult.Success;
         }
     }
