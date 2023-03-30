@@ -14,12 +14,12 @@
 
         <!-- SG Type -->
         <label class="form-label">* Select Type:</label>
-        <div class="d-inline-flex mb-3 col-12">
-            <div class="form-check me-3">
+        <div class="mb-3 col-12">
+            <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" name="rbType" id="internalType" [disabled]="!isAdd" [checked]="currentSGInfo.type === 0" (change)="changeTypeValue(0)"/>
                 <label class="form-check-label" for="internalType"> Internal Security Group </label>
             </div>
-            <div class="form-check">
+            <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" name="rbType" id="externalType" [disabled]="!isAdd" [checked]="currentSGInfo.type === 1" (change)="changeTypeValue(1)"/>
                 <label class="form-check-label" for="externalType"> External Security Group </label>
             </div>
@@ -28,17 +28,17 @@
         <!-- SG Display Name Layer -->
         <label class="form-label">Security Group Display Name:</label>
         <div class="d-inline-flex mb-3 col-12">
-            <input type="text" class="form-control me-2" id="txtDisplayName1" name="displayName" (change)="changeDisplayNameValue()">
-            <input type="text" class="form-control me-2" id="txtDisplayName2" name="displayName" (change)="changeDisplayNameValue()">
-            <input type="text" class="form-control me-2" id="txtDisplayName3" name="displayName" (change)="changeDisplayNameValue()">
-            <input type="text" class="form-control"      id="txtDisplayName4" name="displayName" (change)="changeDisplayNameValue()">
+            <input type="text" class="form-control form-control-sm me-2" id="txtDisplayName1" name="displayName" (change)="changeDisplayNameValue()">
+            <input type="text" class="form-control form-control-sm me-2" id="txtDisplayName2" name="displayName" (change)="changeDisplayNameValue()">
+            <input type="text" class="form-control form-control-sm me-2" id="txtDisplayName3" name="displayName" (change)="changeDisplayNameValue()">
+            <input type="text" class="form-control form-control-sm"      id="txtDisplayName4" name="displayName" (change)="changeDisplayNameValue()">
         </div>
 
         <!-- SG Display Name -->
         <div class="mb-3 col-6">
             <label class="form-label">* Display Name:</label>
             <input type="text" id="txtDisplayName" readonly
-                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.DisplayName'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.DisplayName'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
                 [(ngModel)]="currentSGInfo.displayName">
             <!-- Error Message -->
             <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.DisplayName']">
@@ -50,20 +50,21 @@
         <div class="mb-3 col-6">
             <label class="form-label">* Alias Name:</label>
             <input type="text" id="txtAliasName" disabled
-                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName'] ? 'form-control is-invalid' : 'form-control'" 
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
                 [(ngModel)]="currentSGInfo.aliasName">
             <!-- Error Message -->
             <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName']">
-                {{ errorFields[0]['inputSG.AliasName'][0] }}
+                {{ errorFields[0]['inputSG.MailAddresses'][0] }}
             </div>
         </div>
     </div>
     
-    <!-- SG Email Addresses -->
+    <!-- SG Mail Addresses -->
     <div class="row mb-3">
         <div class="cstm-info">
-            <span>EMAIL ADDRESSES</span>
+            <span>MAIL ADDRESSES</span>
         </div>
+
 
         <div class="mb-3 col-12">
             <table class="cstm-table">
@@ -75,20 +76,27 @@
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
-    
                 <tbody>
+                    
+       
                     <tr *ngIf="currentSGInfo.mailAddresses === undefined">
-                        <td class="text-center" colspan="11">
+                        <td class="text-center" colspan="4">
                             Loading....
                         </td>   
                     </tr>
                     <tr *ngIf="currentSGInfo.mailAddresses?.length === 0">
-                        <td class="text-center" colspan="11">
+                        <td class="text-center" colspan="4">
                             No record found in database.
                         </td>
                     </tr>
-                    <tr *ngFor="let mail of currentSGInfo.mailAddresses">
-                        <td>{{ mail.mailAddress }}</td>
+                    <tr *ngFor="let mail of currentSGInfo.mailAddresses; let i = index">
+                        <td >
+                            {{ mail.mailAddress }}
+                            <!-- Error Message -->
+                            <span class="badge bg-danger" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.MailAddresses[' + i +'].MailAddress']">
+                                {{ errorFields[0]['inputSG.MailAddresses[' + i +'].MailAddress'][0] }}
+                            </span>
+                        </td>
                         <td>{{ mail.mailTypeDescription }}</td>
                         <td class="text-center">
                             <span class="cstm-badge primaryflg-{{ mail.primaryFlag }}">
@@ -98,22 +106,16 @@
                         
                         <!-- Action Buttons -->
                         <td class="text-center">
-                            <div>
-                                <button type="button" class="green" title="Edit" [disabled]="isAddMailAddress"
-                                    (click)="editMailAddress(mail)">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </button>
-                                <button type="button" class="red" title="Delete" [disabled]="isAddMailAddress"
-                                    (click)="deleteMailAddress(mail)">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-danger btn-sm" title="Delete" *ngIf="!isAddMailAddress"
+                                (click)="deleteMailAddress(mail)">
+                                <i class="bi bi-trash"></i>
+                            </button>
                         </td>
                     </tr>
 
                     <tr *ngIf="!isAddMailAddress">
                         <td class="text-center" colspan="11">
-                            <button type="button" class="primary" title="Add"
+                            <button type="button" class="btn btn-primary btn-sm w-100"
                                 (click)="addMailAddress()">
                                 <i class="bi bi-plus"></i>
                                 Add Mail Address
@@ -123,10 +125,10 @@
 
                     <tr *ngIf="isAddMailAddress">
                         <td>
-                            <input type="text" [(ngModel)]="currentMailInfo.mailAddress">
+                            <input type="text" id="txtMailAddress" maxlength="50" class="form-control form-control-sm" [(ngModel)]="currentMailInfo.mailAddress">
                         </td>
                         <td>
-                            <select [(ngModel)]="currentMailInfo.mailType">
+                            <select class="form-select form-select-sm" [(ngModel)]="currentMailInfo.mailType">
                                 <option value="0">IDM Mail Address</option>
                                 <option value="1">Regional Mail Address</option>
                                 <option value="2">Company Mail Address 1</option>
@@ -134,22 +136,20 @@
                             </select>
                         </td>
                         <td>
-                            <select [(ngModel)]="currentMailInfo.primaryFlag">
+                            <select class="form-select form-select-sm" [(ngModel)]="currentMailInfo.primaryFlag">
                                 <option value="0">Primary</option>
                                 <option value="1">Secondary</option>
                             </select>
                         </td>
-                        <td>
-                            <div>
-                                <button type="button" class="green" title="Save"
-                                    (click)="saveMailAddress()">
-                                    <i class="bi bi-check"></i>
-                                </button>
-                                <button type="button" class="red" title="Cancel"
-                                    (click)="closeMailAddress()">
-                                    <i class="bi bi-x"></i>
-                                </button>
-                            </div>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-sm me-2" title="Save"
+                                (click)="saveMailAddress()">
+                                <i class="bi bi-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" title="Cancel"
+                                (click)="closeMailAddress()">
+                                <i class="bi bi-x"></i>
+                            </button>
                         </td>
                     </tr>
 

@@ -17,8 +17,11 @@
         Security Group List
     </div>
     
-    <div class="cstm-actions row mb-3">
-        <button type="button" class="cstm-btn primary" data-bs-toggle="modal" data-bs-target="#sgModal" (click)="addSG(content)">Add SG</button>
+    <div class="d-inline-flex row mb-3">
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#sgModal" (click)="addSG(content)">
+            <i class="bi bi-plus"></i>
+            Add Security Group
+        </button>
     </div>
 
     <!-- Security Group List -->
@@ -73,9 +76,12 @@
                     
                     <!-- Action Buttons -->
                     <td class="text-center">
-                        <button type="button" class="cstm-btn primary" data-bs-toggle="modal" data-bs-target="#sgModal" 
+                        <button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#sgModal" title="Edit"
                                 (click)="editSG(content, sg.internalID)">
-                            Edit
+                                <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" title="Delete">
+                            <i class="bi bi-trash"></i>
                         </button>
                     </td>
                 </tr>

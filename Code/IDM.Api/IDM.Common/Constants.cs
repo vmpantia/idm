@@ -40,10 +40,10 @@
         public const int MAIL_TYPE_INT_REGIONAL = 1;
         public const int MAIL_TYPE_INT_COMPANY1 = 2;
         public const int MAIL_TYPE_INT_COMPANY2 = 3;
-        public const string MAIL_TYPE_STRING_IDM = "IDM Mail";
-        public const string MAIL_TYPE_STRING_REGIONAL = "Regional Mail";
-        public const string MAIL_TYPE_STRING_COMPANY1 = "Company Mail 1";
-        public const string MAIL_TYPE_STRING_COMPANY2 = "Company Mail 2";
+        public const string MAIL_TYPE_STRING_IDM = "IDM Mail Address";
+        public const string MAIL_TYPE_STRING_REGIONAL = "Regional Mail Address";
+        public const string MAIL_TYPE_STRING_COMPANY1 = "Company Mail Address 1";
+        public const string MAIL_TYPE_STRING_COMPANY2 = "Company Mail Address 2";
         #endregion
 
         #endregion
@@ -62,6 +62,7 @@
 
         public const string ERROR_MAILS_INSERT = "Error in inserting mail addresses in the database.";
         public const string ERROR_MAILS_DELETE = "Error in deleting mail addresses in the database.";
+        public const string ERROR_MAILS_NOT_VALID = "The {0} is not a valid mail address.";
 
         //Common Error
         public const string ERROR_MODEL_NOT_FOUND = "{0} model not found.";

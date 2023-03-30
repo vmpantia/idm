@@ -122,6 +122,9 @@ export class AddEditSGComponent implements OnInit {
     parsedInput.type = input.type;
     parsedInput.typeDescription = this.utility.convertType(input.type);
 
+    //Mail Addresses details
+    parsedInput.mailAddresses = input.mailAddresses;
+
     //Ownership Details
     parsedInput.ownerInternalID = input.ownerInternalID;
     parsedInput.admin1InternalID = input.admin1InternalID;
@@ -170,26 +173,55 @@ export class AddEditSGComponent implements OnInit {
           this.errorFields.push(response.error.errors);
       }
     );
+
   }
 
+  //---------------- Mail Address Functionalities ----------------
   addMailAddress() {
     this.isAddMailAddress = true;
     this.currentMailInfo = new MailAddressDTO();
   }
-  editMailAddress(mail:MailAddressDTO){
-  }  
   
   deleteMailAddress(mail:MailAddressDTO){
     let idx = this.currentSGInfo.mailAddresses.indexOf(mail);
     this.currentSGInfo.mailAddresses.splice(idx, 1);
   }
+
   saveMailAddress(){
+    if(this.currentMailInfo.mailAddress === Constant.STRING_EMPTY) {
+      let input = document.getElementById("txtMailAddress") as HTMLInputElement;
+      console.log(input);
+      input.className += " is-invalid";
+      return;
+    }
+
     this.isAddMailAddress = false;
-    this.currentSGInfo.mailAddresses.push(this.currentMailInfo);
+    this.currentSGInfo.mailAddresses.push(this.parseMailAddress(this.currentMailInfo));
     this.currentMailInfo = new MailAddressDTO();
   }
+
   closeMailAddress(){
     this.isAddMailAddress = false;
     this.currentMailInfo = new MailAddressDTO();
+  }
+
+  parseMailAddress(input:MailAddressDTO){
+    let parsedInput = new MailAddressDTO();
+
+    //Mail Address Details
+    parsedInput.mailAddress = input.mailAddress.trim();
+    parsedInput.relationID = input.relationID;
+    parsedInput.ownerType = input.ownerType;
+    parsedInput.mailType = input.mailType;
+    parsedInput.mailTypeDescription = this.utility.convertMailType(input.mailType);
+    parsedInput.primaryFlag = input.primaryFlag;
+    parsedInput.primaryFlagDescription = this.utility.convertPrimaryFlag(input.primaryFlag);
+    
+    //Common
+    parsedInput.status = input.status;
+    parsedInput.statusDescription = this.utility.convertStatus(input.status);
+    parsedInput.createdDate = input.createdDate;
+    parsedInput.modifiedDate = input.modifiedDate;
+    return parsedInput;
   }
 }

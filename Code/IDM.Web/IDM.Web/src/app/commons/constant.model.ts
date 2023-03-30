@@ -33,8 +33,8 @@ export class Constant {
     public static MAIL_TYPE_INT_REGIONAL:number = 1;
     public static MAIL_TYPE_INT_COMPANY1:number = 2;
     public static MAIL_TYPE_INT_COMPANY2:number = 3;
-    public static MAIL_TYPE_STRING_IDM:string = "IDM Mail";
-    public static MAIL_TYPE_STRING_REGIONAL:string = "Regional Mail";
-    public static MAIL_TYPE_STRING_COMPANY1:string = "Company Mail 1";
-    public static MAIL_TYPE_STRING_COMPANY2:string = "Company Mail 2";
+    public static MAIL_TYPE_STRING_IDM:string = "IDM Mail Address";
+    public static MAIL_TYPE_STRING_REGIONAL:string = "Regional Mail Address";
+    public static MAIL_TYPE_STRING_COMPANY1:string = "Company Mail Address 1";
+    public static MAIL_TYPE_STRING_COMPANY2:string = "Company Mail Address 2";
 }
