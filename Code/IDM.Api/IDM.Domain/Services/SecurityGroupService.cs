@@ -79,7 +79,7 @@ namespace IDM.Domain.Services
                         case Constants.FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER:
                         case Constants.FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER:
                             await UpdateSecurityGroup_MST(request.inputSG);
-                            await _mail.DeleteMailAddress_MST(_db, request.inputSG.InternalID);
+                            await _mail.DeleteEmailAddress_MST(_db, request.inputSG.InternalID);
                             await _mail.InsertMailAdresss_MST(_db, request.inputSG.MailAddresses, request.inputSG.InternalID);
                             break;
                     }

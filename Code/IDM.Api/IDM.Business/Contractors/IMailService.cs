@@ -6,9 +6,9 @@ namespace IDM.Business.Contractors
 {
     public interface IMailService
     {
-        IEnumerable<MailAddress_MST> GetMailAddressByRelationID(IDMDbContext db, Guid relationID);
+        IEnumerable<EmailAddress_MST> GetMailAddressByRelationID(IDMDbContext db, Guid relationID);
         Task InsertMailAdresss_MST(IDMDbContext db, List<MailAddressDTO> mailAddresses, Guid relationID);
-        Task DeleteMailAddress_MST(IDMDbContext db, Guid sgInternalID);
+        Task DeleteEmailAddress_MST(IDMDbContext db, Guid sgInternalID);
         Task<string> ValidateMailAddresses(IDMDbContext db, List<MailAddressDTO> inputMails, bool isAdd);
     }
 }

@@ -4,12 +4,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IDM.Infrastructure.DataAccess.Entities
 {
-    public class MailAddress_MST
+    [PrimaryKey(nameof(RequestID), nameof(Number))]
+    public class EmailAddress_TRN
     {
+        //Request Details
+        public string RequestID { get; set; }
+        public string Number { get; set; }
+
         //MailAddress Details
-        [Key, MaxLength(50)]
+        [MaxLength(50)]
         public string MailAddress { get; set; }
-        public Guid RelationID { get; set; } /*Security Group or Account InternalID*/
+        public Guid RelationID { get; set; } /*Security Group, Account InternalID*/
         public int OwnerType { get; set; }
         public int MailType { get; set; }
         public int PrimaryFlag { get; set; }

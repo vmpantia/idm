@@ -22,14 +22,11 @@ namespace IDM.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("IDM.Infrastructure.DataAccess.Entities.MailAddress_MST", b =>
+            modelBuilder.Entity("IDM.Infrastructure.DataAccess.Entities.EmailAddress_MST", b =>
                 {
                     b.Property<string>("MailAddress")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<Guid>("RelationID")
-                        .HasColumnType("uniqueidentifier");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -46,15 +43,18 @@ namespace IDM.Infrastructure.Migrations
                     b.Property<int>("PrimaryFlag")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("RelationID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasKey("MailAddress", "RelationID");
+                    b.HasKey("MailAddress");
 
-                    b.ToTable("MailAddress_MST");
+                    b.ToTable("EmailAddress_MST");
                 });
 
-            modelBuilder.Entity("IDM.Infrastructure.DataAccess.Entities.MailAddress_TRN", b =>
+            modelBuilder.Entity("IDM.Infrastructure.DataAccess.Entities.EmailAddress_TRN", b =>
                 {
                     b.Property<string>("RequestID")
                         .HasColumnType("nvarchar(450)");
@@ -67,7 +67,8 @@ namespace IDM.Infrastructure.Migrations
 
                     b.Property<string>("MailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("MailType")
                         .HasColumnType("int");
@@ -89,7 +90,7 @@ namespace IDM.Infrastructure.Migrations
 
                     b.HasKey("RequestID", "Number");
 
-                    b.ToTable("MailAddress_TRN");
+                    b.ToTable("EmailAddress_TRN");
                 });
 
             modelBuilder.Entity("IDM.Infrastructure.DataAccess.Entities.Request_LST", b =>

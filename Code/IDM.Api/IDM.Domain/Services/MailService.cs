@@ -12,30 +12,30 @@ namespace IDM.Domain.Services
 {
     public class MailService : IMailService
     {
-        public IEnumerable<MailAddress_MST> GetMailAddressByRelationID(IDMDbContext db, Guid relationID)
+        public IEnumerable<EmailAddress_MST> GetMailAddressByRelationID(IDMDbContext db, Guid relationID)
         {
-            return db.MailAddress_MST.Where(data => data.RelationID == relationID);
+            return db.EmailAddress_MST.Where(data => data.RelationID == relationID);
         }
 
         public async Task InsertMailAdresss_MST(IDMDbContext db, List<MailAddressDTO> mailAddresses, Guid relationID)
         {
             //Get mail Address 
             var mails = Utility.ParseMailAddress(mailAddresses, relationID);
-            await db.MailAddress_MST.AddRangeAsync(mails);
+            await db.EmailAddress_MST.AddRangeAsync(mails);
             var result = await db.SaveChangesAsync();
 
             if (result <= 0)
                 throw new ServiceException(Constants.ERROR_MAILS_INSERT);
         }
 
-        public async Task DeleteMailAddress_MST(IDMDbContext db, Guid sgInternalID)
+        public async Task DeleteEmailAddress_MST(IDMDbContext db, Guid sgInternalID)
         {
-            var mailList = await db.MailAddress_MST.Where(data => data.RelationID == sgInternalID).ToListAsync();
+            var mailList = await db.EmailAddress_MST.Where(data => data.RelationID == sgInternalID).ToListAsync();
 
             if (mailList == null || mailList.Count == 0)
                 return;
 
-            db.MailAddress_MST.RemoveRange(mailList);
+            db.EmailAddress_MST.RemoveRange(mailList);
             var result = await db.SaveChangesAsync();
 
             if (result <= 0)
@@ -61,7 +61,7 @@ namespace IDM.Domain.Services
 
             return string.Empty;
         }
-        private bool IsMailAddressExist(IDMDbContext db, string mailAddress, Guid relationID) => db.MailAddress_MST.Where(data => data.MailAddress == mailAddress && 
+        private bool IsMailAddressExist(IDMDbContext db, string mailAddress, Guid relationID) => db.EmailAddress_MST.Where(data => data.MailAddress == mailAddress && 
                                                                                                                                   data.RelationID != relationID).Any();
     }
 }

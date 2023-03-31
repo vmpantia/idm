@@ -90,7 +90,7 @@ namespace IDM.Business
             };
         }
 
-        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data, List<MailAddress_MST> mailAddresses)
+        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data, List<EmailAddress_MST> mailAddresses)
         {
             return new SecurityGroupDTO
             {
@@ -115,12 +115,12 @@ namespace IDM.Business
             };
         }
 
-        public static List<MailAddress_MST> ParseMailAddress(List<MailAddressDTO> mailAddresses, Guid relationID)
+        public static List<EmailAddress_MST> ParseMailAddress(List<MailAddressDTO> mailAddresses, Guid relationID)
         {
-            var result = new List<MailAddress_MST>();
+            var result = new List<EmailAddress_MST>();
             mailAddresses.ForEach(mail =>
             {
-                result.Add(new MailAddress_MST
+                result.Add(new EmailAddress_MST
                 {
                     MailAddress = mail.MailAddress.Trim(),
                     RelationID = relationID,
@@ -135,7 +135,7 @@ namespace IDM.Business
             return result;
         }
 
-        public static List<MailAddressDTO> ParseMailAddress(List<MailAddress_MST> mailAddresses)
+        public static List<MailAddressDTO> ParseMailAddress(List<EmailAddress_MST> mailAddresses)
         {
             var result = new List<MailAddressDTO>();
             mailAddresses.ForEach(mail =>
