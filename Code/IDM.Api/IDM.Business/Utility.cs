@@ -89,10 +89,13 @@ namespace IDM.Business
 
         public static string SelectEmailAddress(List<EmailAddress_MST> emailAddresses, int mailType = -1)
         {
-            if (mailType < 0)
-                return emailAddresses.Where(data => data.PrimaryFlag == Constants.MAIL_FLAG_INT_PRIMARY).First().MailAddress ?? string.Empty;
+            List<EmailAddress_MST> result;
+            if (mailType == -1)
+                result = emailAddresses.Where(data => data.PrimaryFlag == Constants.MAIL_FLAG_INT_PRIMARY).ToList();
             else
-                return emailAddresses.Where(data => data.MailType == mailType).First().MailAddress ?? string.Empty;
+                result = emailAddresses.Where(data => data.EmailType == mailType).ToList();
+
+            return result == null || result.Count == 0 ? string.Empty : result.First().EmailAddress;
         }
 
         public static SecurityGroup_MST ParseSecurityGroup(SecurityGroupDTO data)
@@ -168,10 +171,10 @@ namespace IDM.Business
         {
             return new EmailAddress_MST
             {
-                MailAddress = emailAddress,
+                EmailAddress = emailAddress,
                 RelationID = relationID,
                 OwnerType = ownerType,
-                MailType = mailType,
+                EmailType = mailType,
                 PrimaryFlag = primaryFlag,
                 Status = Constants.STATUS_INT_ENABLED,
                 CreatedDate = DateTime.Now,

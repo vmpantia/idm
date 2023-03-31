@@ -6,12 +6,12 @@ namespace IDM.Infrastructure.DataAccess.Entities
 {
     public class EmailAddress_MST
     {
-        //MailAddress Details
+        //EmailAddress Details
         [Key, MaxLength(50)]
-        public string MailAddress { get; set; }
+        public string EmailAddress { get; set; }
         public Guid RelationID { get; set; } /*Security Group or Account InternalID*/
         public int OwnerType { get; set; }
-        public int MailType { get; set; }
+        public int EmailType { get; set; }
         public int PrimaryFlag { get; set; }
 
         //Common Details
