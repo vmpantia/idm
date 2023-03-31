@@ -65,10 +65,8 @@
         public const string ERROR_SG_NAME_INVALID_FOR_INTERNAL = "The {0} is invalid for Internal SG.";
         public const string ERROR_SG_NAME_INVALID_FOR_EXTERNAL = "The {0} is invalid for External SG.";
 
-        public const string ERROR_MAILS_INSERT = "Error in inserting mail addresses in the database.";
-        public const string ERROR_MAILS_DELETE = "Error in deleting mail addresses in the database.";
-        public const string ERROR_MAILS_NOT_VALID = "The {0} is not a valid mail address.";
-        public const string ERROR_MAILS_DOMAIN_NOT_VALUE = "The {0} must have {1} domain.";
+        public const string ERROR_EMAILS_INSERT = "Error in inserting mail addresses in the database.";
+        public const string ERROR_EMAILS_DELETE = "Error in deleting mail addresses in the database.";
 
         //Common Error
         public const string ERROR_MODEL_NOT_FOUND = "{0} model not found.";
@@ -82,12 +80,12 @@
         public const string PROPERTY_SG_ALIASNAME = "AliasName";
         public const string PROPERTY_SG_DISPLAYNAME = "DisplayName";
 
-        public const string PROPERTY_MAIL_ADDRESS = "MailAddress";
-        public const string PROPERTY_PRIMARY_MAIL_ADDRESS = "PrimaryMailAddress";
-        public const string PROPERTY_IDM_MAIL_ADDRESS = "IDMMailAddress";
-        public const string PROPERTY_REG_MAIL_ADDRESS = "RegionalMailAddress";
-        public const string PROPERTY_COMP1_MAIL_ADDRESS = "CompanyMailAddress1";
-        public const string PROPERTY_COMP2_MAIL_ADDRESS = "CompanyMailAddress2";
+        public const string PROPERTY_EMAIL_ADDRESS = "EmailAddress";
+        public const string PROPERTY_PRIMARY_EMAIL_ADDRESS = "PrimaryEmailAddress";
+        public const string PROPERTY_IDM_EMAIL_ADDRESS = "IDMEmailAddress";
+        public const string PROPERTY_REG_EMAIL_ADDRESS = "RegionalEmailAddress";
+        public const string PROPERTY_COMP1_EMAIL_ADDRESS = "CompanyEmailAddress1";
+        public const string PROPERTY_COMP2_EMAIL_ADDRESS = "CompanyEmailAddress2";
         #endregion
     }
 }

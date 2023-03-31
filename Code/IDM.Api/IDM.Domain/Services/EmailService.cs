@@ -20,25 +20,29 @@ namespace IDM.Domain.Services
         {
             //Get email addresses 
             var emails = Utility.ParseEmailAddresses(input);
+
+            if (emails == null || emails.Count == 0)
+                return;
+
             await db.EmailAddress_MST.AddRangeAsync(emails);
             var result = await db.SaveChangesAsync();
 
             if (result <= 0)
-                throw new ServiceException(Constants.ERROR_MAILS_INSERT);
+                throw new ServiceException(Constants.ERROR_EMAILS_INSERT);
         }
 
         public async Task DeleteEmailAddress_MST(IDMDbContext db, Guid sgInternalID)
         {
-            var mailList = await db.EmailAddress_MST.Where(data => data.RelationID == sgInternalID).ToListAsync();
+            var emails = await db.EmailAddress_MST.Where(data => data.RelationID == sgInternalID).ToListAsync();
 
-            if (mailList == null || mailList.Count == 0)
+            if (emails == null || emails.Count == 0)
                 return;
 
-            db.EmailAddress_MST.RemoveRange(mailList);
+            db.EmailAddress_MST.RemoveRange(emails);
             var result = await db.SaveChangesAsync();
 
             if (result <= 0)
-                throw new ServiceException(Constants.ERROR_MAILS_DELETE);
+                throw new ServiceException(Constants.ERROR_EMAILS_DELETE);
         }
     }
 }

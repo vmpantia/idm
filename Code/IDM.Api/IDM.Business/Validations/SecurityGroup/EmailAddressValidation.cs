@@ -30,7 +30,7 @@ namespace IDM.Business.Validations.SecurityGroup
 
             //Check if the value is a valid email address
             if (!string.IsNullOrEmpty(value?.ToString()) && !_emailAttribute.IsValid(value))
-                return _requiredAttribute.GetValidationResult(value, validationContext);
+                return _emailAttribute.GetValidationResult(value, validationContext);
 
             return ValidationResult.Success;
         }

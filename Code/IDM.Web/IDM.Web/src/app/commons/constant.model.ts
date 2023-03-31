@@ -16,23 +16,8 @@ export class Constant {
     //SG Type
     public static SG_TYPE_INT_INTERNAL:number = 0;
     public static SG_TYPE_INT_EXTERNAL:number = 1;
-    public static SG_TYPE_STRING_INTERNAL:string = "Internal";
-    public static SG_TYPE_STRING_EXTERNAL:string = "External";
 
     //Mail Owner Type
-    public static  MAIL_OWNER_TYPE_GROUP = 0;
-
-    public static MAIL_FLAG_INT_PRIMARY:number = 0;
-    public static MAIL_FLAG_INT_SECONDARY:number = 1;
-    public static MAIL_FLAG_STRING_PRIMARY:string = "Primary";
-    public static MAIL_FLAG_STRING_SECONDARY:string = "Secondary";
-
-    public static MAIL_TYPE_INT_IDM:number = 0;
-    public static MAIL_TYPE_INT_REGIONAL:number = 1;
-    public static MAIL_TYPE_INT_COMPANY1:number = 2;
-    public static MAIL_TYPE_INT_COMPANY2:number = 3;
-    public static MAIL_TYPE_STRING_IDM:string = "IDM Mail Address";
-    public static MAIL_TYPE_STRING_REGIONAL:string = "Regional Mail Address";
-    public static MAIL_TYPE_STRING_COMPANY1:string = "Company Mail Address 1";
-    public static MAIL_TYPE_STRING_COMPANY2:string = "Company Mail Address 2";
+    public static DOMAIN_IDM:string = "@idm.com";
+    public static DOMAIN_PH_IDM:string = "@ph.idm.com";
 }

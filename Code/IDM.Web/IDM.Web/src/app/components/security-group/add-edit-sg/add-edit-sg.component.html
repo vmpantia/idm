@@ -6,7 +6,7 @@
         {{ errorMessage }}
     </div>
 
-    <!-- SG Information -->
+    <!-- SG Details -->
     <div class="row">
         <div class="cstm-info">
             <span>SECURITY GROUP INFORMATION</span>
@@ -58,76 +58,97 @@
             </div>
         </div>
     </div>
-    
-    <!-- SG Mail Addresses -->
-    <div class="row">
-        <div class="cstm-info">
-            <span>MAIL ADDRESSES</span>
-        </div>
 
-        <div class="mb-3 col-12">
-            <table class="cstm-table">
-                <thead>
-                    <tr>
-                        <th>Mail Address</th>
-                        <th>Type</th>
-                        <th class="text-center">Is Primary?</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let mail of currentSGInfo.mailAddresses; let i = index">
-                        <td>
-                            <input type="text" maxlength="50" class="form-control form-control-sm" 
-                                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.MailAddresses[' + i + '].MailAddress'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
-                                [(ngModel)]="mail.mailAddress">
-                            <!-- Error Message -->
-                            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.MailAddresses[' + i + '].MailAddress']">
-                                {{ errorFields[0]['inputSG.MailAddresses[' + i + '].MailAddress'][0] }}
-                            </div>   
-                        </td>
-                        <td>
-                            <select class="form-select form-select-sm" [(ngModel)]="mail.mailType">
-                                <option value="0">IDM Mail Address</option>
-                                <option value="1">Regional Mail Address</option>
-                                <option value="2">Company Mail Address 1</option>
-                                <option value="3">Company Mail Address 2</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-select form-select-sm" [(ngModel)]="mail.primaryFlag">
-                                <option value="0">Primary</option>
-                                <option value="1">Secondary</option>
-                            </select>
-                        </td>
-
-                        <!-- Action Buttons -->
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger btn-sm" title="Delete"
-                                (click)="deleteMailAddress(i)">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                        
-                    </tr>
-                    <tr *ngIf="currentSGInfo.mailAddresses.length < 4">
-                        <td class="text-center" colspan="4">
-                            <button type="button" class="btn btn-dark btn-sm w-100"
-                                (click)="addMailAddress()">
-                                <i class="bi bi-plus"></i>
-                                Add Mail Address
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
+    <!-- SG Ownership Details -->
     <div class="row mb-3">
         <div class="cstm-info">
             <span>OWNER INFORMATION</span>
         </div>
+    </div>
+    
+    <!-- SG Email Addresses -->
+    <div class="row">
+        <div class="cstm-info">
+            <span>EMAIL ADDRESSES</span>
+        </div>
+
+        <!-- Primary Email Addresses -->
+        <div class="mb-3 col-12">
+            <label class="form-label">* Select Primary Email Address:</label>
+            <select [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.PrimaryEmailAddress'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
+                    [(ngModel)]="currentSGInfo.primaryEmailAddress">
+                    <option *ngFor="let email of emailAddresses">
+                            {{ email }}
+                    </option>
+            </select>
+            <!-- Error Message -->
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.PrimaryEmailAddress']">
+                {{ errorFields[0]["inputSG.PrimaryEmailAddress"][0] }}
+            </div>      
+        </div>
+        
+        <!-- IDM Email Addresses -->
+        <div class="mb-3 col-8">
+            <label class="form-label">* IDM Email Address:</label>
+            <input type="text"
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.IDMEmailAddress'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
+                [(ngModel)]="currentSGInfo.idmEmailAddress"
+                (change)="createPrimaryEmailAddressSelection()">
+            <!-- Error Message -->
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.IDMEmailAddress']">
+                {{ errorFields[0]["inputSG.IDMEmailAddress"][0] }}
+            </div>      
+        </div>
+        <!-- IDM Email Addresses Domain -->
+        <div class="mb-3 col-4">
+            <label class="form-label">Domain:</label>
+            <input type="text" class="form-control form-control-sm" readonly value="@idm.com">
+        </div>
+
+        <!-- Regional Email Addresses -->
+        <div class="mb-3 col-8">
+            <label class="form-label">* Regional Address:</label>
+            <input type="text"
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.RegionalEmailAddress'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
+                [(ngModel)]="currentSGInfo.regionalEmailAddress"
+                (change)="createPrimaryEmailAddressSelection()">
+            <!-- Error Message -->
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.RegionalEmailAddress']">
+                {{ errorFields[0]["inputSG.RegionalEmailAddress"][0] }}
+            </div>      
+        </div>
+        <!-- Regional Email Addresses Domain -->
+        <div class="mb-3 col-4">
+            <label class="form-label">Domain:</label>
+            <input type="text" class="form-control form-control-sm" readonly value="@ph.idm.com">
+        </div>
+
+        <!-- Company Email Addresses 1 -->
+        <div class="mb-3 col-6">
+            <label class="form-label">Company Email Address 1:</label>
+            <input type="text"
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress1'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
+                [(ngModel)]="currentSGInfo.companyEmailAddress1"
+                (change)="createPrimaryEmailAddressSelection()">
+            <!-- Error Message -->
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress1']">
+                {{ errorFields[0]["inputSG.CompanyEmailAddress1"][0] }}
+            </div>      
+        </div>
+
+        <!-- Company Email Addresses 1 -->
+        <div class="mb-3 col-6">
+            <label class="form-label">Company Email Address 2:</label>
+            <input type="text"
+                [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress2'] ? 'form-control is-invalid form-control-sm' : 'form-control form-control-sm'" 
+                [(ngModel)]="currentSGInfo.companyEmailAddress2"
+                (change)="createPrimaryEmailAddressSelection()">
+            <!-- Error Message -->
+            <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress2']">
+                {{ errorFields[0]["inputSG.CompanyEmailAddress2"][0] }}
+            </div>      
+        </div>
+
     </div>
 
     <!-- Save Button -->

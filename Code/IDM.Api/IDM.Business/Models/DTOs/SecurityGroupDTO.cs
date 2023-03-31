@@ -34,9 +34,9 @@ namespace IDM.Business.Models.DTOs
         [DisplayName("Regional Email Address"), EmailAddressValidation(true, 50)]
         public string RegionalEmailAddress { get; set; }
         [DisplayName("Company Email Address 1"), EmailAddressValidation(false, 50)]
-        public string CompanyEmailAddress1 { get; set; } = string.Empty;
+        public string CompanyEmailAddress1 { get; set; } 
         [DisplayName("Company Email Address 2"), EmailAddressValidation(false, 50)]
-        public string CompanyEmailAddress2 { get; set; } = string.Empty;
+        public string CompanyEmailAddress2 { get; set; }
 
         //Common Details
         public int Status { get; set; }

@@ -1,5 +1,4 @@
 import { Constant } from "../commons/constant.model";
-import { MailAddressDTO } from "./mail-address-dto.model";
 
 export class SecurityGroupDTO {
     //SG Details
@@ -19,8 +18,12 @@ export class SecurityGroupDTO {
     public admin3InternalID:string = Constant.GUID_EMPTY;;
     public admin3Name:string = Constant.STRING_EMPTY;
 
-    //SG Mail Address List
-    public mailAddresses:MailAddressDTO[] = [];
+    //SG Email Addresses
+    public primaryEmailAddress:string = Constant.STRING_EMPTY;
+    public idmEmailAddress:string = Constant.STRING_EMPTY;
+    public regionalEmailAddress:string = Constant.STRING_EMPTY;
+    public companyEmailAddress1:string = Constant.STRING_EMPTY;
+    public companyEmailAddress2:string = Constant.STRING_EMPTY;
     
     //Common Details
     public status:number = 0;

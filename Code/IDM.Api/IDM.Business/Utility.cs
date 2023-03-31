@@ -65,11 +65,11 @@ namespace IDM.Business
         {
             switch (attribute)
             {
-                case Constants.PROPERTY_IDM_MAIL_ADDRESS:
+                case Constants.PROPERTY_IDM_EMAIL_ADDRESS:
                     return Constants.MAIL_TYPE_INT_IDM;
-                case Constants.PROPERTY_REG_MAIL_ADDRESS:
+                case Constants.PROPERTY_REG_EMAIL_ADDRESS:
                     return Constants.MAIL_TYPE_INT_REGIONAL;
-                case Constants.PROPERTY_COMP1_MAIL_ADDRESS:
+                case Constants.PROPERTY_COMP1_EMAIL_ADDRESS:
                     return Constants.MAIL_TYPE_INT_COMPANY1;
                 default: //Company Email Address 2
                     return Constants.MAIL_TYPE_INT_COMPANY2;
@@ -145,8 +145,8 @@ namespace IDM.Business
         public static List<EmailAddress_MST> ParseEmailAddresses(SecurityGroupDTO data)
         {
             var result = new List<EmailAddress_MST>();
-            var emails = data.GetType().GetProperties().Where(data => data.Name.Contains(Constants.PROPERTY_MAIL_ADDRESS) &&
-                                                                     data.Name != Constants.PROPERTY_PRIMARY_MAIL_ADDRESS).ToList();
+            var emails = data.GetType().GetProperties().Where(data => data.Name.Contains(Constants.PROPERTY_EMAIL_ADDRESS) &&
+                                                                     data.Name != Constants.PROPERTY_PRIMARY_EMAIL_ADDRESS).ToList();
             emails.ForEach(email =>
             {
                 var emailAddress = email.GetValue(data)?.ToString();

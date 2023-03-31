@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Constant } from 'src/app/commons/constant.model';
-import { MailAddressDTO } from 'src/app/models/mail-address-dto.model';
 import { SaveSecurityGroupRequest } from 'src/app/models/requests/save-security-group-request.model';
 import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
 import { APIService } from 'src/app/services/api.service';
@@ -22,6 +21,7 @@ export class AddEditSGComponent implements OnInit {
   errorMessage:any;
   
   currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
+  emailAddresses:string[] =[];
 
   isAdd:boolean;
 
@@ -79,6 +79,9 @@ export class AddEditSGComponent implements OnInit {
   changeDisplayNameValue() {
     this.createDisplayName();
     this.createAliasName();
+    this.createIDMEmailAddress();
+    this.createRegionalEmailAddress();
+    this.createPrimaryEmailAddressSelection();
   }
 
   joinDisplayName(){
@@ -113,6 +116,28 @@ export class AddEditSGComponent implements OnInit {
       this.currentSGInfo.aliasName = this.currentSGInfo.displayName.split(Constant.SLASH).join(Constant.DASH).toLowerCase();
   }
 
+  createIDMEmailAddress(){
+    if(this.isAdd)
+      this.currentSGInfo.idmEmailAddress = this.currentSGInfo.aliasName.trim();
+  }
+
+  createRegionalEmailAddress(){
+    if(this.isAdd)
+      this.currentSGInfo.regionalEmailAddress = this.currentSGInfo.aliasName.trim();
+  }
+
+  createPrimaryEmailAddressSelection(){
+    this.emailAddresses = [];
+    if(this.currentSGInfo.idmEmailAddress !== Constant.STRING_EMPTY)
+      this.emailAddresses.push(this.currentSGInfo.idmEmailAddress.trim() + Constant.DOMAIN_IDM);
+    if(this.currentSGInfo.regionalEmailAddress !== Constant.STRING_EMPTY)
+      this.emailAddresses.push(this.currentSGInfo.regionalEmailAddress.trim() + Constant.DOMAIN_PH_IDM);
+    if(this.currentSGInfo.companyEmailAddress1 !== Constant.STRING_EMPTY)
+      this.emailAddresses.push(this.currentSGInfo.companyEmailAddress1.trim());
+    if(this.currentSGInfo.companyEmailAddress2 !== Constant.STRING_EMPTY)
+      this.emailAddresses.push(this.currentSGInfo.companyEmailAddress2.trim());
+  }
+
   parseSG(input:SecurityGroupDTO) {
     let parsedInput = new SecurityGroupDTO();
 
@@ -121,20 +146,22 @@ export class AddEditSGComponent implements OnInit {
     parsedInput.aliasName = input.aliasName.trim();
     parsedInput.displayName = input.displayName.trim();
     parsedInput.type = input.type;
-    parsedInput.typeDescription = this.utility.convertType(input.type);
 
-    //Mail Addresses details
-    parsedInput.mailAddresses = input.mailAddresses;
-
-    //Ownership Details
+    //SG Ownership Details
     parsedInput.ownerInternalID = input.ownerInternalID;
     parsedInput.admin1InternalID = input.admin1InternalID;
     parsedInput.admin2InternalID = input.admin2InternalID;
     parsedInput.admin3InternalID = input.admin3InternalID;
 
+    //SG Email Addresses
+    parsedInput.primaryEmailAddress = input.primaryEmailAddress.trim();
+    parsedInput.idmEmailAddress = input.idmEmailAddress.trim() === Constant.STRING_EMPTY ? Constant.STRING_EMPTY : input.idmEmailAddress.trim() + Constant.DOMAIN_IDM;
+    parsedInput.regionalEmailAddress = input.regionalEmailAddress.trim() === Constant.STRING_EMPTY ? Constant.STRING_EMPTY : input.regionalEmailAddress.trim() + Constant.DOMAIN_PH_IDM;
+    parsedInput.companyEmailAddress1 = input.companyEmailAddress1.trim();
+    parsedInput.companyEmailAddress2 = input.companyEmailAddress2.trim();
+
     //Common
     parsedInput.status = input.status;
-    parsedInput.statusDescription = this.utility.convertStatus(input.status);
     parsedInput.createdDate = input.createdDate;
     parsedInput.modifiedDate = input.modifiedDate;
     return parsedInput;
@@ -174,29 +201,5 @@ export class AddEditSGComponent implements OnInit {
           this.errorFields.push(response.error.errors);
       }
     );
-
-  }
-
-  //---------------- Mail Address Functionalities ----------------
-  addMailAddress() {
-    let newMail = new MailAddressDTO();
-    this.currentSGInfo.mailAddresses.push(newMail);
-    this.resetMailError();
-  }
-  
-  deleteMailAddress(idx:number){
-    this.currentSGInfo.mailAddresses.splice(idx, 1);
-    this.resetMailError();
-  }
-
-  resetMailError(){
-    let defaultNoOfMail = 4;
-
-    if(this.errorFields.length === 0)
-      return;
-
-    for(let idx = 0; idx < defaultNoOfMail; idx++){
-      this.errorFields[0]["inputSG.MailAddresses[" + idx + "].MailAddress"] = Constant.STRING_EMPTY;
-    }
   }
 }
