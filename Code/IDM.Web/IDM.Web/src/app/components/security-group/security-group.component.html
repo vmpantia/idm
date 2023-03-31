@@ -31,6 +31,7 @@
                 <tr>
                     <th>Alias Name</th>
                     <th>Display Name</th>
+                    <th>Primary Mail Address</th>
                     <th>Owner</th>
                     <th>Admin 1</th>
                     <th>Admin 2</th>
@@ -57,6 +58,11 @@
                 <tr *ngFor="let sg of sgList">
                     <td>{{ sg.aliasName }}</td>
                     <td>{{ sg.displayName }}</td>
+                    <td>
+                        <ng-container *ngFor="let mail of sg.mailAddresses">
+                            {{ mail.mailAddress }}
+                        </ng-container>
+                    </td>
                     <td>{{ sg.ownerName }}</td> 
                     <td>{{ sg.admin1Name }}</td> 
                     <td>{{ sg.admin2Name }}</td> 
