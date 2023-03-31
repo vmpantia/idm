@@ -12,8 +12,8 @@ namespace IDM.Domain.Services
     public class SecurityGroupService : ISecurityGroupService
     {
         private readonly IDMDbContext _db;
-        private readonly IMailService _mail;
-        public SecurityGroupService(IDMDbContext db, IMailService mail)
+        private readonly IEmailService _mail;
+        public SecurityGroupService(IDMDbContext db, IEmailService mail)
         {
             _db = db;
             _mail = mail;
@@ -74,13 +74,13 @@ namespace IDM.Domain.Services
                         case Constants.FUNCTION_ID_ADD_INTERNAL_SG_BY_USER:
                         case Constants.FUNCTION_ID_ADD_EXTERNAL_SG_BY_USER:
                             await InsertSecurityGroup_MST(request.inputSG);
-                            await _mail.InsertMailAdresss_MST(_db, request.inputSG.MailAddresses, request.inputSG.InternalID);
+                            await _mail.InsertMailAdresss_MST(_db, request.inputSG);
                             break;
                         case Constants.FUNCTION_ID_EDIT_INTERNAL_SG_BY_USER:
                         case Constants.FUNCTION_ID_EDIT_EXTERNAL_SG_BY_USER:
                             await UpdateSecurityGroup_MST(request.inputSG);
                             await _mail.DeleteEmailAddress_MST(_db, request.inputSG.InternalID);
-                            await _mail.InsertMailAdresss_MST(_db, request.inputSG.MailAddresses, request.inputSG.InternalID);
+                            await _mail.InsertMailAdresss_MST(_db, request.inputSG);
                             break;
                     }
                     await transaction.CommitAsync();
@@ -140,24 +140,24 @@ namespace IDM.Domain.Services
                 var currentGroup = await _db.SecurityGroup_MST.FindAsync(input.InternalID);
                 if (currentGroup == null)
                     return string.Format(Constants.ERROR_VALUE_NOT_FOUND_DB, "Security Group");
-
                 var currentMailAddresses = _mail.GetMailAddressByRelationID(_db, input.InternalID);
+                var currentGroupDTO = Utility.ParseSecurityGroup(currentGroup, currentMailAddresses.ToList());
 
-                if (Utility.IsDataPrestine<SecurityGroupDTO>(input, 
-                                                             Utility.ParseSecurityGroup(currentGroup, currentMailAddresses.ToList()), 
+                if (Utility.IsDataPrestine<SecurityGroupDTO>(input,
+                                                             currentGroupDTO,
                                                              out propertiesChanged))
                     return string.Format(Constants.ERROR_NO_CHANGES_MADE, "Security Group");
             }
 
             if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_SG_DISPLAYNAME))
-                if(IsSGDisplayNameExist(input.DisplayName))
+                if (IsSGDisplayNameExist(input.DisplayName))
                     return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.DisplayName);
 
             if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_SG_ALIASNAME))
                 if (IsSGAliasNameExist(input.AliasName))
                     return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.AliasName);
 
-            return await _mail.ValidateMailAddresses(_db, input.MailAddresses, isAdd);
+            return string.Empty;
         }
 
         private bool IsSGDisplayNameExist(string displayName) => _db.SecurityGroup_MST.Where(data => data.DisplayName == displayName).Any();

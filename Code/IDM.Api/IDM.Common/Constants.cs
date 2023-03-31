@@ -75,7 +75,10 @@
         public const string ERROR_VALUE_EXIST_DB = "{0} is already exist in the database.";
         public const string ERROR_VALUE_NOT_FOUND_DB = "{0} not found in the database.";
         public const string ERROR_NO_CHANGES_MADE = "No changes made in {0}.";
+        #endregion
 
+
+        #region Properties
         public const string PROPERTY_SG_ALIASNAME = "AliasName";
         public const string PROPERTY_SG_DISPLAYNAME = "DisplayName";
 

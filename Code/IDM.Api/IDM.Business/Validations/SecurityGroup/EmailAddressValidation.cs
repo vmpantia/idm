@@ -1,18 +1,15 @@
-﻿using IDM.Business.Models.DTOs;
-using IDM.Common;
-using IDM.Infrastructure.DataAccess;
+﻿using IDM.Common;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 
 namespace IDM.Business.Validations.SecurityGroup
 {
-    public class MailAddressValidation : ValidationAttribute
+    public class EmailAddressValidation : ValidationAttribute
     {
         private readonly RequiredAttribute _requiredAttribute;
         private readonly MaxLengthAttribute _maxLengthAttribute;
         private readonly EmailAddressAttribute _emailAttribute;
         private readonly bool _isRequired;
-        public MailAddressValidation(bool isRequired = false, int maxLength = 255)
+        public EmailAddressValidation(bool isRequired = false, int maxLength = 255)
         {
             _isRequired = isRequired;
 
@@ -32,16 +29,8 @@ namespace IDM.Business.Validations.SecurityGroup
                 return _maxLengthAttribute.GetValidationResult(value, validationContext);
 
             //Check if the value is a valid email address
-            if(!string.IsNullOrEmpty(value?.ToString()) && !_emailAttribute.IsValid(value))
-                return new ValidationResult(string.Format(Constants.ERROR_MAILS_NOT_VALID, value));
-
-            var model = validationContext.ObjectInstance as MailAddressDTO;
-
-            if(model.MailType == Constants.MAIL_TYPE_INT_IDM && !model.MailAddress.Contains(Constants.DOMAIN_IDM))
-                return new ValidationResult(string.Format(Constants.ERROR_MAILS_DOMAIN_NOT_VALUE, value, Constants.DOMAIN_IDM));
-
-            if (model.MailType == Constants.MAIL_TYPE_INT_REGIONAL && !model.MailAddress.Contains(Constants.DOMAIN_PH_IDM))
-                return new ValidationResult(string.Format(Constants.ERROR_MAILS_DOMAIN_NOT_VALUE, value, Constants.DOMAIN_PH_IDM));
+            if (!string.IsNullOrEmpty(value?.ToString()) && !_emailAttribute.IsValid(value))
+                return _requiredAttribute.GetValidationResult(value, validationContext);
 
             return ValidationResult.Success;
         }

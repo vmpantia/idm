@@ -1,7 +1,6 @@
 ﻿using IDM.Business.Models.DTOs;
 using IDM.Common;
 using IDM.Infrastructure.DataAccess.Entities;
-using System.ComponentModel;
 
 namespace IDM.Business
 {
@@ -61,6 +60,22 @@ namespace IDM.Business
                     return Constants.MAIL_TYPE_STRING_COMPANY2;
             }
         }   
+
+        public static int ConvertMailType(string attribute)
+        {
+            switch (attribute)
+            {
+                case Constants.PROPERTY_IDM_MAIL_ADDRESS:
+                    return Constants.MAIL_TYPE_INT_IDM;
+                case Constants.PROPERTY_REG_MAIL_ADDRESS:
+                    return Constants.MAIL_TYPE_INT_REGIONAL;
+                case Constants.PROPERTY_COMP1_MAIL_ADDRESS:
+                    return Constants.MAIL_TYPE_INT_COMPANY1;
+                default: //Company Email Address 2
+                    return Constants.MAIL_TYPE_INT_COMPANY2;
+            }
+        }
+
         public static string ConvertPrimaryFlag(int primary)
         {
             switch (primary)
@@ -70,6 +85,14 @@ namespace IDM.Business
                 default: //Secondary
                     return Constants.MAIL_FLAG_STRING_SECONDARY;
             }
+        }
+
+        public static string SelectEmailAddress(List<EmailAddress_MST> emailAddresses, int mailType = -1)
+        {
+            if (mailType < 0)
+                return emailAddresses.Where(data => data.PrimaryFlag == Constants.MAIL_FLAG_INT_PRIMARY).First().MailAddress ?? string.Empty;
+            else
+                return emailAddresses.Where(data => data.MailType == mailType).First().MailAddress ?? string.Empty;
         }
 
         public static SecurityGroup_MST ParseSecurityGroup(SecurityGroupDTO data)
@@ -90,7 +113,7 @@ namespace IDM.Business
             };
         }
 
-        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data, List<EmailAddress_MST> mailAddresses)
+        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data, List<EmailAddress_MST> emailAddresses)
         {
             return new SecurityGroupDTO
             {
@@ -107,7 +130,11 @@ namespace IDM.Business
                 Admin2Name = Constants.NA,
                 Admin3InternalID = data.Admin3InternalID,
                 Admin3Name = Constants.NA,
-                MailAddresses = ParseMailAddress(mailAddresses),
+                PrimaryEmailAddress = SelectEmailAddress(emailAddresses),
+                IDMEmailAddress = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_IDM),
+                RegionalEmailAddress = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_REGIONAL),
+                CompanyEmailAddress1 = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_COMPANY1),
+                CompanyEmailAddress2 = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_COMPANY2),
                 Status = data.Status,
                 StatusDescription = ConvertStatus(data.Status),
                 CreatedDate = data.CreatedDate,
@@ -115,47 +142,41 @@ namespace IDM.Business
             };
         }
 
-        public static List<EmailAddress_MST> ParseMailAddress(List<MailAddressDTO> mailAddresses, Guid relationID)
+        public static List<EmailAddress_MST> ParseEmailAddresses(SecurityGroupDTO data)
         {
             var result = new List<EmailAddress_MST>();
-            mailAddresses.ForEach(mail =>
+            var emails = data.GetType().GetProperties().Where(data => data.Name.Contains(Constants.PROPERTY_MAIL_ADDRESS) &&
+                                                                     data.Name != Constants.PROPERTY_PRIMARY_MAIL_ADDRESS).ToList();
+            emails.ForEach(email =>
             {
-                result.Add(new EmailAddress_MST
-                {
-                    MailAddress = mail.MailAddress.Trim(),
-                    RelationID = relationID,
-                    OwnerType = mail.OwnerType,
-                    MailType = mail.MailType,
-                    PrimaryFlag = mail.PrimaryFlag,
-                    Status = mail.Status,
-                    CreatedDate = DateTime.Now,
-                    ModifiedDate = null
-                });
+                var emailAddress = email.GetValue(data)?.ToString();
+                if (string.IsNullOrEmpty(emailAddress))
+                    return;
+
+                var primaryFlag = data.PrimaryEmailAddress == emailAddress ? Constants.MAIL_FLAG_INT_PRIMARY : Constants.MAIL_FLAG_INT_SECONDARY;
+                result.Add(ParseEmailAddress(emailAddress, 
+                                             data.InternalID,
+                                             Constants.MAIL_OWNER_TYPE_GROUP, 
+                                             ConvertMailType(email.Name),
+                                             primaryFlag));
             });
+
             return result;
         }
 
-        public static List<MailAddressDTO> ParseMailAddress(List<EmailAddress_MST> mailAddresses)
+        public static EmailAddress_MST ParseEmailAddress(string emailAddress, Guid relationID, int ownerType, int mailType, int primaryFlag)
         {
-            var result = new List<MailAddressDTO>();
-            mailAddresses.ForEach(mail =>
+            return new EmailAddress_MST
             {
-                result.Add(new MailAddressDTO
-                {
-                    MailAddress = mail.MailAddress,
-                    RelationID = mail.RelationID,
-                    OwnerType = mail.OwnerType,
-                    MailType = mail.MailType,
-                    MailTypeDescription = CovertMailType(mail.MailType),
-                    PrimaryFlag = mail.PrimaryFlag,
-                    PrimaryFlagDescription = ConvertPrimaryFlag(mail.PrimaryFlag),
-                    Status = mail.Status,
-                    StatusDescription = ConvertStatus(mail.Status),
-                    CreatedDate = mail.CreatedDate,
-                    ModifiedDate = mail.ModifiedDate
-                });
-            });
-            return result;
+                MailAddress = emailAddress,
+                RelationID = relationID,
+                OwnerType = ownerType,
+                MailType = mailType,
+                PrimaryFlag = primaryFlag,
+                Status = Constants.STATUS_INT_ENABLED,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = null
+            };
         }
     }
 }

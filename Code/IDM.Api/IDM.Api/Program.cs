@@ -13,7 +13,7 @@ builder.Services.AddDbContext<IDMDbContext>(option =>
                 option.UseSqlServer(builder.Configuration.GetConnectionString("PROD_SQL_CON")));
 
 builder.Services.AddScoped<ISecurityGroupService, SecurityGroupService>();
-builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddCors(options =>
 {
