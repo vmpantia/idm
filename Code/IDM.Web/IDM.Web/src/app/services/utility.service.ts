@@ -20,4 +20,13 @@ export class UtilityService {
               return Constant.STATUS_STRING_DELETION;
       }
   }
+
+  covertSGType(type:number){
+    switch(type){
+      case Constant.SG_TYPE_INT_INTERNAL:
+        return Constant.SG_TYPE_STRING_INTERNAL;
+      default:
+        return Constant.SG_TYPE_STRING_EXTERNAL;
+    }
+  }
 }

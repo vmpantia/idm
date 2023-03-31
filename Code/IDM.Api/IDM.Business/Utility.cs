@@ -87,13 +87,13 @@ namespace IDM.Business
             }
         }
 
-        public static string SelectEmailAddress(List<EmailAddress_MST> emailAddresses, int mailType = -1)
+        public static string SelectEmailAddress(List<EmailAddress_MST> emailAddressList, int emailType = -1)
         {
             List<EmailAddress_MST> result;
-            if (mailType == -1)
-                result = emailAddresses.Where(data => data.PrimaryFlag == Constants.MAIL_FLAG_INT_PRIMARY).ToList();
+            if (emailType == -1)
+                result = emailAddressList.Where(data => data.PrimaryFlag == Constants.MAIL_FLAG_INT_PRIMARY).ToList();
             else
-                result = emailAddresses.Where(data => data.EmailType == mailType).ToList();
+                result = emailAddressList.Where(data => data.EmailType == emailType).ToList();
 
             return result == null || result.Count == 0 ? string.Empty : result.First().EmailAddress;
         }
@@ -116,7 +116,7 @@ namespace IDM.Business
             };
         }
 
-        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data, List<EmailAddress_MST> emailAddresses)
+        public static SecurityGroupDTO ParseSecurityGroup(SecurityGroup_MST data, List<EmailAddress_MST> emailAddressList)
         {
             return new SecurityGroupDTO
             {
@@ -133,11 +133,11 @@ namespace IDM.Business
                 Admin2Name = Constants.NA,
                 Admin3InternalID = data.Admin3InternalID,
                 Admin3Name = Constants.NA,
-                PrimaryEmailAddress = SelectEmailAddress(emailAddresses),
-                IDMEmailAddress = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_IDM),
-                RegionalEmailAddress = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_REGIONAL),
-                CompanyEmailAddress1 = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_COMPANY1),
-                CompanyEmailAddress2 = SelectEmailAddress(emailAddresses, Constants.MAIL_TYPE_INT_COMPANY2),
+                PrimaryEmailAddress = SelectEmailAddress(emailAddressList),
+                IDMEmailAddress = SelectEmailAddress(emailAddressList, Constants.MAIL_TYPE_INT_IDM),
+                RegionalEmailAddress = SelectEmailAddress(emailAddressList, Constants.MAIL_TYPE_INT_REGIONAL),
+                CompanyEmailAddress1 = SelectEmailAddress(emailAddressList, Constants.MAIL_TYPE_INT_COMPANY1),
+                CompanyEmailAddress2 = SelectEmailAddress(emailAddressList, Constants.MAIL_TYPE_INT_COMPANY2),
                 Status = data.Status,
                 StatusDescription = ConvertStatus(data.Status),
                 CreatedDate = data.CreatedDate,
@@ -145,12 +145,12 @@ namespace IDM.Business
             };
         }
 
-        public static List<EmailAddress_MST> ParseEmailAddresses(SecurityGroupDTO data)
+        public static List<EmailAddress_MST> ParseEmailAddressList(SecurityGroupDTO data)
         {
             var result = new List<EmailAddress_MST>();
-            var emails = data.GetType().GetProperties().Where(data => data.Name.Contains(Constants.PROPERTY_EMAIL_ADDRESS) &&
+            var emailAddressList = data.GetType().GetProperties().Where(data => data.Name.Contains(Constants.PROPERTY_EMAIL_ADDRESS) &&
                                                                      data.Name != Constants.PROPERTY_PRIMARY_EMAIL_ADDRESS).ToList();
-            emails.ForEach(email =>
+            emailAddressList.ForEach(email =>
             {
                 var emailAddress = email.GetValue(data)?.ToString();
                 if (string.IsNullOrEmpty(emailAddress))

@@ -19,21 +19,21 @@ namespace IDM.Domain.Services
         public async Task InsertMailAdresss_MST(IDMDbContext db, SecurityGroupDTO input)
         {
             //Get email addresses 
-            var emails = Utility.ParseEmailAddresses(input);
+            var emailAddressList = Utility.ParseEmailAddressList(input);
 
-            if (emails == null || emails.Count == 0)
+            if (emailAddressList == null || emailAddressList.Count == 0)
                 return;
 
-            await db.EmailAddress_MST.AddRangeAsync(emails);
+            await db.EmailAddress_MST.AddRangeAsync(emailAddressList);
             var result = await db.SaveChangesAsync();
 
             if (result <= 0)
                 throw new ServiceException(Constants.ERROR_EMAILS_INSERT);
         }
 
-        public async Task DeleteEmailAddress_MST(IDMDbContext db, Guid sgInternalID)
+        public async Task DeleteEmailAddress_MST(IDMDbContext db, Guid relationID)
         {
-            var emails = await db.EmailAddress_MST.Where(data => data.RelationID == sgInternalID).ToListAsync();
+            var emails = await db.EmailAddress_MST.Where(data => data.RelationID == relationID).ToListAsync();
 
             if (emails == null || emails.Count == 0)
                 return;

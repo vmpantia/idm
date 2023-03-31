@@ -39,6 +39,8 @@ export class AddEditSGComponent implements OnInit {
         (response:any) => {
           this.currentSGInfo = response;
           //Remove the domain in mail addresses
+          this.currentSGInfo.idmEmailAddress = this.currentSGInfo.idmEmailAddress.split("@")[0];
+          this.currentSGInfo.regionalEmailAddress = this.currentSGInfo.regionalEmailAddress.split("@")[0];
           this.populateLayers();
           this.changeDisplayNameValue();
         }
@@ -146,12 +148,17 @@ export class AddEditSGComponent implements OnInit {
     parsedInput.aliasName = input.aliasName.trim();
     parsedInput.displayName = input.displayName.trim();
     parsedInput.type = input.type;
+    parsedInput.typeDescription = this.utility.covertSGType(input.type);
 
     //SG Ownership Details
     parsedInput.ownerInternalID = input.ownerInternalID;
+    parsedInput.ownerName = Constant.NA;
     parsedInput.admin1InternalID = input.admin1InternalID;
+    parsedInput.admin1Name = Constant.NA;
     parsedInput.admin2InternalID = input.admin2InternalID;
+    parsedInput.admin2Name = Constant.NA;
     parsedInput.admin3InternalID = input.admin3InternalID;
+    parsedInput.admin3Name = Constant.NA;
 
     //SG Email Addresses
     parsedInput.primaryEmailAddress = input.primaryEmailAddress.trim();
@@ -162,6 +169,7 @@ export class AddEditSGComponent implements OnInit {
 
     //Common
     parsedInput.status = input.status;
+    parsedInput.statusDescription = this.utility.convertStatus(input.type);
     parsedInput.createdDate = input.createdDate;
     parsedInput.modifiedDate = input.modifiedDate;
     return parsedInput;

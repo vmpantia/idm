@@ -157,10 +157,27 @@ namespace IDM.Domain.Services
                 if (IsSGAliasNameExist(input.AliasName))
                     return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.AliasName);
 
+            if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_IDM_EMAIL_ADDRESS))
+                if (IsSGEmailAddressExist(input.IDMEmailAddress))
+                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.IDMEmailAddress);
+
+            if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_REG_EMAIL_ADDRESS))
+                if (IsSGEmailAddressExist(input.RegionalEmailAddress))
+                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.RegionalEmailAddress);
+
+            if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_COMP1_EMAIL_ADDRESS))
+                if (IsSGEmailAddressExist(input.CompanyEmailAddress1))
+                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.CompanyEmailAddress1);
+
+            if (isAdd || propertiesChanged.Exists(data => data == Constants.PROPERTY_COMP2_EMAIL_ADDRESS))
+                if (IsSGEmailAddressExist(input.CompanyEmailAddress2))
+                    return string.Format(Constants.ERROR_VALUE_EXIST_DB, input.CompanyEmailAddress2);
+
             return string.Empty;
         }
 
         private bool IsSGDisplayNameExist(string displayName) => _db.SecurityGroup_MST.Where(data => data.DisplayName == displayName).Any();
         private bool IsSGAliasNameExist(string aliasName) => _db.SecurityGroup_MST.Where(data => data.AliasName == aliasName).Any();
+        private bool IsSGEmailAddressExist(string emailAddress) => _db.EmailAddress_MST.Where(data => data.EmailAddress == emailAddress).Any();
     }
 }
