@@ -7,4 +7,11 @@
     <RootNamespace>IDM.Web_MVC</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IDM.Business\IDM.Business.csproj" />
+    <ProjectReference Include="..\IDM.Common\IDM.Common.csproj" />
+    <ProjectReference Include="..\IDM.Domain\IDM.Domain.csproj" />
+    <ProjectReference Include="..\IDM.Infrastructure\IDM.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
