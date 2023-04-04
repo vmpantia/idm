@@ -24,14 +24,9 @@ namespace IDM.Web_MVC.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> EditSG(Guid internalID)
+        public IActionResult EditSG()
         {
-            var currentSG = await _sg.GetSGByIDAsync(internalID);
-            var model = new SecurityGroupViewModel()
-            {
-                sgInfo = currentSG
-            };
-
+            var model = new SecurityGroupViewModel();
             return View(model);
         }
     }

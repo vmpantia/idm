@@ -44,7 +44,6 @@
                     <td>@sg.StatusDescription</td>
                     <td>@sg.CreatedDate.ToShortDateString()</td>
                     <td>@sg.ModifiedDate?.ToShortDateString()</td>
-                    <td>@Html.ActionLink("Edit", "EditSG", "SecurityGroup", new {internalID = sg.InternalID})</td>
                 </tr>
             }
         }
