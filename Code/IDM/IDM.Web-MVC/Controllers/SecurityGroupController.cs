@@ -1,4 +1,5 @@
 ﻿using IDM.Business.Contractors;
+using IDM.Business.Models.DTOs;
 using IDM.Web_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +25,27 @@ namespace IDM.Web_MVC.Controllers
             return View(model);
         }
 
-        public IActionResult EditSG()
+        public async Task<IActionResult> SGList1()
         {
-            var model = new SecurityGroupViewModel();
+            var result = await _sg.GetSGsAsync();
+
+            var newList = new List<SecurityGroupDTO>();
+
+            newList.Add(result.First());
+            var model = new SecurityGroupViewModel
+            {
+                sgList = newList,
+            };
+
+            return View("SGList", model);
+        }
+
+        public async Task<IActionResult> EditSG(Guid internalID)
+        {
+            var model = new SecurityGroupViewModel
+            {
+                sgInfo = await _sg.GetSGByIDAsync(internalID)
+            };
             return View(model);
         }
     }
