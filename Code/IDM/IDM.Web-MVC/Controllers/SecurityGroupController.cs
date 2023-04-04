@@ -25,28 +25,19 @@ namespace IDM.Web_MVC.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> SGList1()
+        public IActionResult EditSG()
         {
-            var result = await _sg.GetSGsAsync();
-
-            var newList = new List<SecurityGroupDTO>();
-
-            newList.Add(result.First());
-            var model = new SecurityGroupViewModel
-            {
-                sgList = newList,
-            };
-
-            return View("SGList", model);
+            var model = new SecurityGroupViewModel();
+            return View(model);
         }
 
-        public async Task<IActionResult> EditSG(Guid internalID)
+        public async Task<IActionResult> GetSGByInternalID(Guid internalID)
         {
-            var model = new SecurityGroupViewModel
+            var model = new SecurityGroupViewModel()
             {
-                sgInfo = await _sg.GetSGByIDAsync(internalID)
+                sgInfo = await _sg.GetSGByIDAsync(internalID),
             };
-            return View(model);
+            return View("EditSG", model);
         }
     }
 }
