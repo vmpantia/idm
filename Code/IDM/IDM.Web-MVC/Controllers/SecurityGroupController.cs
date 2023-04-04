@@ -13,7 +13,7 @@ namespace IDM.Web_MVC.Controllers
             _sg = sg;
         }
 
-        public async Task<IActionResult> SGList()
+        public async Task<IActionResult> Index()
         {
             var result = await _sg.GetSGsAsync();
 
@@ -25,19 +25,22 @@ namespace IDM.Web_MVC.Controllers
             return View(model);
         }
 
-        public IActionResult EditSG()
+        public async Task<IActionResult> CreateSG()
         {
-            var model = new SecurityGroupViewModel();
+            var model = new SecurityGroupViewModel()
+            {
+                sgInfo = new SecurityGroupDTO()
+            };
             return View(model);
         }
 
-        public async Task<IActionResult> GetSGByInternalID(Guid internalID)
+        public async Task<IActionResult> EditSG(Guid internalID)
         {
             var model = new SecurityGroupViewModel()
             {
                 sgInfo = await _sg.GetSGByIDAsync(internalID),
             };
-            return View("EditSG", model);
+            return View(model);
         }
     }
 }

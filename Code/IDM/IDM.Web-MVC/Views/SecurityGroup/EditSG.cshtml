@@ -2,68 +2,52 @@
 @{
     ViewData["Title"] = "Edit Security Group";
 }
-<button onclick="GetData()">
-    zxc
-</button>
+<div class="row mb-3">
+    <div class="mb-2 col-12">
+        <h5>
+            Security Group Information
+        </h5>
+    </div>
 
-<div id="data">
-    <div class="row mb-3">
-        <div class="mb-2 col-12">
-            <h5>
-                Security Group Information
-            </h5>
-        </div>
-
-        <div class="mb-3 col-12">
-            @Html.Label("displayNames", "Security Group Display Name:", new { @class = "form-label" })
-            <div class="d-inline-flex col-12">
-                <input type="text" class="form-control me-2" id="txtDisplayName1" name="displayName">
-                <input type="text" class="form-control me-2" id="txtDisplayName2" name="displayName">
-                <input type="text" class="form-control me-2" id="txtDisplayName3" name="displayName">
-                <input type="text" class="form-control"      id="txtDisplayName4" name="displayName">
-            </div>
-        </div>
-
-        <div class="mb-3 col-6">
-            @Html.LabelFor(m => m.sgInfo.DisplayName, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.sgInfo.DisplayName, new { @class="form-control" })
-            @Html.ValidationMessageFor(m => m.sgInfo.DisplayName, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="mb-3 col-6">
-            @Html.LabelFor(m => m.sgInfo.AliasName, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.sgInfo.AliasName, new { @class="form-control" })
-            @Html.ValidationMessageFor(m => m.sgInfo.AliasName, "", new { @class = "text-danger" })
+    <div class="mb-3 col-12">
+        @Html.Label("displayNames", "Security Group Display Name:", new { @class = "form-label" })
+        <div class="d-inline-flex col-12">
+            <input type="text" class="form-control me-2" id="txtDisplayName1" name="displayName">
+            <input type="text" class="form-control me-2" id="txtDisplayName2" name="displayName">
+            <input type="text" class="form-control me-2" id="txtDisplayName3" name="displayName">
+            <input type="text" class="form-control"      id="txtDisplayName4" name="displayName">
         </div>
     </div>
 
-    <div class="row">
-        <div class="mb-2 col-12">
-            <h5>
-                Email Address Information
-            </h5>
-        </div>
+    <div class="mb-3 col-6">
+        @Html.LabelFor(m => m.sgInfo.DisplayName, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.sgInfo.DisplayName, new { @class="form-control" })
+        @Html.ValidationMessageFor(m => m.sgInfo.DisplayName, "", new { @class = "text-danger" })
+    </div>
 
-        <div class="mb-3 col-6">
-            @Html.LabelFor(m => m.sgInfo.IDMEmailAddress, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.sgInfo.IDMEmailAddress, new { @class="form-control" })
-            @Html.ValidationMessageFor(m => m.sgInfo.IDMEmailAddress, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="mb-3 col-6">
-            @Html.LabelFor(m => m.sgInfo.RegionalEmailAddress, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.sgInfo.RegionalEmailAddress, new { @class="form-control" })
-            @Html.ValidationMessageFor(m => m.sgInfo.RegionalEmailAddress, "", new { @class = "text-danger" })
-        </div>
+    <div class="mb-3 col-6">
+        @Html.LabelFor(m => m.sgInfo.AliasName, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.sgInfo.AliasName, new { @class="form-control" })
+        @Html.ValidationMessageFor(m => m.sgInfo.AliasName, "", new { @class = "text-danger" })
     </div>
 </div>
 
-@section scripts{
-    <script type="text/javascript">
-        function GetData() {
-            var dataContent = $("#data");
-            var url = '/SecurityGroup/GetSGByInternalID?internalID=44F0E22B-2A08-441A-9E42-8C05D4F33EFC';
-            $(dataContent).load(url + " #data");
-        }
-    </script>
-}
+<div class="row">
+    <div class="mb-2 col-12">
+        <h5>
+            Email Address Information
+        </h5>
+    </div>
+
+    <div class="mb-3 col-6">
+        @Html.LabelFor(m => m.sgInfo.IDMEmailAddress, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.sgInfo.IDMEmailAddress, new { @class="form-control" })
+        @Html.ValidationMessageFor(m => m.sgInfo.IDMEmailAddress, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3 col-6">
+        @Html.LabelFor(m => m.sgInfo.RegionalEmailAddress, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.sgInfo.RegionalEmailAddress, new { @class="form-control" })
+        @Html.ValidationMessageFor(m => m.sgInfo.RegionalEmailAddress, "", new { @class = "text-danger" })
+    </div>
+</div>
