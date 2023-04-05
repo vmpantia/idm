@@ -175,7 +175,7 @@ export class EditSGComponent implements OnInit {
 
     //Common
     parsedInput.status = input.status;
-    parsedInput.statusDescription = this.utility.convertStatus(input.type);
+    parsedInput.statusDescription = this.utility.convertStatus(input.status);
     parsedInput.createdDate = input.createdDate;
     parsedInput.modifiedDate = input.modifiedDate;
     return parsedInput;
