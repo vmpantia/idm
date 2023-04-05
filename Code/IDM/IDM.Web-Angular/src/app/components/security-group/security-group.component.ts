@@ -14,14 +14,8 @@ export class SecurityGroupComponent implements OnInit {
   modalTitle:string;
 
   sgList:SecurityGroupDTO[];
-  internalID:string;
 
-  constructor(private api:APIService, 
-              private modalService: NgbModal,
-              config: NgbModalConfig) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+  constructor(private api:APIService) {  }
 
   ngOnInit(): void {
     this.getSGs();
@@ -34,23 +28,5 @@ export class SecurityGroupComponent implements OnInit {
         this.sgList = response;
       }
     )
-  }
-
-  editSG(content:any, internalID:string){
-    this.modalTitle = "Edit Security Group";
-		this.modalService.open(content, { size: 'xl' });
-    this.internalID = internalID;
-  }
-
-  addSG(content:any) {
-    this.modalTitle = "Add Security Group";
-		this.modalService.open(content, { size: 'xl' });
-    this.internalID = Constant.GUID_EMPTY;
-  }
-
-  closeModal() {
-    this.modalTitle = "";
-    this.modalService.dismissAll();
-    this.internalID = Constant.GUID_EMPTY;
   }
 }
