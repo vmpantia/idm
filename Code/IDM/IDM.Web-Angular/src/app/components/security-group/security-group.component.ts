@@ -38,13 +38,13 @@ export class SecurityGroupComponent implements OnInit {
 
   editSG(content:any, internalID:string){
     this.modalTitle = "Edit Security Group";
-		this.modalService.open(content, { size: 'lg' });
+		this.modalService.open(content, { size: 'xl' });
     this.internalID = internalID;
   }
 
   addSG(content:any) {
     this.modalTitle = "Add Security Group";
-		this.modalService.open(content, { size: 'lg' });
+		this.modalService.open(content, { size: 'xl' });
     this.internalID = Constant.GUID_EMPTY;
   }
 

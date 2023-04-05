@@ -1,5 +1,5 @@
 export class Constant {
-    public static URL:string = "https://localhost:7231/"
+    public static URL:string = "https://localhost:7286/"
     public static SLASH:string = "/";
     public static DASH:string = "-";
     public static NA:string = "N/A";
