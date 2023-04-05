@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDM.Web-MVC", "IDM.Web-MVC\IDM.Web-MVC.csproj", "{165CC09B-33D1-4908-BEC7-7539F33B19D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Web-MVC", "IDM.Web-MVC\IDM.Web-MVC.csproj", "{165CC09B-33D1-4908-BEC7-7539F33B19D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDM.Infrastructure", "IDM.Infrastructure\IDM.Infrastructure.csproj", "{7221F815-585E-456A-9FC0-3129AA9B5FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Infrastructure", "IDM.Infrastructure\IDM.Infrastructure.csproj", "{7221F815-585E-456A-9FC0-3129AA9B5FCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDM.Domain", "IDM.Domain\IDM.Domain.csproj", "{7C8E327A-83C6-4531-84F7-438DB35E88C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Domain", "IDM.Domain\IDM.Domain.csproj", "{7C8E327A-83C6-4531-84F7-438DB35E88C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDM.Business", "IDM.Business\IDM.Business.csproj", "{E4C3B9AC-7C40-4B3D-ADE6-6FF55176AAE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Business", "IDM.Business\IDM.Business.csproj", "{E4C3B9AC-7C40-4B3D-ADE6-6FF55176AAE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDM.Common", "IDM.Common\IDM.Common.csproj", "{8E5AF0F7-4CFD-47EB-804F-6EAC83163A99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Common", "IDM.Common\IDM.Common.csproj", "{8E5AF0F7-4CFD-47EB-804F-6EAC83163A99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDM.Api", "IDM.Api\IDM.Api.csproj", "{0586A305-0E43-46BD-B99E-86EAC9EC7F48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{8E5AF0F7-4CFD-47EB-804F-6EAC83163A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E5AF0F7-4CFD-47EB-804F-6EAC83163A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E5AF0F7-4CFD-47EB-804F-6EAC83163A99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0586A305-0E43-46BD-B99E-86EAC9EC7F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0586A305-0E43-46BD-B99E-86EAC9EC7F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0586A305-0E43-46BD-B99E-86EAC9EC7F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0586A305-0E43-46BD-B99E-86EAC9EC7F48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
