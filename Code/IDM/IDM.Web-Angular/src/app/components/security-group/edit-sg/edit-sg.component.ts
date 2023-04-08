@@ -17,14 +17,11 @@ export class EditSGComponent implements OnInit {
 
   internalID:string;
   
-  //Error Variables
-  errorFields:any[] = [];
-  errorMessage:any;
-  
   currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
   emailAddresses:string[] =[];
 
   isAdd:boolean;
+  errorFields:any[] = [];
 
   constructor(private api:APIService, 
               private utility:UtilityService,
@@ -183,7 +180,6 @@ export class EditSGComponent implements OnInit {
 
   resetError(){
     this.errorFields = [];
-    this.errorMessage = Constant.STRING_EMPTY;
   }
 
   saveSG() {
@@ -205,10 +201,10 @@ export class EditSGComponent implements OnInit {
         let response = error as HttpErrorResponse
         //System Errors
         if(response.error == undefined)
-          this.errorMessage = response.message;
+          Swal.fire("Error", response.message, "error")
         //API Unexpected Error
         else if (response.error.errors === undefined) 
-          this.errorMessage = response.error;
+          Swal.fire("Error", response.error, "error")
         //API Validation Error
         else
           this.errorFields.push(response.error.errors);
