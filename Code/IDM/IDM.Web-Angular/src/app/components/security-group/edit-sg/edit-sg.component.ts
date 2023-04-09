@@ -21,6 +21,7 @@ export class EditSGComponent implements OnInit {
   emailAddresses:string[] =[];
 
   isAdd:boolean;
+  isSaving:boolean;
   errorFields:any[] = [];
 
   constructor(private api:APIService, 
@@ -183,6 +184,15 @@ export class EditSGComponent implements OnInit {
   }
 
   saveSG() {
+    this.isSaving = true;
+    this.utility.delay(700).then(() => this.save());
+  }
+
+  closeSG(){
+    this.router.navigateByUrl("/securitygroup");
+  }
+
+  save() {
     this.resetError();
     let model = new SaveSecurityGroupRequest();
     model.functionID = this.isAdd ? "01A01" : "01C01";
@@ -199,6 +209,8 @@ export class EditSGComponent implements OnInit {
       },
       (error:HttpErrorResponse) => {
         let response = error as HttpErrorResponse
+        this.isSaving = false;
+
         //System Errors
         if(response.error == undefined)
           Swal.fire("Error", response.message, "error")
@@ -210,9 +222,5 @@ export class EditSGComponent implements OnInit {
           this.errorFields.push(response.error.errors);
       }
     );
-  }
-
-  closeSG(){
-    this.router.navigateByUrl("/securitygroup");
   }
 }

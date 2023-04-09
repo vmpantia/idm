@@ -21,6 +21,10 @@ export class UtilityService {
       }
   }
 
+  delay(milliseconds : number) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  } 
+
   covertSGType(type:number){
     switch(type){
       case Constant.SG_TYPE_INT_INTERNAL:
