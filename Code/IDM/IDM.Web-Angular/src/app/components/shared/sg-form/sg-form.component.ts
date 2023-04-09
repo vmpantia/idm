@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Constant } from 'src/app/commons/constant.model';
 import { SaveSecurityGroupRequest } from 'src/app/models/requests/save-security-group-request.model';
 import { SecurityGroupDTO } from 'src/app/models/security-group-dto.model';
@@ -8,34 +9,35 @@ import { UtilityService } from 'src/app/services/utility.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-edit-sg',
-  templateUrl: './add-edit-sg.component.html',
-  styleUrls: ['./add-edit-sg.component.css']
+  selector: 'app-sg-form',
+  templateUrl: './sg-form.component.html',
+  styleUrls: ['./sg-form.component.css']
 })
-export class AddEditSGComponent implements OnInit {
+export class SGFormComponent implements OnInit {
 
-  @Input()id:string;
-  
-  //Error Variables
-  errorFields:any[] = [];
-  errorMessage:any;
+  @Input()internalID:string;
   
   currentSGInfo:SecurityGroupDTO = new SecurityGroupDTO();
   emailAddresses:string[] =[];
 
   isAdd:boolean;
+  isSaving:boolean;
+  errorFields:any[] = [];
 
-  constructor(private api:APIService, private utility:UtilityService) { }
+  constructor(private api:APIService, 
+              private utility:UtilityService,
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     //Check if the transaction is a Add or Edit Security Group
-    this.isAdd = this.id == Constant.GUID_EMPTY;
-
+    this.isAdd = this.internalID === undefined;
+    console.log(this.internalID)
     if(this.isAdd) {
       this.currentSGInfo = new SecurityGroupDTO();
     }
     else {
-      this.api.getSGByID(this.id).subscribe(
+      this.api.getSGByID(this.internalID).subscribe(
         (response:any) => {
           this.currentSGInfo = response;
           //Remove the domain in mail addresses
@@ -169,7 +171,7 @@ export class AddEditSGComponent implements OnInit {
 
     //Common
     parsedInput.status = input.status;
-    parsedInput.statusDescription = this.utility.convertStatus(input.type);
+    parsedInput.statusDescription = this.utility.convertStatus(input.status);
     parsedInput.createdDate = input.createdDate;
     parsedInput.modifiedDate = input.modifiedDate;
     return parsedInput;
@@ -177,10 +179,18 @@ export class AddEditSGComponent implements OnInit {
 
   resetError(){
     this.errorFields = [];
-    this.errorMessage = Constant.STRING_EMPTY;
   }
 
   saveSG() {
+    this.isSaving = true;
+    this.utility.delay(700).then(() => this.save());
+  }
+
+  closeSG(){
+    this.router.navigateByUrl("/securitygroup");
+  }
+
+  save() {
     this.resetError();
     let model = new SaveSecurityGroupRequest();
     model.functionID = this.isAdd ? "01A01" : "01C01";
@@ -192,22 +202,24 @@ export class AddEditSGComponent implements OnInit {
       (response:any) => {
         Swal.fire("Success","Security Group saved successfully", "success")
         .then(() => {
-          //If success reload page
-          window.location.reload();
+          this.closeSG()
         })
       },
       (error:HttpErrorResponse) => {
         let response = error as HttpErrorResponse
+        this.isSaving = false;
+
         //System Errors
         if(response.error == undefined)
-          this.errorMessage = response.message;
+          Swal.fire("Error", response.message, "error")
         //API Unexpected Error
         else if (response.error.errors === undefined) 
-          this.errorMessage = response.error;
+          Swal.fire("Error", response.error, "error")
         //API Validation Error
         else
           this.errorFields.push(response.error.errors);
       }
     );
   }
+
 }

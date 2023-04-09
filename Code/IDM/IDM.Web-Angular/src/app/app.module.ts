@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SecurityGroupComponent } from './components/security-group/security-group.component';
 import { AddSGComponent } from './components/security-group/add-sg/add-sg.component';
 import { EditSGComponent } from './components/security-group/edit-sg/edit-sg.component';
-import { AddEditSGComponent } from './components/security-group/add-edit-sg/add-edit-sg.component';
+import { SGFormComponent } from './components/shared/sg-form/sg-form.component';
 import { ComputerComponent } from './components/computer/computer.component';
 
 /* SERVICES */
@@ -24,10 +24,10 @@ import { APIService } from './services/api.service';
   declarations: [
     AppComponent,
     SecurityGroupComponent,
-    AddEditSGComponent,
     ComputerComponent,
     AddSGComponent,
-    EditSGComponent
+    EditSGComponent,
+    SGFormComponent
   ],
   imports: [
     BrowserModule,

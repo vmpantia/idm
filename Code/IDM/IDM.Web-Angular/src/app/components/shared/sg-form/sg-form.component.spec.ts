@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditSGComponent } from './add-edit-sg.component';
+import { SGFormComponent } from './sg-form.component';
 
-describe('AddEditSGComponent', () => {
-  let component: AddEditSGComponent;
-  let fixture: ComponentFixture<AddEditSGComponent>;
+describe('SGFormComponent', () => {
+  let component: SGFormComponent;
+  let fixture: ComponentFixture<SGFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddEditSGComponent ]
+      declarations: [ SGFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddEditSGComponent);
+    fixture = TestBed.createComponent(SGFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

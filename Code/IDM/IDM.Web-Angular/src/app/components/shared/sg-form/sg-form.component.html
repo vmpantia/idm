@@ -1,0 +1,401 @@
+<div class="cstm-page-body">
+    <table class="cstm-fillup-form">
+        <!-- SG Information -->
+        <tr>
+            <td colspan="3">
+                <div class="cstm-info-title">
+                    <span>SECURITY GROUP INFORMATION</span>
+                </div>
+            </td>
+        </tr>
+        <!-- SG Type -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Select Type:</label>
+            </td>
+            <td class="cstm-col-input">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sgType" id="internalType" 
+                           [disabled]="!isAdd" [checked]="currentSGInfo.type === 0" (change)="changeTypeValue(0)">
+                    <label class="form-check-label" for="internalType">Internal Security Group</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sgType" id="externalType" 
+                           [disabled]="!isAdd" [checked]="currentSGInfo.type === 1" (change)="changeTypeValue(1)">
+                    <label class="form-check-label" for="externalType">External Security Group</label>
+                </div>
+            </td>
+        </tr>
+        <!-- Display Name -->
+        <tr>
+            <td class="cstm-col-label" rowspan="2">
+                <label>Display Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <div class="d-inline-flex col-12">
+                    <input type="text" class="form-control form-control-sm me-2" id="txtDisplayName1" name="displayName" [disabled]="isSaving" (change)="changeDisplayNameValue()"> 
+                    <input type="text" class="form-control form-control-sm me-2" id="txtDisplayName2" name="displayName" [disabled]="isSaving" (change)="changeDisplayNameValue()">
+                    <input type="text" class="form-control form-control-sm me-2" id="txtDisplayName3" name="displayName" [disabled]="isSaving" (change)="changeDisplayNameValue()">
+                    <input type="text" class="form-control form-control-sm" id="txtDisplayName4" name="displayName" [disabled]="isSaving" (change)="changeDisplayNameValue()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="cstm-col-input">
+                <input type="text" id="txtDisplayName" readonly
+                    [disabled]="isSaving"
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.DisplayName'] ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"
+                    [(ngModel)]="currentSGInfo.displayName">
+                <!-- Error Message -->
+                <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.DisplayName']">
+                    {{ errorFields[0]["inputSG.DisplayName"][0] }}
+                </div>      
+            </td>
+        </tr>
+        <!-- Alias Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Alias Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" id="txtAliasName" disabled
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName'] ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"
+                    [(ngModel)]="currentSGInfo.aliasName">
+                <!-- Error Message -->
+                <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.AliasName']">
+                    {{ errorFields[0]['inputSG.AliasName'][0] }}
+                </div>  
+            </td>
+        </tr>
+
+        <!-- SG Owner Information -->
+        <tr>
+            <td colspan="3">
+                <div class="cstm-info-title">
+                    <span>OWNER INFORMATION</span>
+                </div>
+            </td>
+        </tr>
+        <!-- Account Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Account Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-primary btn-sm"
+                    [disabled]="isSaving">
+                    Search
+                </button>
+            </td>
+        </tr>
+        <!-- Display Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Display Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-secondary btn-sm"
+                    [disabled]="isSaving">
+                    Clear
+                </button>
+            </td>
+        </tr>
+        <!-- Email Address -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Email Address:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+        </tr>
+
+        <!-- SG Admin 1 Information -->
+        <tr>
+            <td colspan="3">
+                <div class="cstm-info-title">
+                    <span>ADMIN 1 INFORMATION</span>
+                </div>
+            </td>
+        </tr>
+        <!-- Account Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Account Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-primary btn-sm"
+                    [disabled]="isSaving">
+                    Search
+                </button>
+            </td>
+        </tr>
+        <!-- Display Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Display Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-secondary btn-sm"
+                    [disabled]="isSaving">
+                    Clear
+                </button>
+            </td>
+        </tr>
+        <!-- Email Address -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Email Address:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+        </tr>
+       
+        <!-- SG Admin 2 Information -->
+        <tr>
+            <td colspan="3">
+                <div class="cstm-info-title">
+                    <span>ADMIN 2 INFORMATION</span>
+                </div>
+            </td>
+        </tr>
+        <!-- Account Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Account Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-primary btn-sm"
+                    [disabled]="isSaving">
+                    Search
+                </button>
+            </td>
+        </tr>
+        <!-- Display Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Display Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-secondary btn-sm"
+                    [disabled]="isSaving">
+                    Clear
+                </button>
+            </td>
+        </tr>
+        <!-- Email Address -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Email Address:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+        </tr>
+
+        <!-- SG Admin 3 Information -->
+        <tr>
+            <td colspan="3">
+                <div class="cstm-info-title">
+                    <span>ADMIN 3 INFORMATION</span>
+                </div>
+            </td>
+        </tr>
+        <!-- Account Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Account Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-primary btn-sm"
+                    [disabled]="isSaving">
+                    Search
+                </button>
+            </td>
+        </tr>
+        <!-- Display Name -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Display Name:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+            <td class="cstm-col-other">
+                <button type="button" class="btn btn-secondary btn-sm"
+                    [disabled]="isSaving">
+                    Clear
+                </button>
+            </td>
+        </tr>
+        <!-- Email Address -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Email Address:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text" class="form-control form-control-sm"
+                    [disabled]="isSaving">
+            </td>
+        </tr>
+
+        <!-- SG Email Addresses -->
+        <tr>
+            <td colspan="3">
+                <div class="cstm-info-title">
+                    <span>EMAIL ADDRESSES</span>
+                </div>
+            </td>
+        </tr>
+        <!-- Primary Email Addresses -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Select Primary Email Address:</label>
+            </td>
+            <td class="cstm-col-input">
+                <select 
+                    [disabled]="isSaving"
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.PrimaryEmailAddress'] ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm'"
+                    [(ngModel)]="currentSGInfo.primaryEmailAddress">
+                    <option value="">Select Email Address</option>
+                    <option *ngFor="let email of emailAddresses">
+                            {{ email }}
+                    </option>
+                </select>       
+                <!-- Error Message -->
+                <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.PrimaryEmailAddress']">
+                    {{ errorFields[0]['inputSG.PrimaryEmailAddress'][0] }}
+                </div>   
+            </td>
+        </tr>
+        <!-- IDM Email Addresses -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>IDM Email Address:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text"
+                    [disabled]="isSaving"
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.IDMEmailAddress'] ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"
+                    [(ngModel)]="currentSGInfo.idmEmailAddress"
+                    (change)="createPrimaryEmailAddressSelection()">
+                <!-- Error Message -->
+                <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.IDMEmailAddress']">
+                    {{ errorFields[0]['inputSG.IDMEmailAddress'][0] }}
+                </div>      
+            </td>
+            <td class="cstm-col-other">
+                <span>@idm.com</span>
+            </td>
+        </tr>
+        <!-- Regional Email Addresses -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Regional Email Address:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text"
+                    [disabled]="isSaving"
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.RegionalEmailAddress'] ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"
+                    [(ngModel)]="currentSGInfo.regionalEmailAddress"
+                    (change)="createPrimaryEmailAddressSelection()">
+                <!-- Error Message -->
+                <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.RegionalEmailAddress']">
+                    <span> {{ errorFields[0]['inputSG.RegionalEmailAddress'][0] }} </span>
+                </div>        
+            </td>
+            <td class="cstm-col-other">
+                <span>@ph.idm.com</span>
+            </td>
+        </tr>
+        <!-- Company Email Addresses 1 -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Company Email Address 1:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text"
+                    [disabled]="isSaving"
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress1'] ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"
+                    [(ngModel)]="currentSGInfo.companyEmailAddress1"
+                    (change)="createPrimaryEmailAddressSelection()">
+                <!-- Error Message -->
+                <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress1']">
+                    {{ errorFields[0]['inputSG.CompanyEmailAddress1'][0] }}
+                </div>  
+            </td>
+        </tr>
+        <!-- Company Email Addresses 2 -->
+        <tr>
+            <td class="cstm-col-label">
+                <label>Company Email Address 2:</label>
+            </td>
+            <td class="cstm-col-input">
+                <input type="text"
+                    [disabled]="isSaving"
+                    [ngClass]="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress2'] ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"
+                    [(ngModel)]="currentSGInfo.companyEmailAddress2"
+                    (change)="createPrimaryEmailAddressSelection()">
+                <!-- Error Message -->
+                <div class="invalid-feedback" *ngIf="errorFields.length !== 0 && errorFields[0]['inputSG.CompanyEmailAddress2']">
+                    {{ errorFields[0]['inputSG.CompanyEmailAddress2'][0] }}
+                </div>      
+            </td>
+        </tr>
+
+        <!-- Save & Close Buttons -->
+        <tr>
+            <td colspan="2">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary btn-sm"
+                        [disabled]="isSaving"
+                        (click)="saveSG()">
+                        <span *ngIf="isSaving" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span *ngIf="!isSaving" class="bi bi-download"></span>
+                        {{ !isSaving ? "Save" : "Saving" }} 
+                    </button> &nbsp;&nbsp;
+                    <button type="button" class="btn btn-secondary btn-sm"
+                        [disabled]="isSaving"
+                        (click)="closeSG()">
+                        <i class="bi bi-x"></i>
+                        Close
+                    </button>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</div>
