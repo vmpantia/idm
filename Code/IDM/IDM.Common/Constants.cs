@@ -6,6 +6,7 @@
         public const string SLASH = "/";
         public const string DASH = "-";
         public const int ZERO = 0;
+        public const int DELAY_PROCESS = 500;
 
         #region Status
         public const int STATUS_INT_ENABLED = 0;

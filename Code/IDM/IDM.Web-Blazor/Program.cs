@@ -1,9 +1,6 @@
 using IDM.Business.Contractors;
 using IDM.Domain.Services;
 using IDM.Infrastructure.DataAccess;
-using IDM.Web_Blazor.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

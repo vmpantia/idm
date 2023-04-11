@@ -1,4 +1,7 @@
 ﻿@page "/securitygroup/list"
+@inject ISecurityGroupService _group
+
+<Loader Show="@showLoader"></Loader>
 
 <Title Icon="bi bi-collection"
        Name="Security Group(s)"
@@ -22,4 +25,22 @@
 
 @code {
     private List<SecurityGroupDTO> sgList { get; set; }
+    private bool showLoader { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        showLoader = true;
+        ////Delay Process for .5 second
+        await Task.Delay(Constants.DELAY_PROCESS);
+        await PopulateSGsAsync();
+        showLoader = false;
+    }
+
+    private async Task PopulateSGsAsync(){
+
+        var result = await _group.GetSGsAsync();
+
+        if (result != null)
+            sgList = result.ToList();
+    }
 }

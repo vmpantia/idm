@@ -1,6 +1,7 @@
 ﻿.cstm-page-title {
     width: 100%;
     display: inline-flex;
+    margin-bottom: 20px;
 }
 .cstm-page-title .icon {
     font-size: 25px;

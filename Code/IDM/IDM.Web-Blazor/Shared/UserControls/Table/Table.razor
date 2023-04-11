@@ -1,7 +1,7 @@
 ﻿@attribute [CascadingTypeParameter(nameof(TItem))]
 @typeparam TItem
 
-<table>
+<table class="cstm-table">
     @*Table Header*@
     <thead>
         <tr>
@@ -15,8 +15,9 @@
         {
             <tr>
                 @*Table Columns*@
-                <td class="text-center" colspan="@ColumnCount">
-                    No record found in database.
+                <td class="cstm-no-record" colspan="@ColumnCount">
+                    <i class="bi bi-trash3"></i>
+                    <span>No record found in database.</span>
                 </td>
             </tr>
         }
@@ -45,5 +46,4 @@
 
     [Parameter]
     public RenderFragment<TItem>? Columns { get; set; }
-
 }
