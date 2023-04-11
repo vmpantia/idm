@@ -75,7 +75,6 @@
         public const string ERROR_NO_CHANGES_MADE = "No changes made in {0}.";
         #endregion
 
-
         #region Properties
         public const string PROPERTY_SG_ALIASNAME = "AliasName";
         public const string PROPERTY_SG_DISPLAYNAME = "DisplayName";
