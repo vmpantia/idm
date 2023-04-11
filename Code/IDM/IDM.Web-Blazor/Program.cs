@@ -1,13 +1,22 @@
+using IDM.Business.Contractors;
+using IDM.Domain.Services;
+using IDM.Infrastructure.DataAccess;
 using IDM.Web_Blazor.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<IDMDbContext>(option =>
+                option.UseSqlServer(builder.Configuration.GetConnectionString("PROD_SQL_CON")));
+
+builder.Services.AddScoped<ISecurityGroupService, SecurityGroupService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 

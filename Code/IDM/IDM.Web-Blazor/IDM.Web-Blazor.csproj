@@ -11,4 +11,10 @@
     <Folder Include="wwwroot\css\bootstrap\fonts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IDM.Business\IDM.Business.csproj" />
+    <ProjectReference Include="..\IDM.Common\IDM.Common.csproj" />
+    <ProjectReference Include="..\IDM.Domain\IDM.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
