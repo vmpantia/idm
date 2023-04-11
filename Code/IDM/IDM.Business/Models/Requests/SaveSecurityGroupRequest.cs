@@ -1,7 +1,7 @@
 ﻿using IDM.Business.Models.DTOs;
 using IDM.Business.Validations.SecurityGroup;
 
-namespace IDM.Business.Models.Request
+namespace IDM.Business.Models.Requests
 {
     public class SaveSecurityGroupRequest : RequestBase
     {

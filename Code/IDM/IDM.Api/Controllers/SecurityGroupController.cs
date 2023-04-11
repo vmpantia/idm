@@ -1,5 +1,5 @@
 using IDM.Business.Contractors;
-using IDM.Business.Models.Request;
+using IDM.Business.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IDM.Api.Controllers

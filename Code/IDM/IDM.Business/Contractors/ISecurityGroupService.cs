@@ -1,5 +1,5 @@
 ﻿using IDM.Business.Models.DTOs;
-using IDM.Business.Models.Request;
+using IDM.Business.Models.Requests;
 
 namespace IDM.Business.Contractors
 {

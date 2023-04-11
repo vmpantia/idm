@@ -1,7 +1,7 @@
 ﻿using IDM.Business;
 using IDM.Business.Contractors;
 using IDM.Business.Models.DTOs;
-using IDM.Business.Models.Request;
+using IDM.Business.Models.Requests;
 using IDM.Common;
 using IDM.Domain.Exceptions;
 using IDM.Infrastructure.DataAccess;
