@@ -78,6 +78,9 @@
         #endregion
 
         #region Properties
+        public const string PROPERTY_TYPE_DESCRIPTION = "TypeDescription";
+        public const string PROPERTY_STATUS_DESCRIPTION = "StatusDescription";
+
         public const string PROPERTY_SG_ALIASNAME = "AliasName";
         public const string PROPERTY_SG_DISPLAYNAME = "DisplayName";
 
@@ -87,6 +90,11 @@
         public const string PROPERTY_REG_EMAIL_ADDRESS = "RegionalEmailAddress";
         public const string PROPERTY_COMP1_EMAIL_ADDRESS = "CompanyEmailAddress1";
         public const string PROPERTY_COMP2_EMAIL_ADDRESS = "CompanyEmailAddress2";
+        #endregion
+
+        #region CSS 
+        public const string CSS_COL_TYPE = "cstm-col-type";
+        public const string CSS_COL_STATUS = "cstm-col-status";
         #endregion
     }
 }

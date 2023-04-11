@@ -10,7 +10,6 @@
     border-bottom: 1px solid gainsboro;
     padding: 7px 5px 7px 5px;
     font-weight: bold;
-    color: dimgray;
 }
 .cstm-table th:hover {
     background-color: gainsboro;
@@ -30,10 +29,40 @@
     background-color: gainsboro;
 }
 
+.cstm-col-status {
+    text-align: center;
+}
+.cstm-col-type {
+    text-align: center;
+}
+
 .cstm-no-record{
     text-align:center;  
 }
+.cstm-no-record span {
+   margin-left: 10px;
+}
 
+.cstm-badge {
+    padding: 2px 5px 2px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+}
+.enabled {
+    background-color: #27ae60;
+    color: white;
+}
+.disabled {
+    background-color: #c0392b;
+    color: white;
+}
+.internal {
+    background-color: #2980b9;
+    color: white;
+}
+.external {
+    background-color: #7f8c8d;
+}
 
 /*Default Blazor CSS*/
 html, body {

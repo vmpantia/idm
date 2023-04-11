@@ -2,7 +2,7 @@
 @if (Item == null)
 {
     @*Table Column Header*@
-    <th>
+    <th class="@css">
         @Label
     </th>
 }
@@ -16,15 +16,26 @@ else if(ChildContent == null)
     //Get Property Value
     var value = property.GetValue(Item);
 
-    @*Table Column Data*@
-    <td>
-        @value
+    <td class="@css">
+        @*Table Column Data*@
+        @switch (Name)
+        {
+            case Constants.PROPERTY_TYPE_DESCRIPTION:
+            case Constants.PROPERTY_STATUS_DESCRIPTION:
+                <span class="cstm-badge @value?.ToString()?.ToLower()">
+                    @value
+                </span>
+                break;
+            default:
+                @value
+                break;
+        }
     </td>
 }
 else
 {
     @*Table Column Data specific for Buttons, Inputs, Checkboxs, Dropdowns and etc.*@
-    <td>@ChildContent</td>
+    <td class="@css">@ChildContent</td>
 }
 
 @code {
@@ -39,4 +50,20 @@ else
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    public string css
+    {
+        get
+        {
+            switch (Name)
+            {
+                case Constants.PROPERTY_TYPE_DESCRIPTION:
+                    return Constants.CSS_COL_TYPE;
+                case Constants.PROPERTY_STATUS_DESCRIPTION:
+                    return Constants.CSS_COL_STATUS;
+                default:
+                    return string.Empty;
+            }
+        }
+    }
 }
