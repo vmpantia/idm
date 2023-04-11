@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">IDM.Web-Blazor</a>
+        <a class="navbar-brand" href="">IDM Web</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,17 +9,10 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <NavButton Icon="bi bi-collection" Text="Dashboard" Page="" />
-        <label class="category">TRANSACTION</label>
-        <NavButton Icon="oi oi-bar-chart" Text="Sales" Page="Sales" />
-        <NavButton Icon="oi oi-spreadsheet" Text="Inventory" Page="Inventory" />
-        <label class="category">MASTER DATA</label>
-        <NavButton Icon="oi oi-cart" Text="Product" Page="Product" />
-        <NavButton Icon="oi oi-tag" Text="Brand" Page="Brand" />
-        <NavButton Icon="oi oi-target" Text="Category" Page="Category" />
-        <label class="category">SETTING</label>
-        <NavButton Icon="oi oi-person" Text="User" Page="User" />
-        <NavButton Icon="oi oi-project" Text="Role" Page="Role" />
+        <NavButton Icon="bi bi-speedometer2" Text="Dashboard" Page="" />
+        <label class="category">SECURITY GROUP</label>
+        <NavButton Icon="bi bi-collection" Text="My SG(s)" Page="Sales" />
+        <NavButton Icon="bi bi-arrow-clockwise" Text="Re-new SG" Page="Inventory" />
     </nav>
 </div>
 
