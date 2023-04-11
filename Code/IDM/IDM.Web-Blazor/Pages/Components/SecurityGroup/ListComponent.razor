@@ -3,63 +3,22 @@
 <Title Icon="bi bi-collection"
        Name="Security Group(s)"
        Description="This page you can view all the SG(s) that's belong to you." />
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Alias Name</th>
-            <th>Display Name</th>
-            <th>Email Address</th>
-            <th>Owner</th>
-            <th>Admin 1</th>
-            <th>Admin 2</th>
-            <th>Admin 3</th>
-            <th class="text-center">Type</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Created Date</th>
-            <th class="text-center">Modified Date</th>
-            <th class="text-center">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if(sgList == null || sgList.Count == 0)
-        {
-            <tr>
-                <td class="text-center" colspan="11">
-                    No record found in database.
-                </td>
-            </tr>
-        }
-        else
-        {
-            <tr>
-                @foreach(var sg in sgList)
-                {
-                    <td>@sg.AliasName</td>
-                    <td>@sg.DisplayName</td>
-                    <td>@sg.PrimaryEmailAddress </td>
-                    <td>@sg.OwnerName</td>
-                    <td>@sg.Admin1Name</td>
-                    <td>@sg.Admin2Name</td>
-                    <td>@sg.Admin3Name</td>
-                    <td class="text-center">
-                        <span class="cstm-badge sgtype-@sg.Type">
-                            @sg.TypeDescription
-                        </span>
-                    </td>
-                    <td class="text-center">
-                        <span class="cstm-badge status-@sg.Status">
-                            @sg.StatusDescription
-                        </span>
-                    </td>
-                    <td class="text-center">@sg.CreatedDate</td>
-                    <td class="text-center">@sg.ModifiedDate</td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+       
+<Table DataSource="sgList" TItem="SecurityGroupDTO" ColumnCount="11">
+    <Columns>
+        <Column Name="AliasName"           Label="Alias Name"/>
+        <Column Name="DisplayName"         Label="Display Name" />
+        <Column Name="PrimaryEmailAddress" Label="Email Address" />
+        <Column Name="OwnerName"           Label="Owner" />
+        <Column Name="Admin1Name"          Label="Admin 1" />
+        <Column Name="Admin2Name"          Label="Admin 2" />
+        <Column Name="Admin2Name"          Label="Admin 3" />
+        <Column Name="TypeDescription"     Label="Type" />
+        <Column Name="StatusDescription"   Label="Status" />
+        <Column Name="CreatedDate"         Label="Created Date" />
+        <Column Name="ModifiedDate"        Label="Modified Date" />
+    </Columns>
+</Table>
 
 @code {
     private List<SecurityGroupDTO> sgList { get; set; }

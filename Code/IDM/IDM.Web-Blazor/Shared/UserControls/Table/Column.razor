@@ -1,0 +1,42 @@
+﻿@typeparam TItem
+@if (Item == null)
+{
+    @*Table Column Header*@
+    <th>
+        @Label
+    </th>
+}
+else if(ChildContent == null)
+{
+    //Get Property by Name
+    var property = typeof(TItem).GetProperty(Name);
+    if (property == null)
+        return;
+
+    //Get Property Value
+    var value = property.GetValue(Item);
+
+    @*Table Column Data*@
+    <td>
+        @value
+    </td>
+}
+else
+{
+    @*Table Column Data specific for Buttons, Inputs, Checkboxs, Dropdowns and etc.*@
+    <td>@ChildContent</td>
+}
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [CascadingParameter]
+    public TItem Item { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

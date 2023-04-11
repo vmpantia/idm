@@ -5,6 +5,7 @@
         public const string NA = "N/A";
         public const string SLASH = "/";
         public const string DASH = "-";
+        public const int ZERO = 0;
 
         #region Status
         public const int STATUS_INT_ENABLED = 0;

@@ -1,0 +1,49 @@
+﻿@attribute [CascadingTypeParameter(nameof(TItem))]
+@typeparam TItem
+
+<table>
+    @*Table Header*@
+    <thead>
+        <tr>
+            @*Table Columns*@
+            @Columns(default(TItem))
+        </tr>
+    </thead>
+    @*Table Body or Data*@
+    <tbody>
+        @if (DataSource == null || DataSource.Count == Constants.ZERO)
+        {
+            <tr>
+                @*Table Columns*@
+                <td class="text-center" colspan="@ColumnCount">
+                    No record found in database.
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach(var item in DataSource)
+            {
+                <CascadingValue Value="item">
+                    <tr>
+                        @*Table Columns*@
+                        @Columns(item)
+                    </tr>
+                </CascadingValue>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public List<TItem> DataSource { get; set; }
+    public List<TItem> Items { get; set; }
+
+    [Parameter]
+    public int ColumnCount { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem>? Columns { get; set; }
+
+}
