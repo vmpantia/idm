@@ -7,4 +7,8 @@
     <RootNamespace>IDM.Web_Blazor</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\bootstrap\fonts\" />
+  </ItemGroup>
+
 </Project>
