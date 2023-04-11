@@ -80,6 +80,7 @@
         #region Properties
         public const string PROPERTY_TYPE_DESCRIPTION = "TypeDescription";
         public const string PROPERTY_STATUS_DESCRIPTION = "StatusDescription";
+        public const string PROPERTY_ACTION = "Action";
 
         public const string PROPERTY_SG_ALIASNAME = "AliasName";
         public const string PROPERTY_SG_DISPLAYNAME = "DisplayName";
@@ -95,6 +96,7 @@
         #region CSS 
         public const string CSS_COL_TYPE = "cstm-col-type";
         public const string CSS_COL_STATUS = "cstm-col-status";
+        public const string CSS_COL_ACTION = "cstm-col-action";
         #endregion
     }
 }

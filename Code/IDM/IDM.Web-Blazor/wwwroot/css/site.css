@@ -4,7 +4,7 @@
     width: 100%;
 }
 .cstm-table th, td {
-    padding: 10px;
+    padding: 8px;
 }
 .cstm-table th {
     border-bottom: 1px solid gainsboro;
@@ -29,6 +29,17 @@
     background-color: gainsboro;
 }
 
+.cstm-col-action button {
+    font-size: 11px;
+    background-color: white;
+    color: dimgrey;
+    border-radius: 3px;
+    border: 1px solid dimgrey;
+    padding: 3px 7px 3px 7px;
+}
+.cstm-col-action button:hover:enabled {
+    background-color: silver;
+}
 .cstm-col-status {
     text-align: center;
 }
@@ -62,6 +73,7 @@
 }
 .external {
     background-color: #7f8c8d;
+    color: white;
 }
 
 /*Default Blazor CSS*/
