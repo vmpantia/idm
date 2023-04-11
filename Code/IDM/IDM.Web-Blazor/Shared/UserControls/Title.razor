@@ -1,0 +1,28 @@
+﻿@if (!IsModal)
+{
+    <PageTitle>@Name</PageTitle>
+}
+
+<div class="cstm-page-title">
+    <div class="icon">
+        <i class="@Icon"></i>
+    </div>
+    <div>
+        <div class="name">@Name</div>
+        <div class="desc">@Description</div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsModal { get; set; }
+
+    [Parameter]
+    public string Icon { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string Description { get; set; }
+}

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Common", "IDM.Common\ID
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Api", "IDM.Api\IDM.Api.csproj", "{0586A305-0E43-46BD-B99E-86EAC9EC7F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDM.Web-Blazor", "IDM.Web-Blazor\IDM.Web-Blazor.csproj", "{1EC59E89-370A-40C6-9E8E-11238B85774F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDM.Web-Blazor", "IDM.Web-Blazor\IDM.Web-Blazor.csproj", "{1EC59E89-370A-40C6-9E8E-11238B85774F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
